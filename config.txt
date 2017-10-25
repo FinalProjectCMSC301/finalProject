@@ -1,0 +1,25 @@
+#Configuration File for Final Project
+
+#String of the input asm file
+program_input=
+
+#Name of the input memory file
+memory_contents_input=
+
+#Name of the input register file
+register_file_input=
+
+#Does user want to step by instructions one by one or all at once
+output_mode=
+
+#Should Debugging output be displayed
+debug_mode=
+
+#True current values of register is printed, false nothing is
+print_memory_contents=
+
+#True output is written to the output file, False no output is written
+write_to_file=
+
+#Name of output file to be printed to
+output_file=
