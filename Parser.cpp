@@ -49,7 +49,7 @@ fs.open(filename);
 fs.close()
 }
 
-Parser::Print(){
+Parser::PrintInfo(){
   cout<< "Program input " << getProgramInput()<< '\n';
   cout<< " Memory file " << getMemoryInput() << '\n';
   cout << "Register File " << getRegisterInput() << '\n';
