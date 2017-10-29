@@ -11,6 +11,7 @@ class Parser{
 
   public:
    Parser(string filename);
+   PrintInfo();
 
   private:
 	string program_input;
