@@ -48,3 +48,14 @@ fs.open(filename);
 
 fs.close()
 }
+
+Parser::Print(){
+  cout<< "Program input " << getProgramInput()<< '\n';
+  cout<< " Memory file " << getMemoryInput() << '\n';
+  cout << "Register File " << getRegisterInput() << '\n';
+  cout << "Output Mode " << getOutputMode() << '\n';
+  cout << "Debug Mode " << getDebugMode() << '\n';
+  cout << "Print Contents " << getPrintContents() << '\n';
+  cout << "Write to File " << getWriteToFile() << '\n';
+  cout << "Output File " << getOutputFile() << '\n';
+}
