@@ -39,7 +39,7 @@ class Parser{
    string getOutputMode();
    bool getDebugMode();
    bool getPrintContents();
-   bool etWriteToFile();
+   bool getWriteToFile();
    string getOutputFile();
  };
  #endif
