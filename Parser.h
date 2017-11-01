@@ -11,7 +11,7 @@ class Parser{
 
   public:
    Parser(string filename);
-   PrintInfo();
+   void PrintInfo();
 
   private:
 	string program_input;
@@ -25,22 +25,22 @@ class Parser{
 
 
 
-   setProgramInput(string input);
-   setMemoryInput(string memory);
-   setRegisterInput(string registerInput);
-   setOutputMode(string outputMode);
-   setDebugMode(bool debugMode);
-   setPrintContents(bool print);
-   setWriteToFile(bool writeToFile);
-   setOutputFile(string outputFile);
+	void setProgramInput(string input){program_input=input;};
+   	void setMemoryInput(string memory){memory_contents_input=memory;};
+   	void setRegisterInput(string registerInput){register_file_input=registerInput;};
+  	void setOutputMode(string outputMode){output_mode=outputMode;};
+   	void setDebugMode(bool debugMode){debug_mode=debugMode;};
+   	void setPrintContents(bool print){print_memory_contents=print;};
+   	void setWriteToFile(bool writeToFile){write_to_file=writeToFile;};
+   	void setOutputFile(string outputFile){output_file=outputFile;};
 
-   string getProgramInput();
-   string getMemoryInput();
-   string getRegisterInput();
-   string getOutputMode();
-   bool getDebugMode();
-   bool getPrintContents();
-   bool getWriteToFile();
-   string getOutputFile();
+   	string getProgramInput(){return program_input;};
+   	string getMemoryInput(){return memory_contents_input;};
+   	string getRegisterInput(){return register_file_input;};
+   	string getOutputMode(){return output_mode;};
+   	bool getDebugMode(){return debug_mode;};
+   	bool getPrintContents(){return print_memory_contents;};
+   	bool getWriteToFile(){return write_to_file;};
+   	string getOutputFile(){return output_file;};
  };
  #endif
