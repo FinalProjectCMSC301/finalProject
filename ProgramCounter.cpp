@@ -27,10 +27,6 @@ string ProgramCounter::getAddress(){
             << endl;
     }
     
-    if (toFile)
-    {
-        //ofile << "Parser getAddress OUTPUT: " << binaryOperation.getHexFromBin(currentAddress) << endl << endl; write or not 
-    }
 
 
     return currentAddress;
