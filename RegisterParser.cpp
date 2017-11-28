@@ -1,6 +1,7 @@
 #include "RegisterParser.h"
 #include <string>
 #include <sstream>
+
 RegisterParser::RegisterParser(string filename){
 	completeParse(filename);
 
@@ -30,7 +31,7 @@ void RegisterParser::completeParse(string file){
 		    istringstream buffer(line.substr(0,line.find_last_of(":")));
 			int index;
 			buffer >> index;
-			string value = line.substr(line.find_last_of(":")+1,string::npos);
+			int value = convert(line.substr(line.find_last_of(":")+1,string::npos));
 			registerArray[index]=value;
 
 		}
@@ -38,4 +39,17 @@ void RegisterParser::completeParse(string file){
 	}
 
 	fs.close();
+}
+
+int RegisterParser::convert(string input){
+	int returnValue;
+	stringstream ss;
+	ss << std::hex << input;
+	ss >> returnValue;
+	return returnValue;
+}
+void RegisterParser::PrintInfo(){
+	for( int x=0; x<32; x++){
+		cout << "Index: " << x << " Value: " << registerArray[x] << "\n";
+	}
 }
