@@ -1,5 +1,5 @@
 
-//
+//Author: Wallace He 
 // This class functions as the Arithmetic Logic Unit of a processor. The values of
 // the instance variables 'operation', 'operand1', and 'operand2' are set through
 // their respective set methods. The execute method directs the program to the 

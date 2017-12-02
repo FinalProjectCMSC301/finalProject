@@ -14,4 +14,5 @@ class SignExtend
 		private:
 			string actual;
 			string modified;
-}
+};
+

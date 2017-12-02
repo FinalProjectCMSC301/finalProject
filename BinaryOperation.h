@@ -1,7 +1,3 @@
-//
-//
-
-
 
 #ifndef _BinaryOperation_h_
 #define _BinaryOperation_h_
@@ -38,4 +34,4 @@ public:
     string intToHex(int integer);
 };
 
-#endif /* BinaryOperation_hpp */
+#endif
