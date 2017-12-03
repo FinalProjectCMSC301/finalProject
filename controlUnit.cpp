@@ -31,9 +31,9 @@ controlUnit::controlUnit(string bitString){
 
 	//SW
 	else if (bitString.compare("101011")==0){
-		setRegDST("TBD");
+		setRegDST("x");
 		setALUSrc("1");
-		setMemtoReg("TBD");
+		setMemtoReg("x");
 		setRegWrite("0");
 		setMemRead("0");
 		setMemWrite("1");
@@ -46,9 +46,9 @@ controlUnit::controlUnit(string bitString){
 
 	//BEQ
 	else if (bitString.compare("000100")==0){
-	setRegDST("TBD");
+	setRegDST("x");
 	setALUSrc("0");
-	setMemtoReg("TBD");
+	setMemtoReg("x");
 	setRegWrite("0");
 	setMemRead("0");
 	setMemWrite("0");
@@ -68,18 +68,16 @@ controlUnit::controlUnit(string bitString){
 	setMemWrite("0");
 	setBranch("0");
 	setJump("1");
-	setALUOp("");
+	setALUOp("xx");
 }
 	//ADDI
 	else if (bitString.compare("001000")==0){
-		setRegDST("");
-		setALUSrc("");
-		setMemtoReg("");
-		setRegWrite("");
-		setMemRead("");
-		setRegWrite("");
-		setMemRead("");
-		setMemWrite("");
+		setRegDST("0");
+		setALUSrc("1");
+		setMemtoReg("0");
+		setRegWrite("1");
+		setMemRead("0");
+		setMemWrite("0");
 		setBranch("0");
 		setJump("0");
 		setALUOp("10");	
