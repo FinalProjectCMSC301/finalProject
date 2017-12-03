@@ -7,7 +7,8 @@ using namespace std;
 
 class controlUnit{
 public:
-	controlUnit(string bitString);
+	controlUnit();
+	void setControls (string bitString);
 private:
 	string regDst;
 	string jump;
