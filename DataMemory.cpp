@@ -71,7 +71,7 @@ string DataMemory::read(string address)
 	{
 		return memoryContent[address];
 	}
-	return //IDK!!!!
+	return 0;//IDK!!!!
 }
 
 void DataMemory::setWrite(bool writeBool)
