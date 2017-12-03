@@ -1,6 +1,10 @@
 #include "controlUnit.h"
 
-controlUnit::controlUnit(string bitString){
+controlUnit::controlUnit(){
+	
+}
+
+controlUnit::setControls(string bitString){
 	
 	//R-TYPE 
  	if (bitString.compare("000000")==0){
@@ -82,11 +86,7 @@ controlUnit::controlUnit(string bitString){
 		setJump("0");
 		setALUOp("10");	
 
-
-
-
-
-
 }
+	printValues();
 
 }
