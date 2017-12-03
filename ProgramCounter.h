@@ -14,7 +14,7 @@ private:
     
 public:
     
-    /* Constructor for pC */
+    /* Constructor for pc */
     ProgramCounter();
     
     /* Sets the programCounters address to the input address */
