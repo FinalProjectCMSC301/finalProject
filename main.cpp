@@ -39,6 +39,10 @@ int main (int argc, char *argv[]){
     string immediate;
     string jumpAmount;
 	// began to run 
+	
+	//Start the Parser
+	parser = new Parser(argv[1]);
+	parser->printInfo();
 
 	// set debug
 	registerFile.init();
