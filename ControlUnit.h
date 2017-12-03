@@ -5,9 +5,9 @@ using namespace std;
 #include <fstream>
 #include <iostream>
 
-class controlUnit{
+class ControlUnit{
 public:
-	controlUnit();
+	ControlUnit();
 	void setControls (string bitString);
 private:
 	string regDst;
