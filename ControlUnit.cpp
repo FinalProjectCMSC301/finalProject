@@ -1,10 +1,10 @@
 #include "ControlUnit.h"
 
-controlUnit::controlUnit(){
+ControlUnit::ControlUnit(){
 	
 }
 
-void controlUnit::setControls(string bitString){
+void ControlUnit::setControls(string bitString){
 	
 	//R-TYPE 
  	if (bitString.compare("000000")==0){
