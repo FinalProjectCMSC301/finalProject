@@ -4,7 +4,7 @@ controlUnit::controlUnit(){
 	
 }
 
-controlUnit::setControls(string bitString){
+void controlUnit::setControls(string bitString){
 	
 	//R-TYPE 
  	if (bitString.compare("000000")==0){
