@@ -11,6 +11,7 @@ void ALUControl::setALU(ALU *alu){
 
 
 //This method takes in an opcode in string form and sets the aluToMemory equal to setOperation(0, 1, 2, or 3) depending on the opcode
+//setOperation is from ALU class 
 void ALUControl::sendSignals(string opcode){
     if(opcode == "00"){
         aluToMemory->setOperation(0);
@@ -22,3 +23,9 @@ void ALUControl::sendSignals(string opcode){
         aluToMemory->setOperation(3);
     }
 }
+
+//add  - destination is rd
+//addi - rt
+//lw   - rt
+//sw   - rt
+//slt  - rd
