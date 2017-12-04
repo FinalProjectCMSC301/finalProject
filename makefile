@@ -1,7 +1,8 @@
-finalProject: Parser.o ALU.o ALUControl.o BinaryOperations.o DataMemory.o ProgramCounter.o Register.o RegisterParser.o SignExtend.o controlUnit.o 
-	g++ -g -Wall -o finalProject Parser.o ALU.o ALUControl.o BinaryOperations.o DataMemory.o ProgramCounter.o Register.o RegisterParser.o SignExtend.o controlUnit.o 
+finalProject: main.o Parser.o ALU.o ALUControl.o BinaryOperations.o DataMemory.o ProgramCounter.o Register.o RegisterParser.o SignExtend.o ControlUnit.o 
+	g++ -g -Wall -o finalProject main.o Parser.o ALU.o ALUControl.o BinaryOperations.o DataMemory.o ProgramCounter.o Register.o RegisterParser.o SignExtend.o ControlUnit.o 
 
 
+main.o: Parser.h ShiftLeft.h Register.h DataMemory.h ProgramCounter.h ControlUnit.h ALU.h Multiplexor.h SignExtend.h
 
 Parser.o: Parser.h
 
@@ -32,8 +33,8 @@ RegisterParser.o: RegisterParser.h
 SignExtend.o: SignExtend.h
 	g++ -Wall -Wno-deprecated -g -c SignExtend.cpp
 
-controlUnit.o: controlUnit.h
-	g++ -Wall -Wno-deprecated -g -c controlUnit.cpp
+ControlUnit.o: ControlUnit.h
+	g++ -Wall -Wno-deprecated -g -c ControlUnit.cpp
 
 clean:
 

@@ -1,6 +1,10 @@
-#include "controlUnit.h"
+#include "ControlUnit.h"
 
-controlUnit::controlUnit(string bitString){
+ControlUnit::ControlUnit(){
+	
+}
+
+void ControlUnit::setControls(string bitString){
 	
 	//R-TYPE 
  	if (bitString.compare("000000")==0){
@@ -12,7 +16,8 @@ controlUnit::controlUnit(string bitString){
 		setMemWrite("0");
 		setBranch("0");
 		setJump("0");
-		setALUOp("10");
+		setALUOp1("1");
+		setALUOp2("0");
 	}
 
 	//LW
@@ -25,36 +30,39 @@ controlUnit::controlUnit(string bitString){
 	setMemRead("1");
 	setBranch("0");
 	setJump("0");
-	setALUOp("00");
+	setALUOp1("0");
+	setAluOp2("0");
 
 	}
 
 	//SW
 	else if (bitString.compare("101011")==0){
-		setRegDST("TBD");
+		setRegDST("x");
 		setALUSrc("1");
-		setMemtoReg("TBD");
+		setMemtoReg("x");
 		setRegWrite("0");
 		setMemRead("0");
 		setMemWrite("1");
 		setBranch("0");
 		setJump("0");
-		setALUOp("00");
+		setALUOp1("0");
+		setAluOp2("0");
 
 
 }
 
 	//BEQ
 	else if (bitString.compare("000100")==0){
-	setRegDST("TBD");
+	setRegDST("x");
 	setALUSrc("0");
-	setMemtoReg("TBD");
+	setMemtoReg("x");
 	setRegWrite("0");
 	setMemRead("0");
 	setMemWrite("0");
 	setBranch("1");
 	setJump("0");
-	setALUOp("01");
+	setALUOp1("0");
+	setAluOp2("1");
 
 }
 
@@ -68,27 +76,23 @@ controlUnit::controlUnit(string bitString){
 	setMemWrite("0");
 	setBranch("0");
 	setJump("1");
-	setALUOp("");
+	setALUOp1("x");
+	setAluOp2("x");
 }
 	//ADDI
 	else if (bitString.compare("001000")==0){
-		setRegDST("");
-		setALUSrc("");
-		setMemtoReg("");
-		setRegWrite("");
-		setMemRead("");
-		setRegWrite("");
-		setMemRead("");
-		setMemWrite("");
+		setRegDST("0");
+		setALUSrc("1");
+		setMemtoReg("0");
+		setRegWrite("1");
+		setMemRead("0");
+		setMemWrite("0");
 		setBranch("0");
 		setJump("0");
-		setALUOp("10");	
-
-
-
-
-
+		setALUOp1("1");
+		setAluOp2("0");
 
 }
+	printValues();
 
 }

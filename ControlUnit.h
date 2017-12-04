@@ -5,16 +5,18 @@ using namespace std;
 #include <fstream>
 #include <iostream>
 
-class controlUnit{
+class ControlUnit{
 public:
-	controlUnit(string bitString);
+	ControlUnit();
+	void setControls (string bitString);
 private:
 	string regDst;
 	string jump;
 	string branch;
 	string memRead;
 	string memtoReg;
-	string ALUOp;
+	string ALUOp1;
+	string ALUOp2;
 	string memWrite;
 	string ALUSrc;
 	string regWrite;
@@ -24,7 +26,8 @@ private:
 	string getBranch(){return branch;};
 	string getMemRead(){return memRead;};
 	string getMemtoReg(){return memtoReg;};
-	string getALUOp(){return ALUOp;};
+	string getALUOp1(){return ALUOp1;};
+	string getALUOp2(){return ALUOp2;};
 	string getMemWrite(){return memWrite;};
 	string getALUSrc(){return ALUSrc;};
 	string getRegWrite(){return regWrite;};
@@ -34,10 +37,12 @@ private:
 	string setBranch(string b){ branch = b;};
 	string setMemRead(string mem){ memRead = mem;};
 	string setMemtoReg(string mem){ memtoReg = mem;};
-	string setALUOp(string alu){ ALUOp = alu;};
+	string setALUOp1(string alu){ ALUOp1 = alu;};
+	string setALUOp2(string alu){ ALUOp2 = alu;};
 	string setMemWrite(string mem){ memWrite = mem;};
 	string setALUSrc(string alu){ ALUSrc = alu;};
 	string setRegWrite(string reg){ regWrite = reg;};
+	void printValues(){cout << "RegDST: " << regDst << "\n" << "Branch: " << branch << "\n" << "Jump: " << jump << "\n" << "MemRead: " << memRead << "\n" << "MemtoReg: " << memtoReg << "\n" << "ALUOP1: " << ALUOp1 << "\n" << "ALUOp2: " << ALUOp2 << "\n" << "ALUSrc: " << ALUSrc << "\n" << "MemWrite: " << memWrite << "\n" << "RegWrite: " << regWrite << "\n";};
 	
 
 

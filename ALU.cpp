@@ -13,30 +13,36 @@ ALU::ALU() {
  * of the operation instance variable
  */
 void ALU::execute() {
+
+
     
     if (debug) {
         cout << "ALU INPUT 1: " << getHexFromBin(operand1) << endl;
         cout << "ALU INPUT 2: " << getHexFromBin(operand2) << endl;
     }
+
+    stringstream  ss;
+    ss<< operation;
+    string operation1 = ss.str();
     
-    if (operation == 0){
+    if (operation1 == 0){
         if (debug) cout << "ALU OPERATION: compare equal" << endl;
         compareEqual();
     }
     
     
-    else if (operation == 1){
+    else if (operation1 == 1){
         if (debug) cout << "ALU OPERATION: add" << endl;
         
         add();
     }
     
-    else if (operation == 2){
+    else if (operation1 == 2){
         if (debug) cout << "ALU OPERATION: subtract" << endl;
         
         subtract();
     }
-    else if (operation == 3){
+    else if (operation1 == 3){
         if (debug) cout << "ALU OPERATION: compare less than" << endl;
         
         compareLessThan();
@@ -190,7 +196,7 @@ void ALU::setOperand2(string operand){
  */
 void ALU::setOperation(int operationInput){
     if (debug) cout << "ALU: SETTING OPERATION TO " << intToHex(operationInput) << endl;
-    operation = operationInput;
+    operation = to_string(operationInput);
 }
 
 /*

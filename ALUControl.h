@@ -16,7 +16,6 @@ private:
     
     string aluOP;
     
-    
 public:
     
     ALUControl();
