@@ -13,7 +13,7 @@ using namespace std;
 
 int main (int argc, char *argv[]){
 	Parser *parser;
-	ProgramCounter *programCounter
+	ProgramCounter *programCounter;
     Register *registerFile;
     DataMemory *memoryUnit;
     ALU *alu1;//ToMemory;
