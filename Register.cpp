@@ -4,8 +4,10 @@
 #include <fstream>
 
 //file from parser
-Register::Register(string file)
+Register::Register(string file, bool debug_mode)
 {
+	setDebug(debug_mode);
+	
 	if(debug){
 		cout<< "****ENTERING THE DATA INTO THE REGISTERS*****";
 	}
