@@ -55,6 +55,7 @@ int main (int argc, char *argv[]){
 
 	// set debug
 	registerFile.init();
+	registerFile->setDebug(debug_mode);
     registerFile.setFile(register_file_input);
 
     parse.setFile(programInput);
