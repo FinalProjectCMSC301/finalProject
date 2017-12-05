@@ -1,4 +1,4 @@
-#include "Multiplexor.h"
+#include "Multiplexer.h"
 #include <string>
 #include <sstream>
 
