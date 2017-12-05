@@ -43,7 +43,7 @@ int main (int argc, char *argv[]){
 	
 	//Start the Parser
 	parser = new Parser(argv[1]);
-	parser->printInfo();
+	parser->PrintInfo();
 	
 	//Get all the values from the parser
 	bool debug_mode = parser->getDebugMode();
@@ -60,7 +60,7 @@ int main (int argc, char *argv[]){
 	
    	
 	//Create the Memory Unit
-        memoryUnit = new DataMemory(memory_Contents_Input, debug_mode);
+        memoryUnit = new DataMemory(memory_Contents_input, debug_mode);
 	
     
     aluAddPCand4.setOperation(1);
