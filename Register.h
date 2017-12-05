@@ -33,4 +33,4 @@ class Register
 		
 		//this is to print debug info
 		void setDebug(bool debugBool);
-}
+};
