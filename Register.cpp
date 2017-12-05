@@ -6,6 +6,9 @@
 //file from parser
 Register::Register(string file)
 {
+	if(debug){
+		cout<< "****ENTERING THE DATA INTO THE REGISTERS*****";
+	}
 	//array was initialized in .h file
 	//string registerArray[32];
 	fstream in;
@@ -50,6 +53,10 @@ Register::Register(string file)
 			}
 			//line has been completely processed. increment counter
 			arrayCounter++;
+		
+			if(debug){
+				cout<< "****JUST ENTERED INTO REGISTER ARRAY***** << "\n" << "Register Number: " << arrayCounter << " Data: " << registerArray[arrayCounter] << "\n";
+			}
 		}
 	}
 }
