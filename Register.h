@@ -12,7 +12,7 @@ class Register
 		
 	public:
 		//This takes the file name which contains the memory input and loads every address:value
-		Register(string file);
+		Register(string file, bool debug_mode);
 		
 		//add $t1, $t1, $t2
 		//writes to a particular register
