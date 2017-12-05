@@ -6,6 +6,7 @@
 //should get file from parser
 DataMemory::DataMemory(string file, bool debug)
 {
+	setDebug(debug);
 	memoryContent = map<string, string>(); //initialize
 	
 	fstream in;
