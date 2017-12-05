@@ -4,8 +4,8 @@ Input: two values to choose from, and the choice int
 Output: The value that was chosen
 */
 
-#ifndef __MULTIPLEXOR_H__
-#define __MULTIPLEXOR_H__
+#ifndef __MULTIPLEXER_H__
+#define __MULTIPLEXER_H__
 
 class Multiplexor{
 
