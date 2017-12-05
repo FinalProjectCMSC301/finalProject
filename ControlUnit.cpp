@@ -1,5 +1,5 @@
 #include "ControlUnit.h"
-
+#include <iostream>
 ControlUnit::ControlUnit(){
 	
 }
@@ -8,8 +8,10 @@ void ControlUnit::setControls(string bitString){
 	
 	//R-TYPE 
  	if (bitString.compare("000000")==0){
-        setRegDST("1");
-	   setALUSrc("0");
+		if(debug){ cout << "****SETTING CONTROL SIGNALS***" << "\n"; }
+		cout << "Input: " << bitString << "\n";
+      		  setRegDST("1");
+	 	  setALUSrc("0");
 		setMemtoReg("0");
 		setRegWrite("1");
 		setMemRead("0");
@@ -22,6 +24,8 @@ void ControlUnit::setControls(string bitString){
 
 	//LW
 	else if (bitString.compare("100011")==0){
+	if(debug){ cout << "****SETTING CONTROL SIGNALS***" << "\n"; }
+	cout << "Input: " << bitString << "\n";
 	setRegDST("0");
 	setALUSrc("1");
 	setRegWrite("1");
@@ -37,6 +41,8 @@ void ControlUnit::setControls(string bitString){
 
 	//SW
 	else if (bitString.compare("101011")==0){
+		if(debug){ cout << "****SETTING CONTROL SIGNALS***" << "\n"; }
+		cout << "Input: " << bitString << "\n";
 		setRegDST("x");
 		setALUSrc("1");
 		setMemtoReg("x");
@@ -53,6 +59,8 @@ void ControlUnit::setControls(string bitString){
 
 	//BEQ
 	else if (bitString.compare("000100")==0){
+	if(debug){ cout << "****SETTING CONTROL SIGNALS***" << "\n"; }
+	cout << "Input: " << bitString << "\n";
 	setRegDST("x");
 	setALUSrc("0");
 	setMemtoReg("x");
@@ -68,6 +76,8 @@ void ControlUnit::setControls(string bitString){
 
 	//jump
 	else if (bitString.compare("000010")==0){
+	if(debug){ cout << "****SETTING CONTROL SIGNALS***" << "\n"; }
+		cout << "Input: " << bitString << "\n";
 	setRegDST("1");
 	setALUSrc("1");
 	setMemtoReg("0");
@@ -81,6 +91,8 @@ void ControlUnit::setControls(string bitString){
 }
 	//ADDI
 	else if (bitString.compare("001000")==0){
+	if(debug){ cout << "****SETTING CONTROL SIGNALS***" << "\n"; }
+	cout << "Input: " << bitString << "\n";
 		setRegDST("0");
 		setALUSrc("1");
 		setMemtoReg("0");
