@@ -12,6 +12,14 @@ class Parser{
   public:
    Parser(string filename);
    void PrintInfo();
+   string getProgramInput(){return program_input;};
+   string getMemoryInput(){return memory_contents_input;};
+   string getRegisterInput(){return register_file_input;};
+   string getOutputMode(){return output_mode;};
+   bool getDebugMode(){return debug_mode;};
+   bool getPrintContents(){return print_memory_contents;};
+   bool getWriteToFile(){return write_to_file;};
+   string getOutputFile(){return output_file;};
 
   private:
 	string program_input;
@@ -34,13 +42,6 @@ class Parser{
    	void setWriteToFile(bool writeToFile){write_to_file=writeToFile;};
    	void setOutputFile(string outputFile){output_file=outputFile;};
 
-   	string getProgramInput(){return program_input;};
-   	string getMemoryInput(){return memory_contents_input;};
-   	string getRegisterInput(){return register_file_input;};
-   	string getOutputMode(){return output_mode;};
-   	bool getDebugMode(){return debug_mode;};
-   	bool getPrintContents(){return print_memory_contents;};
-   	bool getWriteToFile(){return write_to_file;};
-   	string getOutputFile(){return output_file;};
+   	
  };
  #endif
