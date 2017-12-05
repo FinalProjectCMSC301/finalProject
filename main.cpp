@@ -10,6 +10,7 @@
 #include "Multiplexer.h"
 #include "SignExtend.h"
 using namespace std;
+
 int main (int argc, char *argv[]){
 	Parser *parser;
 	ProgramCounter *programCounter
@@ -44,6 +45,7 @@ int main (int argc, char *argv[]){
 	parser = new Parser(argv[1]);
 	parser->printInfo();
 	
+	//Get all the values from the parser
 	bool debug_mode = parser->getDebugMode();
 	string register_file_input = parser->getRegisterInput();
 	string program_input = parser->getProgramInput();
@@ -53,13 +55,13 @@ int main (int argc, char *argv[]){
 	string output_file = parser->getOutputFile();
 	string memory_contents_input = parser->getMemoryInput();
 
-	// set debug
-	registerFile.init();
-	registerFile->setDebug(debug_mode);
-    registerFile.setFile(register_file_input);
-
-    parse.setFile(programInput);
-	memoryUnit.setFile(memory_Contents_Input);
+	//Run Register File
+	registerFile = new Register(register_file_input, debug_mode);
+	
+   	
+	//Create the Memory Unit
+        memoryUnit = new DataMemory(memory_Contents_Input, debug_mode);
+	
     
     aluAddPCand4.setOperation(1);
     aluAddBranchAndAddress.setOperation(1);
@@ -116,7 +118,7 @@ int main (int argc, char *argv[]){
         
         
         
-        if(!batch){
+        if(output_mode.compare("single_step")==0){
             system("read");
         }
     }
