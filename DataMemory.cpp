@@ -4,7 +4,7 @@
 #include <fstream>
 
 //should get file from parser
-DataMemory::DataMemory(string file)
+DataMemory::DataMemory(string file, bool debug)
 {
 	memoryContent = map<string, string>(); //initialize
 	
