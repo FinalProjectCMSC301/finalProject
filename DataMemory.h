@@ -15,7 +15,7 @@ class DataMemory
 		
 	public:
 		//This takes the file name which contains the memory input and loads every address:value
-		DataMemory(string file);
+		DataMemory(string file, bool debug);
 		
 		//sw $t1, 0($t2)
 		//writes to a particular address
