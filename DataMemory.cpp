@@ -18,6 +18,8 @@ DataMemory::DataMemory(string file)
 	
 	else
 	{
+		if(debug){
+			cout << "****ADDING THE MEMORY****" << "\n";
 		string line;
 		while(getline(in, line))
 		{
@@ -53,6 +55,9 @@ DataMemory::DataMemory(string file)
 			
 			//now add these values to the map
 			memoryContent[array[0]] = array[1];
+			if(debug){
+				cout << "Added memory content: " << array[0] << " Data: " << memoryContent[array[0]] << "\n";
+			}
 		}
 	}
 }
@@ -63,6 +68,9 @@ void DataMemory::writeToMemory(string address, string value)
 	{
 		memoryContent[address] = value;
 	}
+	if (debug){
+		cout << "*** WROTE TO MEMORY***" << "\n" << "Address: " << address << " Data: " << value << "\n";
+	}
 }
 
 string DataMemory::read(string address)
@@ -71,6 +79,11 @@ string DataMemory::read(string address)
 	{
 		return memoryContent[address];
 	}
+	
+	if (debug){
+		cout << "*** READ MEMORY***" << "\n" << "Address: " << address << " Data: " << memoryContent[address] << "\n";
+	}
+	
 	return 0;//IDK!!!!
 }
 
