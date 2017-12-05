@@ -22,7 +22,7 @@ private:
 	string memRead;
 	string memtoReg;
 	string ALUOp1;
-	string ALUOp2;
+	string ALUOp0;
 	string memWrite;
 	string ALUSrc;
 	string regWrite;
