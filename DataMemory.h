@@ -36,4 +36,4 @@ class DataMemory
 		
 		//this is to print debug info
 		void setDebug(bool debugBool);
-}
+};
