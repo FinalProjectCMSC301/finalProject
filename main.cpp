@@ -43,13 +43,22 @@ int main (int argc, char *argv[]){
 	//Start the Parser
 	parser = new Parser(argv[1]);
 	parser->printInfo();
+	
+	bool debug_mode = parser->getDebugMode();
+	string register_file_input = parser->getRegisterInput();
+	string program_input = parser->getProgramInput();
+	string output_mode = parser->getOutputMode();
+	bool print_memory_contents = parser->getPrintContents();
+	bool write_to_file = parser->getWriteToFile();
+	string output_file = parser->getOutputFile();
+	string memory_contents_input = parser->getMemoryInput();
 
 	// set debug
 	registerFile.init();
-    registerFile.setFile(registerFileInput);
+    registerFile.setFile(register_file_input);
 
     parse.setFile(programInput);
-	memoryUnit.setFile(memoryContentsInput);
+	memoryUnit.setFile(memory_Contents_Input);
     
     aluAddPCand4.setOperation(1);
     aluAddBranchAndAddress.setOperation(1);
