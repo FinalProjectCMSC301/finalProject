@@ -11,6 +11,7 @@ class Multiplexer{
 
 
 public:
+  Multiplexer();
 string useMultiplexer(string input1, string input2, int choice);
 int useMultiplexer(int input1, int input2, int choice);
 string useMultiplexer(string input1, int input2, int choice);
