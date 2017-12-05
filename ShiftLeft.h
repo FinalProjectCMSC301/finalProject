@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <sstream>
+#include "BinaryOperation.h"
 using namespace std;
 
 class ShiftLeft
