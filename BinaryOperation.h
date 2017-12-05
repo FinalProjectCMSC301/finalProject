@@ -13,7 +13,6 @@ class BinaryOperation
 {
     
 private:
-    bool debug = false;
 public:
     BinaryOperation();
     
@@ -32,7 +31,6 @@ public:
      * the hexadecimal value
      */
     string intToHex(int integer);
-    void setDebug(bool debugChange){debug = debugChange;};
 };
 
 #endif
