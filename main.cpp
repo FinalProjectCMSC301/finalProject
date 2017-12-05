@@ -60,18 +60,18 @@ int main (int argc, char *argv[]){
 	
    	
 	//Create the Memory Unit
-        memoryUnit = new DataMemory(memory_Contents_input, debug_mode);
+        memoryUnit = new DataMemory(memory_contents_input, debug_mode);
 	
     
-    aluAddPCand4.setOperation(1);
-    aluAddBranchAndAddress.setOperation(1);
+    aluAddPCand4->setOperation(1);
+    aluAddBranchAndAddress->setOperation(1);
     
     
     //control.setComponents
 
  
     cout<< "*****CURRENT REGISTERS*****" <<endl;
-    registerFile.print();
+    registerFile->print();
     cout << endl;
         
     cout<< "*****CURRENT INSTRUCTIONS*****" <<endl;
@@ -79,22 +79,22 @@ int main (int argc, char *argv[]){
     cout << endl;
         
     cout<< "*****CURRENT DATA MEMORY*****" <<endl;
-    memoryUnit.print();
+    memoryUnit->print();
         
-    std::ofstream out(outputFile);
+    std::ofstream out(output_file);
     
     while(true){
         
-        out << "Current Instruction: " << parse.getInstruction(programCounter.getAddress()).getStringVersion() << endl;
+        out << "Current Instruction: " << parse->getInstruction(programCounter->getAddress())->getStringVersion() << endl;
         out<< "*****CURRENT INSTRUCTIONS*****" <<endl;
-        out << parse.getAllInstructions();
+        out << parse->getAllInstructions();
         
-        if(writeToFile){
+        if(write_to_file){
             out<< "*****CURRENT REGISTERS*****" <<endl;
-            out << registerFile.getAllRegisters();
+            out << registerFile->getAllRegisters();
             out << endl;
             out<< "*****CURRENT DATA MEMORY*****" <<endl;
-            out << memoryUnit.getAllPairs();
+            out << memoryUnit->getAllPairs();
         }
         
         //TODO
