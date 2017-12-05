@@ -6,8 +6,8 @@ ControlUnit::ControlUnit(){
 
 void ControlUnit::setControls(string bitString){
 	
-	//R-TYPE 
- 	if (bitString.compare("000000")==0){
+	//ADD
+ 	if (bitString.compare("100000")==0){
 		if(debug){ cout << "****SETTING CONTROL SIGNALS***" << "\n"; }
 		cout << "Input: " << bitString << "\n";
       		  setRegDST("1");
@@ -18,8 +18,25 @@ void ControlUnit::setControls(string bitString){
 		setMemWrite("0");
 		setBranch("0");
 		setJump("0");
-		setALUOp1("0");
+		setALUOp0("0");
+		setALUOp1("1");
+		
+	}
+	
+	//SUB
+ 	else if (bitString.compare("100011")==0){
+		if(debug){ cout << "****SETTING CONTROL SIGNALS***" << "\n"; }
+		cout << "Input: " << bitString << "\n";
+      		  setRegDST("1");
+	 	  setALUSrc("0");
+		setMemtoReg("0");
+		setRegWrite("1");
+		setMemRead("0");
+		setMemWrite("0");
+		setBranch("0");
+		setJump("0");
 		setALUOp0("1");
+		setALUOp1("0");
 	}
 
 	//LW
@@ -34,8 +51,8 @@ void ControlUnit::setControls(string bitString){
 	setMemRead("1");
 	setBranch("0");
 	setJump("0");
-	setALUOp1("0");
-	setAluOp0("0");
+	setALUOp0("0");
+	setAluOp1("0");
 
 	}
 
@@ -51,8 +68,8 @@ void ControlUnit::setControls(string bitString){
 		setMemWrite("1");
 		setBranch("0");
 		setJump("0");
-		setALUOp1("0");
-		setAluOp0("0");
+		setALUOp0("0");
+		setAluOp1("0");
 
 
 }
@@ -69,8 +86,8 @@ void ControlUnit::setControls(string bitString){
 	setMemWrite("0");
 	setBranch("1");
 	setJump("0");
-	setALUOp1("1");
-	setAluOp0("0");
+	setALUOp0("1");
+	setAluOp1("0");
 
 }
 
@@ -86,8 +103,8 @@ void ControlUnit::setControls(string bitString){
 	setMemWrite("0");
 	setBranch("0");
 	setJump("1");
-	setALUOp1("x");
-	setAluOp0("x");
+	setALUOp0("x");
+	setAluOp1("x");
 }
 	//ADDI
 	else if (bitString.compare("001000")==0){
@@ -101,8 +118,23 @@ void ControlUnit::setControls(string bitString){
 		setMemWrite("0");
 		setBranch("0");
 		setJump("0");
-		setALUOp1("0");
-		setAluOp0("1");
+		setALUOp0("0");
+		setAluOp1("1");
+
+}
+	else if (bitString.compare("101010")==0){
+	if(debug){ cout << "****SETTING CONTROL SIGNALS***" << "\n"; }
+	cout << "Input: " << bitString << "\n";
+		setRegDST("1");
+		setALUSrc("0");
+		setMemtoReg("0");
+		setRegWrite("1");
+		setMemRead("0");
+		setMemWrite("0");
+		setBranch("0");
+		setJump("0");
+		setALUOp0("1");
+		setAluOp1("1");
 
 }
 	printValues();
