@@ -1,3 +1,9 @@
+/**
+This class represents the control unit in the processor.
+Input: a string of bits that represents the funct of the instruction
+Output: sets the control signals based on the binary input
+**/
+
 #ifndef __CONTROLUNIT_H__
 #define __CONTROLUNIT_H__
 
@@ -20,6 +26,9 @@ private:
 	string memWrite;
 	string ALUSrc;
 	string regWrite;
+	bool debug;
+	
+	void setDebug(bool debugChange){debug = debugChange;};
 
 	string getRegDST(){return regDst;};
 	string getJump(){return jump;};
