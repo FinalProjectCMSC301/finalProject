@@ -16,9 +16,9 @@ int main (int argc, char *argv[]){
 	ProgramCounter *programCounter;
     Register *registerFile;
     DataMemory *memoryUnit;
-    ALU *alu1;//ToMemory;
-    ALU *alu2//AddBranchAndAddress;
-    ALU *alu3//AddPCand4;
+    ALU *alu1;//ToMemory
+    ALU *alu2;//AddBranchAndAddress
+    ALU *alu3;//AddPCand4
     ShiftLeft *shiftJump;
     ShiftLeft *shiftBranch;
     ControlUnit *control;
