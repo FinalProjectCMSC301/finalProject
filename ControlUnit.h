@@ -51,7 +51,7 @@ private:
 	string setMemWrite(string mem){ memWrite = mem;};
 	string setALUSrc(string alu){ ALUSrc = alu;};
 	string setRegWrite(string reg){ regWrite = reg;};
-	void printValues(){cout << "RegDST: " << regDst << "\n" << "Branch: " << branch << "\n" << "Jump: " << jump << "\n" << "MemRead: " << memRead << "\n" << "MemtoReg: " << memtoReg << "\n" << "ALUOP1: " << ALUOp1 << "\n" << "ALUOp0: " << ALUOp0 << "\n" << "ALUSrc: " << ALUSrc << "\n" << "MemWrite: " << memWrite << "\n" << "RegWrite: " << regWrite << "\n";};
+	void printValues(){cout << "RegDST: " << regDst << "\n" << "Branch: " << branch << "\n" << "Jump: " << jump << "\n" << "MemRead: " << memRead << "\n" << "MemtoReg: " << memtoReg << "\n" << "ALUOP0: " << ALUOp0 << "\n" << "ALUOp1: " << ALUOp1 << "\n" << "ALUSrc: " << ALUSrc << "\n" << "MemWrite: " << memWrite << "\n" << "RegWrite: " << regWrite << "\n";};
 	
 
 
