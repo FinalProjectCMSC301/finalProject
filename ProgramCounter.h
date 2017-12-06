@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <iostream>
 
@@ -17,7 +16,8 @@ public:
     /* Constructor for pc */
     ProgramCounter();
     
-    /* Sets the programCounters address to the input address */
+    /* Sets the programCounters address to the input address 
+	address parameter should be a 0x00000000. So a hex, with 8 digits or letters after.*/
     void setAddress(string address);
     
     /* Retruns the currents address */
@@ -28,13 +28,4 @@ public:
     
     /* Sets debug to true or false controlling print statements */
     void setDebug(bool debug);
-    
-    /* Sets toFile to true or false determining if a file is written to */
-    void setToFile(bool val);
-    
-    /* Sets the location of the ostream that will be written to */
-
 };
-
-
-

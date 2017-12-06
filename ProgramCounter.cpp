@@ -15,7 +15,6 @@ void ProgramCounter::setAddress(string address){
     
     currentAddress = address;
 }
-
 //Retruns the current address
 
 
