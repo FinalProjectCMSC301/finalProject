@@ -22,7 +22,7 @@ using namespace std;
 class ALU {
 
 private:
-	string operation; 			//0 = compare, 1 = add, 2 = subtract
+	string operation; 			//0 = compare, 1 = add, 2 = subtract 3 comparelessthan 
 	string operand1; 		//hex string to be operated on
 	string operand2; 		//hex string to be operated on
 	string output;			//hex string representing the output of the ALU
