@@ -66,6 +66,16 @@ int main (int argc, char *argv[]){
 	//Set up the BinaryOpeations
 	BinaryOP = new BinaryOperation();
 	
+	//Starts Address for Program Counter
+	programCounter = new ProgramCounter();
+	currentAddress = programCounter->getAddress();
+	
+	//Set up the instruction memory
+	InstructionMemory currentInstruction = new InstructionMemory(program_input);
+	
+	
+	
+	
     
     alu3->setOperation(1);
     alu2->setOperation(1);
@@ -111,13 +121,18 @@ int main (int argc, char *argv[]){
 
         //fetch 
         //currentInstruction TODO
+	
+	 
+	    
+	 //Sets the inputs to increase the program counter   
         alu3.setOperand1(programCounter.getAddress());
         alu3.setOperand2("00000000000000000000000000000100");//write 4 
+	    
+	 //increases the program counter
         alu3.execute();
-        currentAddress = alu3.getOutput();
+        
 
-        if (debug)
-            cout << "address for instruction: " << BinaryOp.getHexFromBin(currentAddress) << endl << endl;
+       
     
         if (debug)
             cout << "SETTING THE OPERAND1 IN BRANCH AND CURRENT ADDRESS ALU" << endl << endl;
@@ -125,47 +140,51 @@ int main (int argc, char *argv[]){
         alu2.setOperand1(currentAddress);
     
     
-        if (debug)
-            cout << "SETTING THE MULTIPLEXER FOR BRANCH VS CURRENT ADDRESS" << endl << endl;
-            
-            // write multplexer to store 
-            branchOrIncrementMultiplexer4.setInput0(currentAddress);
-    
-       /*
-       re
-        opcode = currentInstruction.getOpcode();
-        rs = currentInstruction.getRs();
-        rt = currentInstruction.getRt();
-        rd = currentInstruction.getRd();
-        immediate = currentInstruction.getImmediate();
-        jumpAmount = currentInstruction.getJumpAmount();
-        */
 
-
-        //decode 
-	   
+       
+ //Now need to get first instruction
+ if (debug)
+            cout << "address for instruction: " << BinaryOp.getHexFromBin(currentAddress) << endl << endl; 	
+	    
 //GET THE INSTRUCTION
-	    InstructionMemory currentInstruction = new InstructionMemory(program_input);
+	    
 	    string instruction = currentInstruction->getInstruction();
          
 //Runs the control unit and sets control lines
 	    control = new controlUnit();
 	    control->setControls(instruction.substr(0,6);
 				 
-//Look to see if it is jump because will avoid all bottom stuff
+//calculate the next address options 
+
+        if (debug)
+            cout << "SETTING THE MULTIPLEXER FOR BRANCH VS CURRENT ADDRESS" << endl << endl;
+            
+            // write multplexer to store 
+            branchOrIncrementMultiplexer4.setInput0(currentAddress);
+//***TO DO: Calculate the possible address that can come from immediate ********
+				 
+    if (debug)
+        cout <<"SIGN EXTENDING IMMEDIATE" << endl << endl;
+				 
+//***TO DO: Send to ALU2****
+				 
+
+				 
+				 
+//Look to see if it is jump because will avoid all bottom stuff. Do after calculate options
+	
 	if(control->getJump().compare("1")==0{
 	if(debug)
         cout <<"SETTING JUMP OR INCREMENTED ADDRESS INPUT0" << endl;
+		string addessForJump="";
 
-//**********TODO: Write the jump
-    	jumpOrIncrementMultiplexer5.setInput0(branchOrIncrementMultiplexer4.getOutput());	
+//**********TODO: Write the jump where it takes increased PC 4 bits and appends the addedss instruction shifted
+    	jumpOrIncrementMultiplexer5->useMultiplexor(branchOrIncrementMultiplexer4->getOutput(),addessforJump);	
 		 // if the control get jump is equal to 1. TODO
     
     jumpAmount = shiftJump.shift(jumpAmount);
 		//immedeate file part
 
-    if (debug)
-        cout <<"SIGN EXTENDING IMMEDIATE" << endl << endl;
     
     
     
@@ -252,7 +271,12 @@ else{
    	 }
 					    
 	else{
-			//Need to address the memory 
+			string addressToWrite = ALU1->getOutput();
+			int regNum = BinaryOp->getIntFromBin(registerFile->getReadRegister2());
+			memoryunit->writeToMemory(addressToWrite, registerFile->read(regNum));
+	} 
+			
+			
 		 /*
     memoryUnit.setCurrentAddress(temp);
     temp = registerFile.getReadRegister2();
