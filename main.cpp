@@ -61,7 +61,7 @@ int main (int argc, char *argv[]){
 	
    	
 	//Create the Memory Unit
-        memoryUnit = new DataMemory(memory_contents_input, debug_mode);
+    memoryUnit = new DataMemory(memory_contents_input, debug_mode);
 	
 	//Set up the BinaryOpeations
 	BinaryOP = new BinaryOperation();
@@ -174,15 +174,18 @@ int main (int argc, char *argv[]){
 //Look to see if it is jump because will avoid all bottom stuff. Do after calculate options
 	
 	if(control->getJump().compare("1")==0{
+    //maybe not right 
+    string jumpAmount = instruction.substr(6,26)
 	if(debug)
         cout <<"SETTING JUMP OR INCREMENTED ADDRESS INPUT0" << endl;
 		string addessForJump="";
+
 
 //**********TODO: Write the jump where it takes increased PC 4 bits and appends the addedss instruction shifted
     	jumpOrIncrementMultiplexer5->useMultiplexor(branchOrIncrementMultiplexer4->getOutput(),addessforJump);	
 		 // if the control get jump is equal to 1. TODO
     
-    jumpAmount = shiftJump.shift(jumpAmount);
+        jumpAmount = shiftJump.shift(jumpAmount);
 		//immedeate file part
 
     
@@ -285,12 +288,8 @@ else{
     */	
 	}
 					    
-   }					    
+   } // put everything except Branch and jump 					    
 
-   			 
-	
-
-    
     
     
     if (debug)
