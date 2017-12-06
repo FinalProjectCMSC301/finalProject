@@ -29,6 +29,7 @@ int main (int argc, char *argv[]){
     Multiplexer *jumpOrIncrementMultiplexer5 = new Multiplexer();
     SignExtend *signExtend;
     BinaryOperation *BinaryOp = new BinaryOperation();
+	InstructionMemory *currentInstruction;
     
     
     string currentAddress;
@@ -125,7 +126,7 @@ int main (int argc, char *argv[]){
 	 
 	    
 	 //Sets the inputs to increase the program counter   
-        alu3->setOperand1(programCounter.getAddress());
+        alu3->setOperand1(programCounter->getAddress());
         alu3->setOperand2("00000000000000000000000000000100");//write 4 
 	    
 	 //increases the program counter
@@ -164,12 +165,12 @@ int main (int argc, char *argv[]){
 	
 	if(control->getJump().compare("1")==0){
     //maybe not right 
-    string jumpAmount = instruction.substr(6,26)
+    string jumpAmount = instruction.substr(6,26);
 
 
 
 //**********TODO: Write the jump where it takes increased PC 4 bits and appends the addedss instruction shifted
-        jumpAmount = shiftJump.shift(jumpAmount);//
+        jumpAmount = shiftJump->shift(jumpAmount);//
 
         jumpAmount = currentAddress.substr(0,4) + jumpAmount;
     	jumpOrIncrementMultiplexer5->choice1 = jumpAmount;
@@ -186,15 +187,15 @@ int main (int argc, char *argv[]){
     if(control->getBranch().compare("1")==0){
    
         string choiceOP;
-   if(control->getBranch().compare("1")==0 &&ALU1->getComparisonResult()){
+   if(control->getBranch().compare("1")==0 && alu1->getComparisonResult()){
        if(debug_mode)
-          cout<<"Setting Branch Zero op to 1" << endl
+          cout<<"Setting Branch Zero op to 1" << endl;
         choiceOP="1";
   }
   else{
       if(debug_mode)
-          cout<<"Setting Branch Zero op to 0" << endl
-      choiceOp="0";
+          cout<<"Setting Branch Zero op to 0" << endl;
+      choiceOP="0";
   }
   
   alu2->setOperand1(alu3->getOutput());
@@ -206,7 +207,7 @@ int main (int argc, char *argv[]){
    alu2->execute();
    
    
-  branchOrIncrementMultiplexer4->useMultiplexer(alu3->getOutput(),alu2->getOutput(),choiceOp);
+  branchOrIncrementMultiplexer4->useMultiplexer(alu3->getOutput(),alu2->getOutput(),choiceOP);
    
  
    programCounter->setAddress(branchOrIncrementMultiplexer4->getOutput());
