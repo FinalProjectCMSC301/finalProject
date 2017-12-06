@@ -29,6 +29,7 @@ int main (int argc, char *argv[]){
     Multiplexer *jumpOrIncrementMultiplexer5 = new Multiplexer();
     SignExtend *signExtend;
     BinaryOperation *BinaryOp;
+    InstructionMemory *currentInstruction;
     
     
     string currentAddress;
@@ -64,14 +65,14 @@ int main (int argc, char *argv[]){
         memoryUnit = new DataMemory(memory_contents_input, debug_mode);
 	
 	//Set up the BinaryOpeations
-	BinaryOP = new BinaryOperation();
+	BinaryOp = new BinaryOperation();
 	
 	//Starts Address for Program Counter
 	programCounter = new ProgramCounter();
 	currentAddress = programCounter->getAddress();
 	
 	//Set up the instruction memory
-	InstructionMemory currentInstruction = new InstructionMemory(program_input);
+	currentInstruction = new InstructionMemory(program_input);
 	
 	
 	
