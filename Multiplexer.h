@@ -17,7 +17,7 @@ public:
   Multiplexer();
   string input1;
   string input2;
-  int choice;
+  string choice;
   string output;
 void useMultiplexer(string input1, string input2, string choice);
   bool debug = false;
