@@ -32,7 +32,7 @@ int main (int argc, char *argv[]){
     
     
     string currentAddress;
-    Instruction *currentInstruction;
+   
     
     string opcode;
     string rs;
@@ -62,6 +62,9 @@ int main (int argc, char *argv[]){
    	
 	//Create the Memory Unit
         memoryUnit = new DataMemory(memory_contents_input, debug_mode);
+	
+	//Set up the BinaryOpeations
+	BinaryOP = new BinaryOperation();
 	
     
     alu3->setOperation(1);
@@ -139,45 +142,32 @@ int main (int argc, char *argv[]){
         */
 
 
-        //decode  change control.sendSignals(opcode);
+        //decode 
+	   
+//GET THE INSTRUCTION
+	    InstructionMemory currentInstruction = new InstructionMemory(program_input);
+	    string instruction = currentInstruction->getInstruction();
          
+//Runs the control unit and sets control lines
+	    control = new controlUnit();
+	    control->setControls(instruction.substr(0,6);
+				 
+//Look to see if it is jump because will avoid all bottom stuff
+	if(control->getJump()==1){
+	if(debug)
+        cout <<"SETTING JUMP OR INCREMENTED ADDRESS INPUT0" << endl;
 
-    
-        if (debug)
-            cout << "ADJUSTING READ REGISTERS" << endl << endl;
-        
-        //set up to get instruction[25-21]
-        registerFile.setReadRegister1(rs);
-        //set up to get instruction[20-16]
-        registerFile.setReadRegister2(rt);
-    
-    
-    
-    if (debug)
-        cout <<"ADJUSTING REGISTER MULTIPLEXER INPUTS" << endl << endl;
-    //rewrite multiplexerto store
-    // put instruction[20-16] 
-        registerMultiplexer1.setInput0(rt);
-            // put instruction[15-11] 
-        registerMultiplexer1.setInput1(rd);
-    
-    
-    if (debug)
-        cout <<"SETTING WRITE REGISTER" << endl << endl;
-    
-    //how do we write the register setup for write depend on the Mux of multiplexer  TODO
-
-
-    registerFile.setWriteIndex(registerMultiplexer1.getOutput());
-    
-    //?
-    
-    
-   
-
-   // if the control get jump is equal to 1. TODO
+//**********TODO: Write the jump
+    	jumpOrIncrementMultiplexer5.setInput0(branchOrIncrementMultiplexer4.getOutput());	
+		 // if the control get jump is equal to 1. TODO
     
     jumpAmount = shiftJump.shift(jumpAmount);
+		//immedeate file part
+
+    if (debug)
+        cout <<"SIGN EXTENDING IMMEDIATE" << endl << endl;
+    
+    
     
     
     //
@@ -191,13 +181,86 @@ int main (int argc, char *argv[]){
     jumpOrIncrementMultiplexer5.setInput1(jumpAmount);
     //
     
-
-    //immedeate file part
-
-    if (debug)
-        cout <<"SIGN EXTENDING IMMEDIATE" << endl << endl;
+				 
+	}			 
+	
+				 
+				 
+//Get to this if it is not a jump				 
+				 
+else{				 
+				 
+	//Set the Read register from the Instruction
+	registerFile->setReadRegister1(instruction.substr(6,5));
+	registerFile->setReadRegister2(instruction.substr(11,5));
+				 
+				 
+        if (debug)
+            cout << "ADJUSTING READ REGISTERS" << endl << endl;
+        if(control->getRegDST()==0){
+		registerFile->setWriteRegister(instruction.substr(11,5));
+	}
+	else{
+		registerFile->setWriteRegister(instruction.substr(16,5));
+	}
+      
     
-    immediate = signExtend.extend(immediate);
+    //Prepare the ALU inputs
+	 if (debug)
+        cout <<"SETTING THE MEMORY ALU OPERANDS" << endl;
+	ALU1 = new ALU();
+    	ALU1->setOperand1(registerFile->getReadRegister1());
+	if(control->getALUSrc()==0){
+		ALU1->setOperand2(registerFile->getReadRegister2());
+	}
+	else{
+		if (debug)
+        	cout <<"SIGN EXTENDING IMMEDIATE" << endl << endl;
+		signExtend = new signExtend(instruction.substr(16,16);
+		ALU1->setOperand2(signExtend->getExtended());
+	}
+	ALUControl ALUcontrol = new ALUControl();
+	ALUcontrol->setALU(ALU1);
+	ALUcontrol->sendSignals(control->getALUOp());
+	ALU1->execute();
+	string ALUresult = ALU1->getOutput();
+	
+	
+
+// Start the Data Memory Area
+//memory
+    
+    
+    if (debug)
+        cout <<"SETTING DATA MEMORY ADDRESS AND WRITE DATA" << endl;
+					    
+
+
+    if(control->getMemtoReg()==0){
+	    //Need to write ALUresult to the writedata register
+	    int registerNum = BinaryOp->binToInt(registerFile->getWriteRegister());
+	    
+	    registerFile->writeToRegister(registerNum, BinaryOp->getHexFromBin(ALUresult));
+	    
+	    //ALL DONE WITH THE INSTRUCTION AT THIS POINT
+	    
+   	 }
+					    
+	else{
+			//Need to address the memory 
+	}
+					    
+   }					    
+
+    /*
+    memoryUnit.setCurrentAddress(temp);
+    temp = registerFile.getReadRegister2();
+    memoryUnit.storeWord(temp);
+    memoryUnit.saveMemory();
+    */				 
+	
+
+    
     
     
     if (debug)
@@ -209,20 +272,15 @@ int main (int argc, char *argv[]){
     registerOrImmediateMultiplexer2.setInput0(temp);
     
     
-    if (debug)
-        cout <<"ADJUSTING ALU SOURCE MULTIPLEXER INPUT1" << endl << endl;
+//     if (debug)
+//         cout <<"ADJUSTING ALU SOURCE MULTIPLEXER INPUT1" << endl << endl;
 
-    //need to change to store 
-        registerOrImmediateMultiplexer2.setInput1(immediate);
-    //
+//     //need to change to store 
+//         registerOrImmediateMultiplexer2.setInput1(immediate);
+//     //
 
 
-    
-    if (debug)
-        cout <<"SETTING THE MEMORY ALU OPERANDS" << endl;
-    
-        alu1.setOperand1(registerFile.getReadRegister1());
-        alu1.setOperand2(registerOrImmediateMultiplexer2.getOutput());
+   
     
     
     if (debug)
@@ -248,39 +306,12 @@ int main (int argc, char *argv[]){
     
     //branchOrIncrementMultiplexer4.setControl(control.isBranch() && alu1.getComparisonResult());
     
-    if(debug)
-        cout <<"SETTING JUMP OR INCREMENTED ADDRESS INPUT0" << endl;
-    jumpOrIncrementMultiplexer5.setInput0(branchOrIncrementMultiplexer4.getOutput());
     
-
-
-    //memory
-    
-    
-    if (debug)
-        cout <<"SETTING DATA MEMORY ADDRESS AND WRITE DATA" << endl;
-
-    string temp = aluToMemory.getOutput();
-
-    /*
-    memoryUnit.setCurrentAddress(temp);
-    temp = registerFile.getReadRegister2();
-    memoryUnit.storeWord(temp);
-    memoryUnit.saveMemory();
-    */
-    
-    
-    if (debug)
-        cout <<"SETTING MEMORY OR ALU MULTIPLEXER AS WELL AS WRITE DATA" << endl;
-
-    memoryOrALUMultiplexer3.setInput1(memoryUnit.readMemory());
-    memoryOrALUMultiplexer3.setInput0(aluToMemory.getOutput());
-    registerFile.setWriteValue(memoryOrALUMultiplexer3.getOutput());
+  
     
 
 
         //writeback
-    registerFile.write();
     programCounter.setAddress(jumpOrIncrementMultiplexer5.getOutput());
     
     /*
