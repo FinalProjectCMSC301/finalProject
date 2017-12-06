@@ -1,5 +1,6 @@
 #include "ControlUnit.h"
 #include <iostream>
+#include <sstream>
 ControlUnit::ControlUnit(){
 	
 }
@@ -140,3 +141,10 @@ void ControlUnit::setControls(string bitString){
 	printValues();
 
 }
+
+string ControlUnit::printValuesString(){
+	sstream s; 
+	s << "RegDST: " << regDst << "\n" << "Branch: " << branch << "\n" << "Jump: " << jump << "\n" << "MemRead: " << memRead << "\n" << "MemtoReg: " << memtoReg << "\n" << "ALUOP0: " << ALUOp0 << "\n" << "ALUOp1: " << ALUOp1 << "\n" << "ALUSrc: " << ALUSrc << "\n" << "MemWrite: " << memWrite << "\n" << "RegWrite: " << regWrite << "\n"; 
+	return s.str();
+}
+	
