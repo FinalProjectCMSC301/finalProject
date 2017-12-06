@@ -9,6 +9,7 @@ Output: The value that was chosen
 
 
 #include <string>;
+using namespace std;
 
 class Multiplexer{
 
