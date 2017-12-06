@@ -206,7 +206,42 @@ int main (int argc, char *argv[]){
     //
     
 				 
-	}			 
+	}
+
+    if(control->getBranch().compare("1")==0){
+ -  if(debug_mode)
+ -      cout << "ENTERING THE BRANCH" << endl;
+ -  string choiceOP;
+ -  if(control->getBranch().compare("1")==0 &&ALU1->getComparisonResult()){
+ -      if(debug_mode)
+ -          cout<<"Setting Branch Zero op to 1" << endl
+ -      choiceOP="1";
+ -  }
+ -  else{
+ -      if(debug_mode)
+ -          cout<<"Setting Branch Zero op to 0" << endl
+ -      choiceOp="0";
+ -  }
+ -  
+ -  alu2->setOperand1(alu3->getOutput());
+ -  //Execute the ALU with the signextended shift of Imm and PC+4 address
+ -  if(debug_mode)
+ -          cout<<"Shifting Left" << endl
+ -  shiftBranch = new ShiftLeft();
+ -  alu2->setOperand2(shiftBranch->shift(signExtend));
+ -  alu2->setOperation(1);
+ -  alu2->execute();
+ -  
+ -  if(debug_mode)
+ -          cout<<"setting multiplexor to choose wither branch or not" << endl
+ -  branchOrIncrementMultiplexer4->useMultiplexer(alu3->getOutput(),alu2->getOutput(),choiceOp);
+ -  
+ -  if(debug_mode)
+ -          cout<<"Changing Program Counter to the address given by Multiplexer" << endl
+ -  programCounter->setAddress(branchOrIncrementMultiplexer4->getOutput());
+ -  
+ -  
+ -}			 
 	
 				 
 				 
