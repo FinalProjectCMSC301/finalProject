@@ -10,7 +10,6 @@ void ControlUnit::setControls(string bitString){
 	
 	//ADD
  	if (bitString.compare("100000")==0){
-		if(debug){ cout << "****SETTING CONTROL SIGNALS***" << "\n"; }
 		cout << "Input: " << bitString << "\n";
       		  setRegDST("1");
 	 	  setALUSrc("0");
@@ -27,7 +26,6 @@ void ControlUnit::setControls(string bitString){
 	
 	//SUB
  	else if (bitString.compare("100011")==0){
-		if(debug){ cout << "****SETTING CONTROL SIGNALS***" << "\n"; }
 		cout << "Input: " << bitString << "\n";
       		  setRegDST("1");
 	 	  setALUSrc("0");
@@ -43,7 +41,6 @@ void ControlUnit::setControls(string bitString){
 
 	//LW
 	else if (bitString.compare("100011")==0){
-	if(debug){ cout << "****SETTING CONTROL SIGNALS***" << "\n"; }
 	cout << "Input: " << bitString << "\n";
 	setRegDST("0");
 	setALUSrc("1");
@@ -60,7 +57,6 @@ void ControlUnit::setControls(string bitString){
 
 	//SW
 	else if (bitString.compare("101011")==0){
-		if(debug){ cout << "****SETTING CONTROL SIGNALS***" << "\n"; }
 		cout << "Input: " << bitString << "\n";
 		setRegDST("x");
 		setALUSrc("1");
@@ -74,12 +70,10 @@ void ControlUnit::setControls(string bitString){
 		setALUOp1("0");
 
 
-}
+	}
 
 	//BEQ
 	else if (bitString.compare("000100")==0){
-	if(debug){ cout << "****SETTING CONTROL SIGNALS***" << "\n"; }
-	cout << "Input: " << bitString << "\n";
 	setRegDST("x");
 	setALUSrc("0");
 	setMemtoReg("x");
@@ -91,11 +85,10 @@ void ControlUnit::setControls(string bitString){
 	setALUOp0("1");
 	setALUOp1("0");
 
-}
+	}
 
 	//jump
 	else if (bitString.compare("000010")==0){
-	if(debug){ cout << "****SETTING CONTROL SIGNALS***" << "\n"; }
 		cout << "Input: " << bitString << "\n";
 	setRegDST("1");
 	setALUSrc("1");
@@ -110,7 +103,6 @@ void ControlUnit::setControls(string bitString){
 }
 	//ADDI
 	else if (bitString.compare("001000")==0){
-	if(debug){ cout << "****SETTING CONTROL SIGNALS***" << "\n"; }
 	cout << "Input: " << bitString << "\n";
 		setRegDST("0");
 		setALUSrc("1");
@@ -123,9 +115,8 @@ void ControlUnit::setControls(string bitString){
 		setALUOp0("0");
 		setALUOp1("1");
 
-}
+	}
 	else if (bitString.compare("101010")==0){
-	if(debug){ cout << "****SETTING CONTROL SIGNALS***" << "\n"; }
 	cout << "Input: " << bitString << "\n";
 		setRegDST("1");
 		setALUSrc("0");
@@ -138,8 +129,8 @@ void ControlUnit::setControls(string bitString){
 		setALUOp0("1");
 		setALUOp1("1");
 
-}
-	printValues();
+	}
+	
 
 }
 
