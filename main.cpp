@@ -131,20 +131,12 @@ int main (int argc, char *argv[]){
 	 //increases the program counter
         alu3.execute();
         
-
-       
-    
-        if (debug)
-            cout << "SETTING THE OPERAND1 IN BRANCH AND CURRENT ADDRESS ALU" << endl << endl;
-    
         alu2.setOperand1(currentAddress);
     
     
 
        
  //Now need to get first instruction
- if (debug)
-            cout << "address for instruction: " << BinaryOp.getHexFromBin(currentAddress) << endl << endl; 	
 	    
 //GET THE INSTRUCTION
 	    
@@ -156,15 +148,12 @@ int main (int argc, char *argv[]){
 				 
 //calculate the next address options 
 
-        if (debug)
-            cout << "SETTING THE MULTIPLEXER FOR BRANCH VS CURRENT ADDRESS" << endl << endl;
             
             // write multplexer to store 
             branchOrIncrementMultiplexer4->choice1=currentAddress;
 //***TO DO: Calculate the possible address that can come from immediate ********
 				 
-    if (debug)
-        cout <<"SIGN EXTENDING IMMEDIATE" << endl << endl;
+
 				 
 //***TO DO: Send to ALU2****
 				 
@@ -176,41 +165,26 @@ int main (int argc, char *argv[]){
 	if(control->getJump().compare("1")==0{
     //maybe not right 
     string jumpAmount = instruction.substr(6,26)
-	if(debug)
-        cout <<"SETTING JUMP OR INCREMENTED ADDRESS INPUT0" << endl;
-		string addessForJump="";
+
 
 
 //**********TODO: Write the jump where it takes increased PC 4 bits and appends the addedss instruction shifted
         jumpAmount = shiftJump.shift(jumpAmount);//
 
-    if (debug)
-        cout << "get the first four bits of current address: " <<currentAddress.substr(0,4) << "  with shifted jump 28 bits: " <<jumpAmount<< " new current address: " << currentAddress.substr(0,4) + jumpAmount <<  endl << endl;
-    
         jumpAmount = currentAddress.substr(0,4) + jumpAmount;
-    	jumpOrIncrementMultiplexer5->choice1 = jumpAmount;	
-		
-    
-       
-		//immedeate file part
-
+    	jumpOrIncrementMultiplexer5->choice1 = jumpAmount;
     
     
-    
-    
-    
-
     //rewrite the multpliexer 
     
-    jumpOrIncrementMultiplexer5.setInput1(jumpAmount);
+    //jumpOrIncrementMultiplexer5.setInput1(jumpAmount);
     //
     
 				 
 	}
 
     if(control->getBranch().compare("1")==0){
- -  if(debug_mode)
- -      cout << "ENTERING THE BRANCH" << endl;
+ -  
  -  string choiceOP;
  -  if(control->getBranch().compare("1")==0 &&ALU1->getComparisonResult()){
  -      if(debug_mode)
@@ -225,19 +199,16 @@ int main (int argc, char *argv[]){
  -  
  -  alu2->setOperand1(alu3->getOutput());
  -  //Execute the ALU with the signextended shift of Imm and PC+4 address
- -  if(debug_mode)
- -          cout<<"Shifting Left" << endl
+ - 
  -  shiftBranch = new ShiftLeft();
  -  alu2->setOperand2(shiftBranch->shift(signExtend));
  -  alu2->setOperation(1);
  -  alu2->execute();
  -  
- -  if(debug_mode)
- -          cout<<"setting multiplexor to choose wither branch or not" << endl
+ -  
  -  branchOrIncrementMultiplexer4->useMultiplexer(alu3->getOutput(),alu2->getOutput(),choiceOp);
  -  
- -  if(debug_mode)
- -          cout<<"Changing Program Counter to the address given by Multiplexer" << endl
+ 
  -  programCounter->setAddress(branchOrIncrementMultiplexer4->getOutput());
  -  
  -  
@@ -254,8 +225,7 @@ else{
 	registerFile->setReadRegister2(instruction.substr(11,5));
 				 
 				 
-        if (debug)
-            cout << "ADJUSTING READ REGISTERS" << endl << endl;
+      
 	
 	//Sets up the multiplexor that decides the write register
 	registerMultiplexor1->useMultiplexer(instruction.substr(11,5),instruction.substr(16,5),control->getRegDST());
@@ -264,14 +234,12 @@ else{
 	      
     
     //Prepare the ALU inputs
-	 if (debug)
-        cout <<"SETTING THE MEMORY ALU OPERANDS" << endl;
+	
 	ALU1 = new ALU();
     	ALU1->setOperand1(registerFile->getReadRegister1());
 	
 	//Does sign extend in case it is needed in the ALU
-	if (debug)
-        	cout <<"SIGN EXTENDING IMMEDIATE" << endl << endl;
+	
 		signExtend = new signExtend(instruction.substr(16,16);
 		ALU1->setOperand2(signExtend->getExtended());
 	
@@ -292,11 +260,6 @@ else{
 
 // Start the Data Memory Area
 //memory
-    
-    
-    if (debug)
-        cout <<"SETTING DATA MEMORY ADDRESS AND WRITE DATA" << endl;
-					    
 
 	memoryOrALUMultiplexor3->useMultiplexor(ALUresult,MemoryResult,control->getMemtoReg());
 					    
@@ -326,11 +289,6 @@ else{
 	}
 					    
    } // put everything except Branch and jump 					    
-
-    
-    
-    if (debug)
-        cout <<"ADJUSTING ALU SOURCE MULTIPLEXER INPUT0" << endl << endl;
     
     string temp = registerFile.getReadRegister2();
 
@@ -344,13 +302,6 @@ else{
 //     //need to change to store 
 //         registerOrImmediateMultiplexer2.setInput1(immediate);
 //     //
-
-
-   
-    
-    
-    if (debug)
-        cout << "SETTING THE OPERAND2 IN BRANCH AND CURRENT ADDRESS ALU" << endl << endl;
     
         immediate = shiftBranch.shift(immediate);
         alu2.setOperand2(immediate);
@@ -362,20 +313,11 @@ else{
 
 
     //excute
-     if (debug)
-        cout <<"EXECUTING MEMORY ALU" << endl;
     
         alu1.execute();
     
-    if (debug)
-        cout <<"SETTING BRANCH OR INCREMENTED ADDRESS MULTIPLEXER CONTROL " << endl;
-    
     //branchOrIncrementMultiplexer4.setControl(control.isBranch() && alu1.getComparisonResult());
     
-    
-  
-    
-
 
         //writeback
     programCounter.setAddress(jumpOrIncrementMultiplexer5.getOutput());
@@ -384,10 +326,7 @@ else{
     if(!parse.(weAreDone)( programCounter.getAddress())){
         cout <<"Next Instruction to run: ";parse.getInstruction(programCounter.getAddress()).print();
     } make a break part of the while. 
-    */ 
-
-    
-    
+    */
 
         cout<< "*****CURRENT REGISTERS*****" <<endl;
         registerFile.print();
