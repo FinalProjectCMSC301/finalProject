@@ -42,16 +42,16 @@ public:
 	string getALUSrc(){return ALUSrc;};
 	string getRegWrite(){return regWrite;};
 
-	string setRegDST(string reg){regDst = reg;};
-	string setJump(string j){ jump = j;};
-	string setBranch(string b){ branch = b;};
-	string setMemRead(string mem){ memRead = mem;};
-	string setMemtoReg(string mem){ memtoReg = mem;};
-	string setALUOp1(string alu){ ALUOp1 = alu;};
-	string setALUOp0(string alu){ ALUOp0 = alu;};
-	string setMemWrite(string mem){ memWrite = mem;};
-	string setALUSrc(string alu){ ALUSrc = alu;};
-	string setRegWrite(string reg){ regWrite = reg;};
+	void setRegDST(string reg){regDst = reg;};
+	void setJump(string j){ jump = j;};
+	void setBranch(string b){ branch = b;};
+	void setMemRead(string mem){ memRead = mem;};
+	void setMemtoReg(string mem){ memtoReg = mem;};
+	void setALUOp1(string alu){ ALUOp1 = alu;};
+	void setALUOp0(string alu){ ALUOp0 = alu;};
+	void setMemWrite(string mem){ memWrite = mem;};
+	void setALUSrc(string alu){ ALUSrc = alu;};
+	void setRegWrite(string reg){ regWrite = reg;};
 	void printValues(){cout << "RegDST: " << regDst << "\n" << "Branch: " << branch << "\n" << "Jump: " << jump << "\n" << "MemRead: " << memRead << "\n" << "MemtoReg: " << memtoReg << "\n" << "ALUOP0: " << ALUOp0 << "\n" << "ALUOp1: " << ALUOp1 << "\n" << "ALUSrc: " << ALUSrc << "\n" << "MemWrite: " << memWrite << "\n" << "RegWrite: " << regWrite << "\n";};
 	string printStringValues();
 
