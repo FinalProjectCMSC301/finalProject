@@ -3,7 +3,7 @@
 
 //Constructor that sets the currentAddress equal to a string of 0's
 ProgramCounter::ProgramCounter(){
-    currentAddress = getBinFromHex("0x00040000");
+    currentAddress = getBinFromHex("0x00400000");
 }
 
 //Sets the programCounters address to the input address

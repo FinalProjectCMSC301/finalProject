@@ -86,7 +86,7 @@ int main (int argc, char *argv[]){
     
     while(true){
         
-        out << "Current Instruction: " << parse->getInstruction(programCounter->getAddress())->getStringVersion() << endl;
+        //out << "Current Instruction: " << parse->getInstruction(programCounter->getAddress())->getStringVersion() << endl;
         out<< "*****CURRENT INSTRUCTIONS*****" <<endl;
         out << parse->getAllInstructions();
         
@@ -109,7 +109,7 @@ int main (int argc, char *argv[]){
         //fetch 
         //currentInstruction TODO
         alu3.setOperand1(programCounter.getAddress());
-        alu3.setOperand2("00000000000000000000000000000100");
+        alu3.setOperand2("00000000000000000000000000000100");//write 4 
         alu3.execute();
         currentAddress = alu3.getOutput();
 
@@ -126,7 +126,7 @@ int main (int argc, char *argv[]){
             cout << "SETTING THE MULTIPLEXER FOR BRANCH VS CURRENT ADDRESS" << endl << endl;
             
             // write multplexer to store 
-            branchOrIncrementMultiplexer44.setInput0(currentAddress);
+            branchOrIncrementMultiplexer4.setInput0(currentAddress);
     
        /*
        re
@@ -139,51 +139,61 @@ int main (int argc, char *argv[]){
         */
 
 
-        //decode  change
-         control.sendSignals(opcode);
+        //decode  change control.sendSignals(opcode);
+         
 
     
         if (debug)
             cout << "ADJUSTING READ REGISTERS" << endl << endl;
         
-        //where to put rs and rt rewrite the code 
+        //set up to get instruction[25-21]
         registerFile.setReadRegister1(rs);
+        //set up to get instruction[20-16]
         registerFile.setReadRegister2(rt);
     
     
     
     if (debug)
         cout <<"ADJUSTING REGISTER MULTIPLEXER INPUTS" << endl << endl;
-    //rewrite multiplexerto store 
+    //rewrite multiplexerto store
+    // put instruction[20-16] 
         registerMultiplexer1.setInput0(rt);
+            // put instruction[15-11] 
         registerMultiplexer1.setInput1(rd);
     
     
     if (debug)
         cout <<"SETTING WRITE REGISTER" << endl << endl;
     
-    //how do we write the register setup for write depend on the Mux of multiplexer 
+    //how do we write the register setup for write depend on the Mux of multiplexer  TODO
 
-    //registerFile.setWriteIndex(registerMultiplexer1.getOutput());
+
+    registerFile.setWriteIndex(registerMultiplexer1.getOutput());
     
     //?
-    control.sendSignals(opcode);
+    
     
    
+
+   // if the control get jump is equal to 1. TODO
     
     jumpAmount = shiftJump.shift(jumpAmount);
     
     
-    
+    //
     if (debug)
         cout << "get the first four bits of current address: " <<currentAddress.substr(0,4) << "  with shifted jump 28 bits: " <<jumpAmount<< " new current address: " << currentAddress.substr(0,4) + jumpAmount <<  endl << endl;
     
     jumpAmount = currentAddress.substr(0,4) + jumpAmount;
 
     //rewrite the multpliexer 
+    
     jumpOrIncrementMultiplexer5.setInput1(jumpAmount);
+    //
     
-    
+
+    //immedeate file part
+
     if (debug)
         cout <<"SIGN EXTENDING IMMEDIATE" << endl << endl;
     
@@ -204,7 +214,9 @@ int main (int argc, char *argv[]){
 
     //need to change to store 
         registerOrImmediateMultiplexer2.setInput1(immediate);
-    
+    //
+
+
     
     if (debug)
         cout <<"SETTING THE MEMORY ALU OPERANDS" << endl;
@@ -217,11 +229,11 @@ int main (int argc, char *argv[]){
         cout << "SETTING THE OPERAND2 IN BRANCH AND CURRENT ADDRESS ALU" << endl << endl;
     
         immediate = shiftBranch.shift(immediate);
-     aluAddBranchAndAddress.setOperand2(immediate);
+        alu2.setOperand2(immediate);
     
     
-    aluAddBranchAndAddress.execute();
-    branchOrIncrementMultiplexer4.setInput1(aluAddBranchAndAddress.getOutput());
+        alu2.execute();
+        branchOrIncrementMultiplexer4.setInput1(aluAddBranchAndAddress.getOutput());
 
 
 
@@ -229,12 +241,12 @@ int main (int argc, char *argv[]){
      if (debug)
         cout <<"EXECUTING MEMORY ALU" << endl;
     
-    aluToMemory.execute();
+        alu1.execute();
     
     if (debug)
         cout <<"SETTING BRANCH OR INCREMENTED ADDRESS MULTIPLEXER CONTROL " << endl;
     
-    branchOrIncrementMultiplexer4.setControl(control.isBranch() && alu1.getComparisonResult());
+    //branchOrIncrementMultiplexer4.setControl(control.isBranch() && alu1.getComparisonResult());
     
     if(debug)
         cout <<"SETTING JUMP OR INCREMENTED ADDRESS INPUT0" << endl;
@@ -249,11 +261,13 @@ int main (int argc, char *argv[]){
         cout <<"SETTING DATA MEMORY ADDRESS AND WRITE DATA" << endl;
 
     string temp = aluToMemory.getOutput();
+
+    /*
     memoryUnit.setCurrentAddress(temp);
     temp = registerFile.getReadRegister2();
     memoryUnit.storeWord(temp);
     memoryUnit.saveMemory();
-    
+    */
     
     
     if (debug)
@@ -269,10 +283,11 @@ int main (int argc, char *argv[]){
     registerFile.write();
     programCounter.setAddress(jumpOrIncrementMultiplexer5.getOutput());
     
-    //
-    if(!parse.`( programCounter.getAddress())){
+    /*
+    if(!parse.(weAreDone)( programCounter.getAddress())){
         cout <<"Next Instruction to run: ";parse.getInstruction(programCounter.getAddress()).print();
-    }
+    } make a break part of the while. 
+    */ 
 
     
     
