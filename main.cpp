@@ -12,10 +12,10 @@
 using namespace std;
 
 int main (int argc, char *argv[]){
-	Parser *parser = new Parser();
+	Parser *parser;
 	ProgramCounter *programCounter = new ProgramCounter();
-    Register *registerFile = new Register();
-    DataMemory *memoryUnit = new DataMemory();
+    Register *registerFile;
+    DataMemory *memoryUnit;
     ALU *alu1 = new ALU();//ToMemory
     ALU *alu2 = new ALU();//AddBranchAndAddress
     ALU *alu3 = new ALU();//AddPCand4
@@ -27,7 +27,7 @@ int main (int argc, char *argv[]){
     Multiplexer *memoryOrALUMultiplexer3 = new Multiplexer();
     Multiplexer *branchOrIncrementMultiplexer4 = new Multiplexer();
     Multiplexer *jumpOrIncrementMultiplexer5 = new Multiplexer();
-    SignExtend *signExtend = new SignExtend();
+    SignExtend *signExtend;
     BinaryOperation *BinaryOp = new BinaryOperation();
     
     
@@ -64,14 +64,14 @@ int main (int argc, char *argv[]){
     memoryUnit = new DataMemory(memory_contents_input, debug_mode);
 	
 	//Set up the BinaryOpeations
-	BinaryOP = new BinaryOperation();
+	BinaryOp = new BinaryOperation();
 	
 	//Starts Address for Program Counter
 	programCounter = new ProgramCounter();
 	currentAddress = programCounter->getAddress();
 	
 	//Set up the instruction memory
-	InstructionMemory currentInstruction = new InstructionMemory(program_input);
+	currentInstruction = new InstructionMemory(program_input);
 	
 	
 	
@@ -101,7 +101,7 @@ int main (int argc, char *argv[]){
         
         //out << "Current Instruction: " << parse->getInstruction(programCounter->getAddress())->getStringVersion() << endl;
         out<< "*****CURRENT INSTRUCTIONS*****" <<endl;
-        out << parse->getAllInstructions();
+        //out << parse->getAllInstructions();
         
         if(write_to_file){
             out<< "*****CURRENT REGISTERS*****" <<endl;
@@ -125,13 +125,13 @@ int main (int argc, char *argv[]){
 	 
 	    
 	 //Sets the inputs to increase the program counter   
-        alu3.setOperand1(programCounter.getAddress());
-        alu3.setOperand2("00000000000000000000000000000100");//write 4 
+        alu3->setOperand1(programCounter.getAddress());
+        alu3->setOperand2("00000000000000000000000000000100");//write 4 
 	    
 	 //increases the program counter
-        alu3.execute();
+        alu3->execute();
         
-        alu2.setOperand1(currentAddress);
+        alu2->setOperand1(currentAddress);
     
     
 
@@ -144,7 +144,7 @@ int main (int argc, char *argv[]){
          
 //Runs the control unit and sets control lines
 	   
-	    control->setControls(instruction.substr(0,6);
+	    control->setControls(instruction.substr(0,6));
 				 
 //calculate the next address options 
 
@@ -162,7 +162,7 @@ int main (int argc, char *argv[]){
 				 
 //Look to see if it is jump because will avoid all bottom stuff. Do after calculate options
 	
-	if(control->getJump().compare("1")==0{
+	if(control->getJump().compare("1")==0){
     //maybe not right 
     string jumpAmount = instruction.substr(6,26)
 
@@ -288,12 +288,13 @@ else{
     */	
 	}
 					    
-   } // put everything except Branch and jump 					    
+   } 
+// put everything except Branch and jump 					    
     
-    string temp = registerFile.getReadRegister2();
+    string temp = registerFile->getReadRegister2();
 
     //need to change to store 
-    registerOrImmediateMultiplexer2.setInput0(temp);
+    registerOrImmediateMultiplexer2->setInput0(temp);
     
     
 //     if (debug)
@@ -303,24 +304,24 @@ else{
 //         registerOrImmediateMultiplexer2.setInput1(immediate);
 //     //
     
-        immediate = shiftBranch.shift(immediate);
-        alu2.setOperand2(immediate);
+        immediate = shiftBranch->shift(immediate);
+        alu2->setOperand2(immediate);
     
     
-        alu2.execute();
-        branchOrIncrementMultiplexer4.setInput1(aluAddBranchAndAddress.getOutput());
+        alu2->execute();
+        branchOrIncrementMultiplexer4->setInput1(aluAddBranchAndAddress.getOutput());
 
 
 
     //excute
     
-        alu1.execute();
+        alu1->execute();
     
     //branchOrIncrementMultiplexer4.setControl(control.isBranch() && alu1.getComparisonResult());
     
 
         //writeback
-    programCounter.setAddress(jumpOrIncrementMultiplexer5.getOutput());
+    programCounter->setAddress(jumpOrIncrementMultiplexer5.getOutput());
     
     /*
     if(!parse.(weAreDone)( programCounter.getAddress())){
@@ -329,15 +330,15 @@ else{
     */
 
         cout<< "*****CURRENT REGISTERS*****" <<endl;
-        registerFile.print();
+        registerFile->print();
         cout << endl;
             
         cout<< "*****CURRENT INSTRUCTIONS*****" <<endl;
-        parse.printAllInstructions();
+        parse->printAllInstructions();
         cout << endl;
             
         cout<< "*****CURRENT DATA MEMORY*****" <<endl;
-         memoryUnit.print();
+         memoryUnit->print();
         
         
         
