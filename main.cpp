@@ -200,9 +200,9 @@ int main (int argc, char *argv[]){
   
   alu2->setOperand1(alu3->getOutput());
   //Execute the ALU with the signextended shift of Imm and PC+4 address
- 
+ signExtend->(currentInstruction->getInstruction().substr(16,16));
   shiftBranch = new ShiftLeft();
-  alu2->setOperand2(shiftBranch->shift(signExtend));
+  alu2->setOperand2(shiftBranch->shift(signExtend.getExtended()));
    alu2->setOperation(1);
    alu2->execute();
    
