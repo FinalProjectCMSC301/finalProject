@@ -11,11 +11,9 @@ class SignExtend
 			//which should technically be 16 bits in length
 			//but I don't think it's necessary to check
 		string getExtended();
-		void setDebug(bool debugChange){debug=debugChange;};
 		
 		private:
 			string actual;
 			string modified;
-			bool debug;
 };
 
