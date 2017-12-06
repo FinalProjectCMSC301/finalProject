@@ -7,6 +7,12 @@
 //#include "Parser.h"
 #include <string>
 #include <vector>
+#include <fstream>
+#include <sstream>
+#include <stdio.h>
+#include <string.h>
+#include <iostream>
+
 using namespace std;
 
 enum Opcode
@@ -35,20 +41,29 @@ class InstructionMemory
 			string funct_field;	//only for R types....right?
 		};
 		//array will hold all information
-		TypicalInstruction myArray[UNDEFINED];
-		vector<string> myInstructions;
-		string getRegisterBinary(string register);
-		string getImmBinary(string imm);
-		void readInstructions(string fileName);
+		TypicalInstruction myArray[UNDEFINED]; //holds definition of all instruction types
+		vector<string> myInstructions; //contains all instructions
+		//string getRegisterBinary(string register); //gets binary conversion of register number
+		string getImmBinary(string imm);//gets binary of immediate/offset field
+		void readInstructions(string fileName); //reads all instructions and puts them in the myInstructions vector
+		string processInstArray(string array[]); //finds the binary equavalent of an entire instruction in .asm
+		Opcode getOpcode(string s); //returns the Opcode, an enum
+		string registerNumToBinary(string s); //gets binary conversion of register number
+		//string getFunctField(string s); //gets 
+		string getImm(string s, Opcode opcode); //gets immediate/offset depending on opcode. and of the proper length
+		string immToBinarySixteen(string s);//used in case when immediate is integer and 16 bits are needed
+		string jumpImmToBinaryTwentySix(string s); //used in case when J(ump) is done. Returns a 26 bit string
+		string twosComplement(string bitString);//gets two's complement			NOT WORKING FOR NOW
 	public:
 		//gets the file name from parser
 		InstructionMemory(string fileName);
 		
-		string get25To0();	//returns a string of binary from 0 to 25th, used for shift left
-		string getOpcode(); //goes in control, OPCODE
-		string getRS();	//read register 1
-		string getRT();	//read register 2, and MUX
-		string getRD();	//MUX, which goes to write register
-		string getImm(); //get immediate field. Goes to sign extend
-		string get5To0(); //used for ALU control
+		string getInstruction(int index);
+		// string get25To0();	//returns a string of binary from 0 to 25th, used for shift left
+		// string getBinaryOpcode(); //goes in control, OPCODE
+		// string getRS();	//read register 1
+		// string getRT();	//read register 2, and MUX
+		// string getRD();	//MUX, which goes to write register
+		// string getImm(); //get immediate field. Goes to sign extend
+		// string get5To0(); //used for ALU control
 };
