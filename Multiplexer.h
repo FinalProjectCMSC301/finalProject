@@ -9,13 +9,14 @@ Output: The value that was chosen
 
 
 #include <string>
+#include <iostream>
 using namespace std;
 
 class Multiplexer{
 
 
 public:
-  Multiplexer();
+  Multiplexer(){};
   string choice1;
   string choice2;
   string choice;
