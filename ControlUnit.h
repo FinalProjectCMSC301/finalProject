@@ -37,6 +37,7 @@ private:
 	string getMemtoReg(){return memtoReg;};
 	string getALUOp1(){return ALUOp1;};
 	string getALUOp0(){return ALUOp0;};
+	string getALUOp(){return ALUOp0+ALUOp1;};
 	string getMemWrite(){return memWrite;};
 	string getALUSrc(){return ALUSrc;};
 	string getRegWrite(){return regWrite;};
