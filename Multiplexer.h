@@ -7,6 +7,9 @@ Output: The value that was chosen
 #ifndef __MULTIPLEXER_H__
 #define __MULTIPLEXER_H__
 
+
+#include <string>;
+
 class Multiplexer{
 
 
