@@ -16,13 +16,11 @@ class Multiplexer{
 
 public:
   Multiplexer();
-  string input1;
-  string input2;
+  string choice1;
+  string choice2;
   string choice;
   string output;
-void useMultiplexer(string input1, string input2, string choice);
-  bool debug = false;
-  void setDebug(bool debugChange){debug=debugChange;};
+void useMultiplexer(string input1, string input2, string muxChoice);
   string getOutput(){return output;};
 
 };
