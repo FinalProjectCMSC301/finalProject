@@ -28,6 +28,7 @@ int main (int argc, char *argv[]){
     Multiplexer *branchOrIncrementMultiplexer4;
     Multiplexer *jumpOrIncrementMultiplexer5;
     SignExtend *signExtend;
+    BinaryOperation *BinaryOp;
     
     
     string currentAddress;
@@ -94,7 +95,7 @@ int main (int argc, char *argv[]){
             out << registerFile->getAllRegisters();
             out << endl;
             out<< "*****CURRENT DATA MEMORY*****" <<endl;
-            out << memoryUnit->getAllPairs();
+            //out << memoryUnit->getAllPairs();
         }
         
         //TODO
@@ -104,7 +105,122 @@ int main (int argc, char *argv[]){
         execute
         memory
         writeback*/
+
+        //fetch 
+        //currentInstruction TODO
+        alu3.setOperand1(programCounter.getAddress());
+        alu3.setOperand2("00000000000000000000000000000100");
+        alu3.execute();
+        currentAddress = alu3.getOutput();
+
+        if (debug)
+            cout << "address for instruction: " << BinaryOp.getHexFromBin(currentAddress) << endl << endl;
+    
+        if (debug)
+            cout << "SETTING THE OPERAND1 IN BRANCH AND CURRENT ADDRESS ALU" << endl << endl;
+    
+        alu2.setOperand1(currentAddress);
+    
+    
+        if (debug)
+            cout << "SETTING THE MULTIPLEXER FOR BRANCH VS CURRENT ADDRESS" << endl << endl;
+            
+            // write multplexer to store 
+            branchOrIncrementMultiplexer4.setInput0(currentAddress);
+    
+       /*
+        opcode = currentInstruction.getOpcode();
+        rs = currentInstruction.getRs();
+        rt = currentInstruction.getRt();
+        rd = currentInstruction.getRd();
+        immediate = currentInstruction.getImmediate();
+        jumpAmount = currentInstruction.getJumpAmount();
+        */
+
+         control.sendSignals(opcode);
+
+    
+        if (debug)
+            cout << "ADJUSTING READ REGISTERS" << endl << endl;
         
+        //where to put rs and rt rewrite the code 
+        registerFile.setReadRegister1(rs);
+        registerFile.setReadRegister2(rt);
+    
+    
+    
+    if (debug)
+        cout <<"ADJUSTING REGISTER MULTIPLEXER INPUTS" << endl << endl;
+        registerMultiplexer1.setInput0(rt);
+        registerMultiplexer1.setInput1(rd);
+    
+    
+    if (debug)
+        cout <<"SETTING WRITE REGISTER" << endl << endl;
+    
+    registerFile.setWriteIndex(registerMultiplexer.getOutput());
+    
+    
+    control.sendSignals(opcode);
+    
+    if (debug)
+        cout << endl;
+    
+    
+    jumpAmount = shiftJump.shift(jumpAmount);
+    
+    if (debug)
+        cout << endl;
+    
+    if (debug)
+        cout << "merging: first four bits of current address: " <<currentAddress.substr(0,4) << "  with shifted jump 28 bits: " <<jumpAmount<< " new current address: " << currentAddress.substr(0,4) + jumpAmount <<  endl << endl;
+    
+    jumpAmount = currentAddress.substr(0,4) + jumpAmount;
+    jumpOrIncrementMultiplexer.setInput1(jumpAmount);
+    
+    
+    if (debug)
+        cout <<"SIGN EXTENDING IMMEDIATE" << endl << endl;
+    
+    immediate = signExtend.extend(immediate);
+    
+    
+    if (debug)
+        cout <<"ADJUSTING ALU SOURCE MULTIPLEXER INPUT0" << endl << endl;
+    
+    string temp = registerFile.getReadRegister2();
+    registerOrImmediateMultiplexer.setInput0(temp);
+    
+    
+    if (debug)
+        cout <<"ADJUSTING ALU SOURCE MULTIPLEXER INPUT1" << endl << endl;
+    registerOrImmediateMultiplexer.setInput1(immediate);
+    
+    
+    if (debug)
+        cout <<"SETTING THE MEMORY ALU OPERANDS" << endl;
+    
+    aluToMemory.setOperand1(registerFile.getReadRegister1());
+    aluToMemory.setOperand2(registerOrImmediateMultiplexer.getOutput());
+    
+    
+    if (debug)
+        cout << "SETTING THE OPERAND2 IN BRANCH AND CURRENT ADDRESS ALU" << endl << endl;
+    
+    immediate = shiftBranch.shift(immediate);
+    aluAddBranchAndAddress.setOperand2(immediate);
+    
+    
+    aluAddBranchAndAddress.execute();
+    branchOrIncrementMultiplexer.setInput1(aluAddBranchAndAddress.getOutput());
+    
+
+        
+
+
+
+
+
         cout<< "*****CURRENT REGISTERS*****" <<endl;
         registerFile.print();
         cout << endl;

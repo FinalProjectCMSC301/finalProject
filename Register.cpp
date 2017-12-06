@@ -57,7 +57,7 @@ Register::Register(string file, bool debug_mode)
 			arrayCounter++;
 		
 			if(debug){
-				cout<< "****JUST ENTERED INTO REGISTER ARRAY***** << "\n" << "Register Number: " << arrayCounter << " Data: " << registerArray[arrayCounter] << "\n";
+				cout<< "****JUST ENTERED INTO REGISTER ARRAY***** << "\n" << "Register Number: " << arrayCounter << " Data: " << registerArray[arrayCounter] << "\n"";
 			}
 		}
 	}

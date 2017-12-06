@@ -9,6 +9,9 @@ class Register
 		bool writeBoolean = 0;
 		bool readBoolean = 0;
 		bool debug = 0;
+		//read1 and read2 for temp string 
+		string readRegister1;
+		string readRegister2;
 		
 	public:
 		//This takes the file name which contains the memory input and loads every address:value
@@ -33,4 +36,13 @@ class Register
 		
 		//this is to print debug info
 		void setDebug(bool debugBool);
+
+    
+		void setReadRegister1(string registerNumber);
+    
+		void setReadRegister2(string registerNumber);
+
+		string getReadRegister1();
+		
+		string getReadRegister2();
 };
