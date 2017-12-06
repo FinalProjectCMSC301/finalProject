@@ -15,7 +15,7 @@ class ControlUnit{
 public:
 	ControlUnit();
 	void setControls (string bitString);
-private:
+
 	string regDst;
 	string jump;
 	string branch;
@@ -47,8 +47,8 @@ private:
 	string setBranch(string b){ branch = b;};
 	string setMemRead(string mem){ memRead = mem;};
 	string setMemtoReg(string mem){ memtoReg = mem;};
-	string setALUOp1(string alu){ ALUOp1 = alu;};
-	string setALUOp0(string alu){ ALUOp0 = alu;};
+	string setAluOp1(string alu){ ALUOp1 = alu;};
+	string setAluOp0(string alu){ ALUOp0 = alu;};
 	string setMemWrite(string mem){ memWrite = mem;};
 	string setALUSrc(string alu){ ALUSrc = alu;};
 	string setRegWrite(string reg){ regWrite = reg;};
