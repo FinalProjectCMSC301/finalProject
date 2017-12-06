@@ -3,11 +3,13 @@
 #include "DataMemory.h"
 #include <fstream>
 
+using namespace std;
+
 //should get file from parser
 DataMemory::DataMemory(string file, bool debug)
 {
 	setDebug(debug);
-	memoryContent = map<string, string>(); //initialize
+	// memoryContent = map<string, string>(); //initialize
 	
 	fstream in;
 	in.open(file.c_str());
@@ -19,21 +21,26 @@ DataMemory::DataMemory(string file, bool debug)
 	
 	else
 	{
-		if(debug){
+		if(debug)
+		{
 			cout << "****ADDING THE MEMORY****" << "\n";
+		}
 		string line;
 		while(getline(in, line))
 		{
 			//read line then put space in place of :
-			std::replace(line.begin(), line.end(), ':', ' ');
-			
+			if(debug)
+			{
+				cout << "Line being read: " << line << endl;
+			}
+			//line.replace(line.begin(), line.end(), ':', ' ');
 			//1 for address, another for value
 			string array[2];
 			
 			int valueCheck = 0;
-			for(int i = 0; i < line.length(), i++)
+			for(int i = 0; i < line.length(); i++)
 			{
-				if(line[i] == ' ')
+				if(line[i] == ':')
 				{
 					valueCheck++;
 				}
@@ -42,26 +49,33 @@ DataMemory::DataMemory(string file, bool debug)
 					array[valueCheck] = array[valueCheck] + line[i];
 				}
 			}
-			
+			if(debug)
+			{
+				cout << "array[0] " << array[0];
+				cout << " array[1] " << array[1] << endl;
+			}
 			//now the array[0] has adresses, and array[1] has values
 			//next step would be to normalize: check and add 0x
 			if(array[0].substr(0, 2) != "0x")
 			{
 				array[0] = "0x" + array[0];
+				
 			}
 			if(array[1].substr(0, 2) != "0x")
 			{
 				array[1] = "0x" + array[1];
+				
 			}
-			
 			//now add these values to the map
 			memoryContent[array[0]] = array[1];
-			if(debug){
-				cout << "Added memory content: " << array[0] << " Data: " << memoryContent[array[0]] << "\n";
+			if(debug)
+			{
+				cout << "Added memory address: " << array[0] << " Data: " << memoryContent[array[0]] << "\n";
 			}
 		}
 	}
 }
+
 
 void DataMemory::writeToMemory(string address, string value)
 {
@@ -105,8 +119,8 @@ void DataMemory::setDebug(bool debugBool)
 
 void DataMemory::print()
 {
-	if(debug)
+	for(map<string, string>::iterator it = memoryContent.begin(); it != memoryContent.end(); ++it)
 	{
-		//not the hard part
+		cout << it->first << ":" << it->second << endl;
 	}
 }

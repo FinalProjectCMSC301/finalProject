@@ -2,8 +2,15 @@
 //The possible things that can be done from memory:
 //Read an address,or write an address.
 
-#include "Parser.h"
+//#include "Parser.h"
+#include <stdio.h>
+#include <string.h>
+#include <iostream>
+#include <string>
+#include <sstream>
 #include <map>
+
+using namespace std;
 
 class DataMemory
 {
