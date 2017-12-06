@@ -13,6 +13,7 @@ class Register
 		//read1 and read2 for temp string 
 		string readRegister1;
 		string readRegister2;
+		string writeRegister;
 		BinaryOperation BinOP;
 		
 	public:
@@ -43,6 +44,10 @@ class Register
 		void setReadRegister1(string registerNumber);
     
 		void setReadRegister2(string registerNumber);
+	
+		void setWriteRegister(string registerNumber){writeRegister=registerNumber;};
+		
+		string getWriteRegister(){return writeRegister;};
 
 		string getReadRegister1();
 		
