@@ -14,7 +14,7 @@ InstructionMemory::InstructionMemory(string fileName)
 	myArray[ADD].instType = RTYPE; 
 	myArray[ADD].op_field = "000000"; 
 	myArray[ADD].funct_field = "100000";
-
+	
 	myArray[ADDI].name = "addi"; 
 	myArray[ADDI].numOps = 3; 
 	myArray[ADDI].rdPos = -1; 
@@ -98,15 +98,18 @@ void InstructionMemory::readInstructions(string fileName)
 	{
 		cout << "Invalid Register File" << endl;
 	}
-	
 	else
 	{
 		string line;
-		string instArray[5];
+		string instArray[4];
 		int instArrayCounter = 0;
 		while(getline(in, line))
 		{
-			//remember to check for comments	
+			//remember to check for comments
+			if(line[0] == '#')
+			{
+				continue;
+			}
 			char str[100];
 			strcpy(str, line.c_str());
 			char * pch;
@@ -119,44 +122,88 @@ void InstructionMemory::readInstructions(string fileName)
 			instArrayCounter++;
 			pch = strtok (NULL, " $,()\t");
 			}
+			instArrayCounter = 0;
+			if(debug)
+			{
+				cout << "In WHILE" << endl;
+				for(int i = 0; i < 4; i++)
+				{
+					cout << instArray[i] << " ";
+				}
+				cout << endl;
+			}
 			//convert the stuff in instArray and get a binary string.
 			string binary = processInstArray(instArray);
 			//push this string to vector now.
 			myInstructions.push_back(binary);
+			delete pch;
 		}
 	}
 }
 
 string InstructionMemory::processInstArray(string array[])
 {
+	if(debug)
+	{
+		cout << "In processInstArray" << endl;
+		for(int i = 0; i < 4; i++)
+		{
+			cout << array[i] << " ";
+		}
+		cout << endl;
+	}
 	Opcode opcode = getOpcode(array[0]);
 	//now you know what type of thing this is
 	//based on the positions, get the different stuff.
 	//get binary of positions.
 	string rs,rt,rd,imm;
 	string toReturn = "";
+	if(debug)
+	{
+		cout << "Instruction: " << myArray[opcode].name << endl;
+	}
 	if(myArray[opcode].rsPos != -1)
 	{
-		rs = registerNumToBinary(array[myArray[opcode].rsPos]);
+		rs = registerNumToBinary(array[myArray[opcode].rsPos + 1]);
+		if(debug)
+		{
+			cout << "rs: " << rs << endl;
+		}
 	}
 	if(myArray[opcode].rtPos != -1)
 	{
-		rt = registerNumToBinary(array[myArray[opcode].rtPos]);
+		rt = registerNumToBinary(array[myArray[opcode].rtPos + 1]);
+		if(debug)
+		{
+			cout << "rt: " << rt << endl;
+		}
 	}
 	if(myArray[opcode].rdPos != -1)
 	{
-		rd = registerNumToBinary(array[myArray[opcode].rdPos]);
+		rd = registerNumToBinary(array[myArray[opcode].rdPos + 1]);
+		if(debug)
+		{
+			cout << "rd: " << rd << endl;
+		}
 	}
 	if(myArray[opcode].immPos != -1)
 	{
-		imm = getImm(array[myArray[opcode].immPos], opcode);
+		imm = getImm(array[myArray[opcode].immPos + 1], opcode);
+		if(debug)
+		{
+			cout << "imm: " << imm << endl;
+		}
 	}
 	string functField = myArray[opcode].funct_field;
 	//now the stuff is ready. All the register binaries have been computed, same for immediate.
 	//put it all together
 	toReturn.append(myArray[opcode].op_field);
-	if(opcode == ADD || opcode == SUB || opcode == SLT)
+	if(myArray[opcode].name == "add" || myArray[opcode].name == "sub" || myArray[opcode].name == "slt")
 	{
+		if(debug)
+		{
+			cout << "here, RTYPE" << endl;
+		}
 		toReturn.append(rs);
 		toReturn.append(rt);
 		toReturn.append(rd);
@@ -164,8 +211,12 @@ string InstructionMemory::processInstArray(string array[])
 		toReturn.append(functField);
 		return toReturn;
 	}
-	if(opcode == BEQ || opcode == LW || opcode == SW || opcode == ADDI)
+	if(myArray[opcode].name == "beq" || myArray[opcode].name == "lw" || myArray[opcode].name == "sw" || myArray[opcode].name == "addi")
 	{
+		if(debug)
+		{
+			cout << "here, ITYPE" << endl;
+		}
 		toReturn.append(rs);
 		toReturn.append(rt);
 		toReturn.append(imm);
@@ -173,6 +224,10 @@ string InstructionMemory::processInstArray(string array[])
 	}
 	else
 	{
+		if(debug)
+		{
+			cout << "here, JTYPE" << endl;
+		}
 		toReturn.append(imm);
 		return toReturn;
 	}
@@ -223,7 +278,7 @@ string InstructionMemory::getImm(string s, Opcode opcode) //s can be a number or
 	//addi: 16, LW: 16, SW: 16
 	//cases with hex: BEQ, J
 	//BEQ: 16, J: 26
-	if(opcode == ADD || opcode == LW || opcode == SW)
+	if(opcode == ADDI || opcode == LW || opcode == SW)
 	{
 		return immToBinarySixteen(s);
 	}
@@ -299,66 +354,71 @@ string InstructionMemory::immToBinarySixteen(string s)
 	{
       toReturn.insert(0, "0");
     }
-	if(negative = 1)
-	{
-		//compute two's complement>.........DOOOOOOO THISSSS!!!!
-		return twosComplement(toReturn);
-	}
+	// if(negative = 1)
+	// {
+		// //compute two's complement>.........DOOOOOOO THISSSS!!!!
+		// return twosComplement(toReturn);
+	// }
     return toReturn;
 }
 
-string InstructionMemory::twosComplement(string bitString)
-{
+// string InstructionMemory::twosComplement(string bitString)
+// {
 	
-	int bitArray[16];
+	// int bitArray[16];
 
-	for(int x = 0; x <= 15; x++)
-	{
-		bitArray[x] = bitString.substr(x, 1);
-	} 
+	// for(int x = 0; x <= 15; x++)
+	// {
+		// bitArray[x] = bitString.substr(x, 1);
+	// } 
 
-	for(int y = 0; y <= 15; y++)
-	{
+	// for(int y = 0; y <= 15; y++)
+	// {
 
-		if(bitArray[y] == 1)
-		{
-			bitArray[y] = 0;
-		}
+		// if(bitArray[y] == 1)
+		// {
+			// bitArray[y] = 0;
+		// }
 
-		else
-		{
-			bitArray[y] = 1;
-		}
+		// else
+		// {
+			// bitArray[y] = 1;
+		// }
 
-	}
+	// }
 
-	bitArray[15] = bitArray[15] + 1;
+	// bitArray[15] = bitArray[15] + 1;
 
-	for(int z = 14; z > 0; z--)
-	{
-		if(bitArray[z] == 2)
-		{
-			bitArray[z + 1] = 0;
-			bitArray[z] = bitArray[z] + 1;
-		}
-	}
+	// for(int z = 14; z > 0; z--)
+	// {
+		// if(bitArray[z] == 2)
+		// {
+			// bitArray[z + 1] = 0;
+			// bitArray[z] = bitArray[z] + 1;
+		// }
+	// }
 
-	if(bitArray[0] == 2)
-	{
-		return "OVERFLOW FOR TWO'S COMPLEMENT";
-	}
-	else
-	{
-		sstream ss;
-		for(int w = 0; w <= 15; w++)
-		{
-			ss << bitArray[w];
-		}
-		return ss.str();
-	}
-}
+	// if(bitArray[0] == 2)
+	// {
+		// return "OVERFLOW FOR TWO'S COMPLEMENT";
+	// }
+	// else
+	// {
+		// stringstream ss;
+		// for(int w = 0; w <= 15; w++)
+		// {
+			// ss << bitArray[w];
+		// }
+		// return ss.str();
+	// }
+// }
 
 string InstructionMemory::getInstruction(int index)
 {
 	return myInstructions.at(index);
+}
+
+void InstructionMemory::setDebug(int num)
+{
+	debug = num;
 }
