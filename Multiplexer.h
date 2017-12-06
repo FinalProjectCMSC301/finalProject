@@ -16,7 +16,7 @@ public:
   string input2;
   int choice;
   string output;
-void useMultiplexer(string input1, string input2, int choice);
+void useMultiplexer(string input1, string input2, string choice);
   bool debug = false;
   void setDebug(bool debugChange){debug=debugChange;};
   string getOutput(){return output;};
