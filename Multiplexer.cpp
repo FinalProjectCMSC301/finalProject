@@ -7,7 +7,7 @@ Multiplexer::Mutiplexer(){
 	choice2="";
 }
 
-string Multiplexer::useMultiplexer(string input1, string input2, int muxChoice){
+void Multiplexer::useMultiplexer(string input1, string input2, int muxChoice){
 	if (debug){
 		cout << "*** MULTIPLEXER STRING/STRING***" << "\n" << "String1: " << input1 << " String2: " << input2 << "Choice: " << choice << "\n";
 	}
@@ -19,11 +19,11 @@ string Multiplexer::useMultiplexer(string input1, string input2, int muxChoice){
 	choice=muxChoice;
 	if(choice==0){
 		cout << "Output: " << choice1;
-		return choice1;
+		output = choice1;
 	}
 	else{
 		cout << "Output: " << choice2;
-		return choice2;
+		output = choice2;
 	}
 
 }
