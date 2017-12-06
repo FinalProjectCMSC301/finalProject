@@ -53,7 +53,7 @@ void ControlUnit::setControls(string bitString){
 	setBranch("0");
 	setJump("0");
 	setALUOp0("0");
-	setAluOp1("0");
+	setALUOp1("0");
 
 	}
 
@@ -70,7 +70,7 @@ void ControlUnit::setControls(string bitString){
 		setBranch("0");
 		setJump("0");
 		setALUOp0("0");
-		setAluOp1("0");
+		setALUOp1("0");
 
 
 }
@@ -88,7 +88,7 @@ void ControlUnit::setControls(string bitString){
 	setBranch("1");
 	setJump("0");
 	setALUOp0("1");
-	setAluOp1("0");
+	setALUOp1("0");
 
 }
 
@@ -105,7 +105,7 @@ void ControlUnit::setControls(string bitString){
 	setBranch("0");
 	setJump("1");
 	setALUOp0("x");
-	setAluOp1("x");
+	setALUOp1("x");
 }
 	//ADDI
 	else if (bitString.compare("001000")==0){
@@ -120,7 +120,7 @@ void ControlUnit::setControls(string bitString){
 		setBranch("0");
 		setJump("0");
 		setALUOp0("0");
-		setAluOp1("1");
+		setALUOp1("1");
 
 }
 	else if (bitString.compare("101010")==0){
@@ -135,7 +135,7 @@ void ControlUnit::setControls(string bitString){
 		setBranch("0");
 		setJump("0");
 		setALUOp0("1");
-		setAluOp1("1");
+		setALUOp1("1");
 
 }
 	printValues();
