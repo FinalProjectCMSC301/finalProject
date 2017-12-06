@@ -21,8 +21,6 @@ void ControlUnit::setControls(string bitString){
 		setJump("0");
 		setALUOp0("1");
 		setALUOp1("0");
-		
-	
 	}
 
 	//LW
@@ -105,7 +103,7 @@ void ControlUnit::setControls(string bitString){
 
 	}
 	
-	}
+	
 	else{
 		cout << "failed to find match" << endl;
 	}
