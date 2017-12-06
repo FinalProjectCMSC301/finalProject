@@ -8,7 +8,7 @@ Output: The value that was chosen
 #define __MULTIPLEXER_H__
 
 
-#include <string>;
+#include <string>
 using namespace std;
 
 class Multiplexer{
