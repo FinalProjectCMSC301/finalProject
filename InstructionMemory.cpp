@@ -113,7 +113,7 @@ void InstructionMemory::readInstructions(string fileName)
 			char str[100];
 			strcpy(str, line.c_str());
 			char * pch;
-			pch = strtok (str," $,()\t");
+			pch = strtok (str," $,()\t#");
 			while (pch != NULL)
 			{
 			std::string strg(pch);
