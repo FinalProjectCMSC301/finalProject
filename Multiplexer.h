@@ -15,9 +15,11 @@ public:
   string input1;
   string input2;
   int choice;
+  string output;
 string useMultiplexer(string input1, string input2, int choice);
   bool debug = false;
   void setDebug(bool debugChange){debug=debugChange;};
+  string getOutput(){return output;};
 
 };
 #endif
