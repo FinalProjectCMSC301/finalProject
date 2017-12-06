@@ -87,6 +87,7 @@ InstructionMemory::InstructionMemory(string fileName)
 	
 	readInstructions(fileName);
 	//assume that vector<string> myInstructions has all instructions now
+	createMyInstructionsWithPC();
 }
 
 void InstructionMemory::readInstructions(string fileName)
@@ -421,4 +422,37 @@ string InstructionMemory::getInstruction(int index)
 void InstructionMemory::setDebug(int num)
 {
 	debug = num;
+}
+
+void InstructionMemory::createMyInstructionsWithPC()
+{
+	int startInt = 4194304;
+	int arrayInt[myInstructions.size()];
+	for(int i = 0; i < myInstructions.size(); i++)
+	{
+		arrayInt[i] = startInt;
+		startInt = startInt + 4;
+	}
+	
+	for(int i = 0; i < myInstructions.size(); i++)
+	{
+		stringstream stream;
+		stream << hex << arrayInt[i];
+		string result = stream.str();
+		if(result.size() < 8)
+		{
+			int remain = 8 - result.size();
+			for(int j = 0; j < remain; j++)
+			{
+				result.insert(0, "0");
+			}
+		}
+		result.insert(0, "0x");
+		myInstructionsWithPC[result] = myInstructions[i];
+	}
+}
+
+string InstructionMemory::getInstructionPC(string hexAddress)
+{
+	return myInstructionsWithPC[hexAddress];
 }

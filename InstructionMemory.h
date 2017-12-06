@@ -11,7 +11,7 @@
 #include <sstream>
 #include <stdio.h>
 #include <string.h>
-#include <iostream>
+#include <map>
 
 using namespace std;
 
@@ -40,6 +40,7 @@ class InstructionMemory
 			string op_field;	//definitely handy
 			string funct_field;	//only for R types....right?
 		};
+		map<string, string> myInstructionsWithPC; //holds instructions in <PC, instruction> pair
 		bool debug = 0;
 		//array will hold all information
 		TypicalInstruction myArray[UNDEFINED]; //holds definition of all instruction types
@@ -54,12 +55,14 @@ class InstructionMemory
 		string getImm(string s, Opcode opcode); //gets immediate/offset depending on opcode. and of the proper length
 		string immToBinarySixteen(string s);//used in case when immediate is integer and 16 bits are needed
 		string jumpImmToBinaryTwentySix(string s); //used in case when J(ump) is done. Returns a 26 bit string
+		void createMyInstructionsWithPC(); //creates the myInstructions array
 		//string twosComplement(string bitString);//gets two's complement			NOT WORKING FOR NOW
 	public:
 		//gets the file name from parser
 		InstructionMemory(string fileName);
 		void setDebug(int num);
 		string getInstruction(int index);
+		string getInstructionPC(string hexAddress);//returns 32 bit binary instruction based on a 32 bit hex address. 0x00400000
 		// string get25To0();	//returns a string of binary from 0 to 25th, used for shift left
 		// string getBinaryOpcode(); //goes in control, OPCODE
 		// string getRS();	//read register 1
