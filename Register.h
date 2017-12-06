@@ -1,6 +1,7 @@
 //This is for Registers
 
 #include "Parser.h"
+#include "BinaryOperation.h"
 
 class Register
 {
@@ -12,6 +13,7 @@ class Register
 		//read1 and read2 for temp string 
 		string readRegister1;
 		string readRegister2;
+		BinaryOperation BinOP;
 		
 	public:
 		//This takes the file name which contains the memory input and loads every address:value
@@ -45,4 +47,7 @@ class Register
 		string getReadRegister1();
 		
 		string getReadRegister2();
+		string getHexFromBin(string sBinary);
+		int hexToInt(string hexString);
+		string intToHex(int integer);
 };

@@ -77,7 +77,7 @@ string Register::read(int register)
 	{
 		return registerArray[register];
 	}
-	return //IDK!!!!
+	return o;//IDK!!!!
 }
 
 void Register::setWrite(bool writeBool)
@@ -102,3 +102,96 @@ void Register::print()
 		//not the hard part
 	}
 }
+
+void Registers::setReadRegister1(string registerNumber){
+    
+    //if (debug) cout << "setReadRegister1 INPUT: " << "register: " << hexToInt(getHexFromBin(registerNumber)) << endl;
+    readRegister1 = registerNumber;
+}
+
+
+void Registers::setReadRegister2(string registerNumber){
+    
+    //if (debug) cout << "setReadRegister2 INPUT: " << "index: " << hexToInt(getHexFromBin(registerNumber)) << endl;
+    readRegister2 = registerNumber;
+}
+
+
+string Registers::getReadRegister1(){
+    int temp;
+    if(readRegister1 != ""){
+        temp = hexToInt(getHexFromBin(readRegister1));
+    }else{
+        temp = 0;
+    }
+    
+    if (debug) cout << "getReadRegister1 INPUT: " << "index: " << hexToInt(getHexFromBin(readRegister1)) << endl;
+
+    
+    string result = registerMap[searchInt];
+    
+    if (debug) cout << "getReadRegister1 OUTPUT: " <<  getHexFromBin(result) << endl;
+
+    
+    return result;
+}
+
+string Registers::getReadRegister2(){
+    int searchInt;
+    if(readRegister2 != ""){
+        searchInt = hexToInt(getHexFromBin(readRegister2));
+    }else{
+        searchInt = 0;
+    }
+    
+    if (debug) cout << "getReadRegister2 INPUT: " << "register: " << hexToInt(getHexFromBin(readRegister2)) << endl;
+
+    
+
+    string result = registerMap[searchInt];
+    
+    if (debug) cout << "getReadRegister2 OUTPUT: " <<  getHexFromBin(result) << endl;
+
+    
+    return result;
+}
+
+
+string Registers::getHexFromBin(string sBinary)
+{
+    if(sBinary != ""){
+        std::stringstream ss;
+        ss << std::hex << std::stoll(sBinary, NULL, 2);
+        //std::cout <<"hex test " << ss.str() << std::endl;
+        
+        string s =  ss.str();
+        while (s.length() != 8){
+            s = "0" + s;
+        }
+        s = "0x" + s;
+        return s;
+        
+    }
+    return "0x";
+}
+
+//This method intakes a hexadecimal string and returns an integer
+int Registers::hexToInt(string hexString) {
+    unsigned int x;
+    stringstream ss;
+    ss << std::hex << hexString;
+    ss >> x;
+    return x;
+}
+
+//This method intakes an integer and returns a hexadecimal string
+string Registers::intToHex(int integer)
+{
+    char output[100];
+    sprintf(output, "%08x", integer);
+    string result = output;
+    result = "0x" + result;
+    return result;
+}
+
+

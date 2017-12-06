@@ -14,11 +14,11 @@ bits. The method returns the modifed 28-bit binary string.
 string ShiftLeft::shift(string input)
 {
         if(debug){
-                cout << "***SHIFTING LEFT*** << endl;
+                cout << "***SHIFTING LEFT*** "<< endl;
         }
         string printed = "00" + input;
 
-        cout << "ShiftLeft INPUT: " << binaryOperation.getHexFromBin(printed) << endl;
+        cout << "ShiftLeft INPUT:"  << binaryOperation.getHexFromBin(printed) << endl;
     
     // Puts 00 at the end to shift the input left by 2 bits
     if(input.length() == 32){
