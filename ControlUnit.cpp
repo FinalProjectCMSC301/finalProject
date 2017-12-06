@@ -76,6 +76,7 @@ void ControlUnit::setControls(string bitString){
 	else if (bitString.compare("000100")==0){
 		cout<< "In the branch" << endl;
 	setRegDST("x");
+		cout<< "Here" << endl;
 	setALUSrc("0");
 	setMemtoReg("x");
 	setRegWrite("0");
