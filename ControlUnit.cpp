@@ -8,24 +8,8 @@ ControlUnit::ControlUnit(){
 
 void ControlUnit::setControls(string bitString){
 	
-	//ADD
- 	if (bitString.compare("100000")==0){
-		cout << "Input: " << bitString << "\n";
-      		  setRegDST("1");
-	 	  setALUSrc("0");
-		setMemtoReg("0");
-		setRegWrite("1");
-		setMemRead("0");
-		setMemWrite("0");
-		setBranch("0");
-		setJump("0");
-		setALUOp0("0");
-		setALUOp1("1");
-		
-	}
-	
-	//SUB
- 	else if (bitString.compare("100011")==0){
+	//ADD and SUB
+ 	if (bitString.compare("000000")==0){
 		cout << "Input: " << bitString << "\n";
       		  setRegDST("1");
 	 	  setALUSrc("0");
@@ -37,6 +21,8 @@ void ControlUnit::setControls(string bitString){
 		setJump("0");
 		setALUOp0("1");
 		setALUOp1("0");
+		
+	
 	}
 
 	//LW
@@ -84,7 +70,7 @@ void ControlUnit::setControls(string bitString){
 	setMemWrite("0");
 	setBranch("1");
 	setJump("0");
-	setALUOp0("1");
+	setALUOp0("0");
 	setALUOp1("0");
 
 	}
@@ -118,19 +104,7 @@ void ControlUnit::setControls(string bitString){
 		setALUOp1("1");
 
 	}
-	else if (bitString.compare("101010")==0){
-	cout << "Input: " << bitString << "\n";
-		setRegDST("1");
-		setALUSrc("0");
-		setMemtoReg("0");
-		setRegWrite("1");
-		setMemRead("0");
-		setMemWrite("0");
-		setBranch("0");
-		setJump("0");
-		setALUOp0("1");
-		setALUOp1("1");
-
+	
 	}
 	else{
 		cout << "failed to find match" << endl;
