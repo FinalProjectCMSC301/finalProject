@@ -117,10 +117,15 @@ void DataMemory::setDebug(bool debugBool)
 	debug = debugBool;
 }
 
-void DataMemory::print()
+string DataMemory::print()
 {
+	string s("");
 	for(map<string, string>::iterator it = memoryContent.begin(); it != memoryContent.end(); ++it)
 	{
-		cout << it->first << ":" << it->second << endl;
+		s.append(it->first);
+		s.append(":");
+		s.append(it->second);
+		s.append("\n");
 	}
+	return s;
 }

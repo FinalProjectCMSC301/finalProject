@@ -39,7 +39,7 @@ class DataMemory
 		string read(string address);
 		
 		//prints all memory
-		void print();
+		string print();
 		
 		//this is to print debug info
 		void setDebug(bool debugBool);
