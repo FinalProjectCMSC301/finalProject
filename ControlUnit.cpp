@@ -74,6 +74,7 @@ void ControlUnit::setControls(string bitString){
 
 	//BEQ
 	else if (bitString.compare("000100")==0){
+		cout<< "In the branch" << endl;
 	setRegDST("x");
 	setALUSrc("0");
 	setMemtoReg("x");
@@ -129,6 +130,9 @@ void ControlUnit::setControls(string bitString){
 		setALUOp0("1");
 		setALUOp1("1");
 
+	}
+	else{
+		cout << "failed to find match" << endl;
 	}
 	
 
