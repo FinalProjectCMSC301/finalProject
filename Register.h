@@ -1,7 +1,11 @@
 //This is for Registers
 
-#include "Parser.h"
-#include "BinaryOperation.h"
+//#include "Parser.h"
+//#include "BinaryOperation.h"
+#include <string>
+#include <iostream>
+
+using namespace std;
 
 class Register
 {
@@ -11,10 +15,10 @@ class Register
 		bool readBoolean = 0;
 		bool debug = 0;
 		//read1 and read2 for temp string 
-		string readRegister1;
-		string readRegister2;
-		string writeRegister;
-		BinaryOperation BinOP;
+		// string readRegister1;
+		// string readRegister2;
+		// string writeRegister;
+		// BinaryOperation BinOP;
 		
 	public:
 		//This takes the file name which contains the memory input and loads every address:value
@@ -23,7 +27,7 @@ class Register
 		//add $t1, $t1, $t2
 		//writes to a particular register
 		//register is int, value is HEX with 0x
-		void writeToRegister(int register, string value);
+		void writeToRegister(int regNum, string value);
 		
 		//control signal that tells if register CAN be overwritten
 		void setWrite(bool writeBool);
@@ -35,24 +39,26 @@ class Register
 		string read(int register);
 		
 		//prints all registers
-		void print();
+		string print();
 		
 		//this is to print debug info
 		void setDebug(bool debugBool);
-
+		
+		//takes 5 bits in string form and converts to int (num) of register.
+		int getRegFromBinary(string fiveBits);
     
-		void setReadRegister1(string registerNumber);
+		// void setReadRegister1(string registerNumber);
     
-		void setReadRegister2(string registerNumber);
+		// void setReadRegister2(string registerNumber);
 	
-		void setWriteRegister(string registerNumber){writeRegister=registerNumber;};
+		// void setWriteRegister(string registerNumber){writeRegister=registerNumber;};
 		
-		string getWriteRegister(){return writeRegister;};
+		// string getWriteRegister(){return writeRegister;};
 
-		string getReadRegister1();
+		// string getReadRegister1();
 		
-		string getReadRegister2();
-		string getHexFromBin(string sBinary);
-		int hexToInt(string hexString);
-		string intToHex(int integer);
+		// string getReadRegister2();
+		// string getHexFromBin(string sBinary);
+		// int hexToInt(string hexString);
+		// string intToHex(int integer);
 };

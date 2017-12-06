@@ -3,12 +3,15 @@
 #include "Register.h"
 #include <fstream>
 
+using namespace std;
+
 //file from parser
 Register::Register(string file, bool debug_mode)
 {
 	setDebug(debug_mode);
 	
-	if(debug){
+	if(debug)
+	{
 		cout<< "****ENTERING THE DATA INTO THE REGISTERS*****";
 	}
 	//array was initialized in .h file
@@ -28,22 +31,22 @@ Register::Register(string file, bool debug_mode)
 		while(getline(in, line))
 		{
 			//read line then put space in place of :
-			std::replace(line.begin(), line.end(), ':', ' ');
+			//line.replace(line.begin(), line.end(), ':', ' ');
 			
 			//1 for address, another for value
 			
 			int check = 0;
-			for(int i = 0; i < line.length(), i++)
+			for(int i = 0; i < line.length(); i++)
 			{
-				if(line[i] == ' ')
-				{
-					check++;
-				}
 				if(check == 1)
 				{
 					//meaning you have passed the register number
 					//time to get value
 					registerArray[arrayCounter] = registerArray[arrayCounter] + line[i];
+				}
+				if(line[i] == ':')
+				{
+					check++;
 				}
 			}
 			
@@ -54,30 +57,34 @@ Register::Register(string file, bool debug_mode)
 				registerArray[arrayCounter] = "0x" + registerArray[arrayCounter];
 			}
 			//line has been completely processed. increment counter
+			if(debug)
+			{
+				cout<< "****JUST ENTERED INTO REGISTER ARRAY*****" << "\n" << "Register Number: " << arrayCounter << " Data: " << registerArray[arrayCounter] << "\n";
+			}
 			arrayCounter++;
 		
-			if(debug){
-				cout<< "****JUST ENTERED INTO REGISTER ARRAY***** << "\n" << "Register Number: " << arrayCounter << " Data: " << registerArray[arrayCounter] << "\n"";
-			}
 		}
 	}
 }
 
-void Register::writeToRegister(int register, string value)
+void Register::writeToRegister(int regNum, string value)
 {
-	if(writeBoolean && register >= 0 && register <= 31)
+	if(writeBoolean)
 	{
-		registerArray[address] = value;
+		if(regNum >= 0 && regNum <= 31)
+		{
+			registerArray[regNum] = value;
+		}
 	}
 }
 
-string Register::read(int register)
+string Register::read(int regNum)
 {
 	if(readBoolean)
 	{
-		return registerArray[register];
+		return registerArray[regNum];
 	}
-	return o;//IDK!!!!
+	return "";//IDK!!!!
 }
 
 void Register::setWrite(bool writeBool)
@@ -95,103 +102,115 @@ void Register::setDebug(bool debugBool)
 	debug = debugBool;
 }
 
-void Register::print()
+string Register::print()
 {
-	if(debug)
+	string toReturn("");
+	for(int i = 0; i < 32; i++)
 	{
-		//not the hard part
+		toReturn.append(to_string(i));
+		toReturn.append(":");
+		toReturn.append(registerArray[i]);
+		toReturn.append("\n");
 	}
+	return toReturn;
 }
 
-void Registers::setReadRegister1(string registerNumber){
-    
-    //if (debug) cout << "setReadRegister1 INPUT: " << "register: " << hexToInt(getHexFromBin(registerNumber)) << endl;
-    readRegister1 = registerNumber;
-}
-
-
-void Registers::setReadRegister2(string registerNumber){
-    
-    //if (debug) cout << "setReadRegister2 INPUT: " << "index: " << hexToInt(getHexFromBin(registerNumber)) << endl;
-    readRegister2 = registerNumber;
-}
-
-
-string Registers::getReadRegister1(){
-    int temp;
-    if(readRegister1 != ""){
-        temp = hexToInt(getHexFromBin(readRegister1));
-    }else{
-        temp = 0;
-    }
-    
-    if (debug) cout << "getReadRegister1 INPUT: " << "index: " << hexToInt(getHexFromBin(readRegister1)) << endl;
-
-    
-    string result = registerMap[searchInt];
-    
-    if (debug) cout << "getReadRegister1 OUTPUT: " <<  getHexFromBin(result) << endl;
-
-    
-    return result;
-}
-
-string Registers::getReadRegister2(){
-    int searchInt;
-    if(readRegister2 != ""){
-        searchInt = hexToInt(getHexFromBin(readRegister2));
-    }else{
-        searchInt = 0;
-    }
-    
-    if (debug) cout << "getReadRegister2 INPUT: " << "register: " << hexToInt(getHexFromBin(readRegister2)) << endl;
-
-    
-
-    string result = registerMap[searchInt];
-    
-    if (debug) cout << "getReadRegister2 OUTPUT: " <<  getHexFromBin(result) << endl;
-
-    
-    return result;
-}
-
-
-string Registers::getHexFromBin(string sBinary)
+int Register::getRegFromBinary(string fiveBits)
 {
-    if(sBinary != ""){
-        std::stringstream ss;
-        ss << std::hex << std::stoll(sBinary, NULL, 2);
-        //std::cout <<"hex test " << ss.str() << std::endl;
+	if(fiveBits.size() == 5)
+	{
+		return stoi(fiveBits, nullptr, 2);
+	}
+	return 0;
+}
+
+// void Register::setReadRegister1(string registerNumber){
+    
+    // //if (debug) cout << "setReadRegister1 INPUT: " << "register: " << hexToInt(getHexFromBin(registerNumber)) << endl;
+    // readRegister1 = registerNumber;
+// }
+
+
+// void Register::setReadRegister2(string registerNumber){
+    
+    // //if (debug) cout << "setReadRegister2 INPUT: " << "index: " << hexToInt(getHexFromBin(registerNumber)) << endl;
+    // readRegister2 = registerNumber;
+// }
+
+
+// string Register::getReadRegister1(){
+    // int temp;
+    // if(readRegister1 != ""){
+        // temp = hexToInt(getHexFromBin(readRegister1));
+    // }else{
+        // temp = 0;
+    // }
+    
+    // if (debug) cout << "getReadRegister1 INPUT: " << "index: " << hexToInt(getHexFromBin(readRegister1)) << endl;
+
+    
+    // string result = registerMap[searchInt];
+    
+    // if (debug) cout << "getReadRegister1 OUTPUT: " <<  getHexFromBin(result) << endl;
+
+    
+    // return result;
+// }
+
+// string Register::getReadRegister2(){
+    // int searchInt;
+    // if(readRegister2 != ""){
+        // searchInt = hexToInt(getHexFromBin(readRegister2));
+    // }else{
+        // searchInt = 0;
+    // }
+    
+    // if (debug) cout << "getReadRegister2 INPUT: " << "register: " << hexToInt(getHexFromBin(readRegister2)) << endl;
+
+    
+
+    // string result = registerMap[searchInt];
+    
+    // if (debug) cout << "getReadRegister2 OUTPUT: " <<  getHexFromBin(result) << endl;
+
+    
+    // return result;
+// }
+
+
+// string Register::getHexFromBin(string sBinary)
+// {
+    // if(sBinary != ""){
+        // std::stringstream ss;
+        // ss << std::hex << std::stoll(sBinary, NULL, 2);
+        // //std::cout <<"hex test " << ss.str() << std::endl;
         
-        string s =  ss.str();
-        while (s.length() != 8){
-            s = "0" + s;
-        }
-        s = "0x" + s;
-        return s;
+        // string s =  ss.str();
+        // while (s.length() != 8){
+            // s = "0" + s;
+        // }
+        // s = "0x" + s;
+        // return s;
         
-    }
-    return "0x";
-}
+    // }
+    // return "0x";
+// }
 
-//This method intakes a hexadecimal string and returns an integer
-int Registers::hexToInt(string hexString) {
-    unsigned int x;
-    stringstream ss;
-    ss << std::hex << hexString;
-    ss >> x;
-    return x;
-}
+// //This method intakes a hexadecimal string and returns an integer
+// int Register::hexToInt(string hexString) {
+    // unsigned int x;
+    // stringstream ss;
+    // ss << std::hex << hexString;
+    // ss >> x;
+    // return x;
+// }
 
-//This method intakes an integer and returns a hexadecimal string
-string Registers::intToHex(int integer)
-{
-    char output[100];
-    sprintf(output, "%08x", integer);
-    string result = output;
-    result = "0x" + result;
-    return result;
-}
-
-
+// //This method intakes an integer and returns a hexadecimal string
+// string Register::intToHex(int integer)
+// {
+    // char output[100];
+    // sprintf(output, "%08x", integer);
+    // string result = output;
+    // result = "0x" + result;
+    // return result;
+// }
