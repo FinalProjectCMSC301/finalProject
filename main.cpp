@@ -12,23 +12,23 @@
 using namespace std;
 
 int main (int argc, char *argv[]){
-	Parser *parser;
-	ProgramCounter *programCounter;
-    Register *registerFile;
-    DataMemory *memoryUnit;
-    ALU *alu1;//ToMemory
-    ALU *alu2;//AddBranchAndAddress
-    ALU *alu3;//AddPCand4
-    ShiftLeft *shiftJump;
-    ShiftLeft *shiftBranch;
-    ControlUnit *control;
+	Parser *parser = new Parser();
+	ProgramCounter *programCounter = new ProgramCounter();
+    Register *registerFile = new Register();
+    DataMemory *memoryUnit = new DataMemory();
+    ALU *alu1 = new ALU();//ToMemory
+    ALU *alu2 = new ALU();//AddBranchAndAddress
+    ALU *alu3 = new ALU();//AddPCand4
+    ShiftLeft *shiftJump = new ShiftLeft();
+    ShiftLeft *shiftBranch = new ShiftLeft();
+    ControlUnit *control = new ControlUnit();
     Multiplexer *registerMultiplexer1 = new Multiplexer();
     Multiplexer *registerOrImmediateMultiplexer2 = new Multiplexer();
     Multiplexer *memoryOrALUMultiplexer3 = new Multiplexer();
     Multiplexer *branchOrIncrementMultiplexer4 = new Multiplexer();
     Multiplexer *jumpOrIncrementMultiplexer5 = new Multiplexer();
-    SignExtend *signExtend;
-    BinaryOperation *BinaryOp;
+    SignExtend *signExtend = new SignExtend();
+    BinaryOperation *BinaryOp = new BinaryOperation();
     
     
     string currentAddress;
@@ -143,7 +143,7 @@ int main (int argc, char *argv[]){
 	    string instruction = currentInstruction->getInstruction();
          
 //Runs the control unit and sets control lines
-	    control = new controlUnit();
+	   
 	    control->setControls(instruction.substr(0,6);
 				 
 //calculate the next address options 
@@ -184,35 +184,35 @@ int main (int argc, char *argv[]){
 	}
 
     if(control->getBranch().compare("1")==0){
- -  
- -  string choiceOP;
- -  if(control->getBranch().compare("1")==0 &&ALU1->getComparisonResult()){
- -      if(debug_mode)
- -          cout<<"Setting Branch Zero op to 1" << endl
- -      choiceOP="1";
- -  }
- -  else{
- -      if(debug_mode)
- -          cout<<"Setting Branch Zero op to 0" << endl
- -      choiceOp="0";
- -  }
- -  
- -  alu2->setOperand1(alu3->getOutput());
- -  //Execute the ALU with the signextended shift of Imm and PC+4 address
- - 
- -  shiftBranch = new ShiftLeft();
- -  alu2->setOperand2(shiftBranch->shift(signExtend));
- -  alu2->setOperation(1);
- -  alu2->execute();
- -  
- -  
- -  branchOrIncrementMultiplexer4->useMultiplexer(alu3->getOutput(),alu2->getOutput(),choiceOp);
- -  
+   
+        string choiceOP;
+   if(control->getBranch().compare("1")==0 &&ALU1->getComparisonResult()){
+       if(debug_mode)
+          cout<<"Setting Branch Zero op to 1" << endl
+        choiceOP="1";
+  }
+  else{
+      if(debug_mode)
+          cout<<"Setting Branch Zero op to 0" << endl
+      choiceOp="0";
+  }
+  
+  alu2->setOperand1(alu3->getOutput());
+  //Execute the ALU with the signextended shift of Imm and PC+4 address
  
- -  programCounter->setAddress(branchOrIncrementMultiplexer4->getOutput());
- -  
- -  
- -}			 
+  shiftBranch = new ShiftLeft();
+  alu2->setOperand2(shiftBranch->shift(signExtend));
+   alu2->setOperation(1);
+   alu2->execute();
+   
+   
+  branchOrIncrementMultiplexer4->useMultiplexer(alu3->getOutput(),alu2->getOutput(),choiceOp);
+   
+ 
+   programCounter->setAddress(branchOrIncrementMultiplexer4->getOutput());
+   
+   
+ }			 
 	
 				 
 				 
