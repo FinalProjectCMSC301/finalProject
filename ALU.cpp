@@ -57,11 +57,14 @@ void ALU::compareEqual() {
         //strings are different
         if (debug) cout << "The strings are not the same" << endl;
         comparisonResult = false;
+        output ="0";
     }
     
     else {
         if (debug) cout << "The strings are the same" << endl;
         comparisonResult = true;
+                output ="0";
+
     }
 }
 
@@ -74,11 +77,15 @@ void ALU::compareLessThan() {
         //strings are different
         if (debug) cout << "Operand 1 is smaller" << endl;
          comparisonResult = true;
+                 output ="0";
+
     }
     
     else {
         if (debug) cout << "Operand 1 is not smaller" << endl;
             comparisonResult = false;
+                    output ="0";
+
 
     }
 }
