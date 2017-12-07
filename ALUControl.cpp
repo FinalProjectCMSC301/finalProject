@@ -15,8 +15,6 @@ void ALUControl::setALU(ALU *alu){
 //setOperation is from ALU class 
 void ALUControl::sendSignals(string opcode,string funct){
 
-    cout<<"this is opcode:" << opcode <<endl;
-        cout<<funct<<endl;
 
     if(opcode.compare("01")==0){
 
