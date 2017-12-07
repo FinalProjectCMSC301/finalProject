@@ -21,9 +21,8 @@ void ALU::execute() {
         cout << "ALU INPUT 2: " << getHexFromBin(operand2) << endl;
     }
 
-    stringstream  ss;
-    ss<< operation;
-    string operation1 = ss.str();
+   
+    int operation1 = stoi(operation);
     
     if (operation1 == 0){
         if (debug) cout << "ALU OPERATION: compare equal" << endl;
