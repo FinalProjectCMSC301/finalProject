@@ -73,7 +73,7 @@ int main (int argc, char *argv[]){
 	//if(debug_mode)    
         cout << "ADDRESS: " << currentAddress << endl;
    
-    cout<< currentInstruction->getInstructionPC(currentAddress)  << endl;
+    
 while(currentInstruction->getInstructionPC(currentAddress) != ""){
 	  //if(debug_mode)
 		cout << "NEW INSTRUCTION" << endl;
@@ -103,7 +103,7 @@ while(currentInstruction->getInstructionPC(currentAddress) != ""){
        
 	    
 	 //Sets the inputs to increase the program counter 
-	cout << "ALU3 Input: " <<currentAddress << " and " << BinaryOp->binToHex("00000000000000000000000000000100",8) << "Operation: 0x1" << endl; 
+	cout << "ALU3 Input: " <<currentAddress << " and " << BinaryOp->binToHex("00000000000000000000000000000100",8) << " Operation: 0x1" << endl; 
         alu3->setOperand1(BinaryOp->hexToBin(currentAddress,32));
         alu3->setOperand2("00000000000000000000000000000100");//write 4 
 	 alu3->setOperation(1);
@@ -111,7 +111,7 @@ while(currentInstruction->getInstructionPC(currentAddress) != ""){
 	 //increases the program counter
         alu3->execute();
 	    
-		   cout << "Ouput: " << alu3->getOutput() << endl;
+		   cout << "Ouput: " << BinaryOp->binToHex(alu3->getOutput(),8) << endl;
 	 
 	 //GET THE INSTRUCTION
 	     string instruction = currentInstruction->getInstructionPC(currentAddress);
@@ -148,24 +148,24 @@ while(currentInstruction->getInstructionPC(currentAddress) != ""){
 	 cout << "Input Multiplexer for Jump or PC Increment: " << currentAddress << " " <<BinaryOp->binToHex(jumpAmount,8) << " " << BinaryOp->binToHex(control->getJump(),8) << endl;
     	jumpOrIncrementMultiplexer5->useMultiplexer(currentAddress,BinaryOp->binToHex(jumpAmount,8),control->getJump());
 	
-	    cout << "Output Multiplexer for Jump or PC Increment: " << jumpOrIncrementMultiplexer5->getOutput() << endl;
+	    cout << "Output Multiplexer for Jump or PC Increment: " << BinaryOp->binToHex(jumpOrIncrementMultiplexer5->getOutput(),8) << endl;
 	    
 	programCounter->setAddress(jumpOrIncrementMultiplexer5->getOutput());				 
      }
 	    
 else{
     	
-	
+	BinaryOp->binToHex(
           //****START DECODE****
 	if(debug_mode)
 	cout<< "Starting Decode" << endl;
 	
 	//Sets up the multiplexor that decides the write register
-	cout << "Input Register Multiplexer: " << instruction.substr(11,5) << " " <<instruction.substr(16,5)<< " " <<control->getRegDST() << endl;;      
+	cout << "Input Register Multiplexer: " << BinaryOp->binToInt(instruction.substr(11,5)) << " " <<BinaryOp->binToInt(instruction.substr(16,5))<< " " <<"0x"+control->getRegDST() << endl;;      
     
 	registerMultiplexer1->useMultiplexer(instruction.substr(11,5),instruction.substr(16,5),control->getRegDST()); 
 	
-	cout << "Output Register Multiplexer: " << registerMultiplexer1->getOutput() << endl;
+	cout << "Output Register Multiplexer: " << BinaryOp->binToHex(registerMultiplexer1->getOutput(),8) << endl;
     
         //Prepare the ALU inputs
 	alu1 = new ALU();
@@ -185,7 +185,7 @@ else{
 	registerOrImmediateMultiplexer2->useMultiplexer(instruction.substr(11,5),signExtend->getExtended(),control->getALUSrc());
 	
 	if(registerOrImmediateMultiplexer2->getOutput().compare(signExtend->getExtended())==0){
-		cout << signExtend->getExtended() << endl;
+		cout << BinaryOp->binToHex(signExtend->getExtended(),8) << endl;
 		alu1->setOperand2(signExtend->getExtended());
 	}
 	
@@ -203,7 +203,7 @@ else{
 	aluControl->sendSignals(control->getALUOp(),instruction.substr(26,6));
 	
 	if(debug_mode)
-	cout << "Sent ALU Signals" << endl;
+	cout << "Sent ALU Signals" << "0x"+control->getALUOp()<< BinaryOp->binToHex(instruction.substr(26,6),8)<<endl;
 	
 	alu1->execute();
 	cout << "ALU1 Output: " << BinaryOp->binToHex(alu1->getOutput(),8) << endl;
@@ -217,14 +217,14 @@ else{
 	string ALUresult = BinaryOp->binToHex(alu1->getOutput(),8);
 	
 	if(debug_mode)
-	cout <<"ALU Result: " << alu1->getOutput() << endl;
+	cout <<"ALU Result: " << BinaryOp->binToHex(alu1->getOutput(),8) << endl;
 	
         //If Branch
 	if(control->getBranch().compare("1")==0){
    
         		string choiceOP;
 			registerFile->setRead(1);
-			cout << registerFile->read(1) << "   " << registerFile->read(2) << endl;
+			
 			registerFile->setRead(0);
   			 if(control->getBranch().compare("1")==0 && alu1->getComparisonResult()){
        				if(debug_mode)	
@@ -249,7 +249,7 @@ else{
 	branchOrIncrementMultiplexer4->useMultiplexer(alu3->getOutput(),alu2->getOutput(),choiceOP);
 	cout<< "Branch or Increment Multiplexer Output: " << branchOrIncrementMultiplexer4->getOutput() << endl;
    	programCounter->setAddress(BinaryOp->binToHex(branchOrIncrementMultiplexer4->getOutput(),8));
-	cout<< "New PC address: " << branchOrIncrementMultiplexer4->getOutput() << endl;
+	cout<< "New PC address: " << BinaryOp->binToHex(branchOrIncrementMultiplexer4->getOutput(),8) << endl;
 		
    	 if(debug_mode)
 		    cout << "New Address: " << programCounter->getAddress() << endl;
@@ -257,27 +257,8 @@ else{
  }	
 
 else{
-	//****MEMORY AND WRITEBACK PHASE	
-	string memoryResult=" ";
-	cout << "Input for Memory or ALU Multiplexer: " << ALUresult << " " << memoryResult << " " <<  control->getMemtoReg() << endl;
-	memoryOrALUMultiplexer3->useMultiplexer(ALUresult,memoryResult,control->getMemtoReg());
-	cout << "Output for Memory or ALU Multiplexer: " << memoryOrALUMultiplexer3->getOutput() << endl;
+	//****MEMORY AND WRITEBACK PHASE
 	
-	//If not dealing with memory
-    if(memoryOrALUMultiplexer3->getOutput().compare(ALUresult)==0){
-	    //Need to write ALUresult to the writedata register
-	    int registerNum = BinaryOp->binToInt(registerMultiplexer1->getOutput());
-	    
-	    cout << "Writing to register: " << registerNum << " with Data: " << ALUresult<< endl;
-	    
-	    registerFile->setWrite(1);
-	    registerFile->writeToRegister(registerNum, ALUresult);
-	    registerFile->setWrite(0);
-	    
-	    //ALL DONE WITH THE INSTRUCTION AT THIS POINT
-	    
-   	 }
-				    
 	//If I need to read to memory				    
     if(control->getMemRead().compare("1")==0){
 		memoryUnit->setRead(1);
@@ -297,6 +278,28 @@ else{
 		memoryUnit->setRead(0);
 		registerFile->setWrite(0);
 	}
+	
+	
+	cout << "Input for Memory or ALU Multiplexer: " << ALUresult << " " << memoryResult << " " <<  control->getMemtoReg() << endl;
+	memoryOrALUMultiplexer3->useMultiplexer(ALUresult,memoryResult,control->getMemtoReg());
+	cout << "Output for Memory or ALU Multiplexer: " << BinaryOp->binToHex(memoryOrALUMultiplexer3->getOutput(),8) << endl;
+	
+	//If not dealing with memory
+    if(memoryOrALUMultiplexer3->getOutput().compare(ALUresult)==0){
+	    //Need to write ALUresult to the writedata register
+	    int registerNum = BinaryOp->binToInt(registerMultiplexer1->getOutput());
+	    
+	    cout << "Writing to register: " << registerNum << " with Data: " << ALUresult<< endl;
+	    
+	    registerFile->setWrite(1);
+	    registerFile->writeToRegister(registerNum, ALUresult);
+	    registerFile->setWrite(0);
+	    
+	    //ALL DONE WITH THE INSTRUCTION AT THIS POINT
+	    
+   	 }
+				    
+	
 		
 	//If writting to memory
 	if(control->getMemWrite().compare("1")==0){
@@ -318,7 +321,7 @@ else{
 	    currentAddress = programCounter->getAddress();
 	    
 	    cout << "Next Address: " << currentAddress << endl;
-	    cout << "ALU 3 Output: " << alu3->getOutput() << endl;
+	    cout << "ALU 3 Output: " << BinaryOp->binToHex(alu3->getOutput(),8) << endl;
 				    
 	 if(output_mode.compare("single_step")==0){
             string wait;
