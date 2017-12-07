@@ -68,7 +68,7 @@ int main (int argc, char *argv[]){
         cout << "ADDRESS: " << currentAddress << endl;
    
     cout<< currentInstruction->getInstructionPC(currentAddress)  << endl;
-    while(currentInstruction->getInstructionPC(currentAddress) != ""){
+while(currentInstruction->getInstructionPC(currentAddress) != ""){
 	    
     ALU *alu1 = new ALU();//ToMemory
     ALU *alu2 = new ALU();//AddBranchAndAddress
@@ -98,7 +98,8 @@ int main (int argc, char *argv[]){
         
 	    //Get the current address in the PC
 	    currentAddress = programCounter->getAddress();
-	  // if(debug_mode)
+	
+	   if(debug_mode)
 	    cout << "ADDRESS: " << currentAddress << endl;
        
 	    
@@ -110,59 +111,58 @@ int main (int argc, char *argv[]){
 	 //increases the program counter
         alu3->execute();
 	    
-	    cout << "Address after alu3 call: " << alu3->getOutput() << endl;
+	   if(debug_mode)
+		   cout << "Address after alu3 call: " << alu3->getOutput() << endl;
 	 
 	 //GET THE INSTRUCTION
 	     string instruction = currentInstruction->getInstructionPC(currentAddress);
 	    programCounter->setAddress(alu3->getOutput());
 	    
-	    cout << "INSTRUCTION: " << instruction <<endl;
+	    if(debug_mode)
+		    cout << "INSTRUCTION: " << instruction <<endl;
 	    
-	  
+	if(debug_mode)  
         cout << "Program counter get Address: " << programCounter->getAddress() << endl;
-        alu2->setOperand1(BinaryOp->hexToBin(programCounter->getAddress(),32));
+       
+	alu2->setOperand1(BinaryOp->hexToBin(programCounter->getAddress(),32));
     
-	    
-
          
-//Runs the control unit and sets control lines
+	//Runs the control unit and sets control lines
+	if(debug_mode)
 	   cout << "calling set the controls" << endl;
+	
 	    control->setControls(instruction.substr(0,6));
-	    //if(debug_mode)
-		    control->printValues();
-				 
+	
+	if(debug_mode)
+		    control->printValues();			 
 				 
 				 
 //Look to see if it is jump because will avoid all bottom stuff. Do after calculate options
 	
-	if(control->getJump().compare("1")==0){
-    //maybe not right 
+    if(control->getJump().compare("1")==0){
+    
    	 string jumpAmount = instruction.substr(6,26);
-	cout << "Jump partial: " << jumpAmount;
-
-
-//**********TODO: Write the jump where it takes increased PC 4 bits and appends the addedss instruction shifted
         jumpAmount = shiftJump->shift(jumpAmount);
-		cout << "Jump after shift: " << jumpAmount;
 	string hexAdd = BinaryOp->hexToBin(programCounter->getAddress(),32);
-	cout << "Hex Address of next PC: " << programCounter->getAddress() << endl;
         jumpAmount = hexAdd.substr(0,4) + jumpAmount;
-	cout << "Where we jump to: " << jumpAmount << endl;
     	jumpOrIncrementMultiplexer5->useMultiplexer(currentAddress,BinaryOp->binToHex(jumpAmount,8),control->getJump());
-	cout << "Address we will go to: " << jumpOrIncrementMultiplexer5->getOutput() << endl;
-	programCounter->setAddress(jumpOrIncrementMultiplexer5->getOutput());
-				 
-}
+	if(debug_mode)
+	    cout << "Address we will go to: " << jumpOrIncrementMultiplexer5->getOutput() << endl;
+	    
+	programCounter->setAddress(jumpOrIncrementMultiplexer5->getOutput());				 
+     }
 	    
 else{
     	
 	
-//****START DECODE****
+          //****START DECODE****
+	if(debug_mode)
 	cout<< "Starting Decode" << endl;
+	
 	//Sets up the multiplexor that decides the write register
 	registerMultiplexer1->useMultiplexer(instruction.substr(11,5),instruction.substr(16,5),control->getRegDST());      
     
-    //Prepare the ALU inputs
+        //Prepare the ALU inputs
 	alu1 = new ALU();
 	int num = BinaryOp->binToInt(instruction.substr(6,5));
 	registerFile->setRead(1);
@@ -171,86 +171,94 @@ else{
 	
 	//Does sign extend in case it is needed in the ALU
 	signExtend = new SignExtend(instruction.substr(16,16));
+	
+	if(debug_mode)
 	cout << "Just did sign Extend: " << signExtend->getExtended()<< endl;
 		
 	//Multiplexer to choose if register2 data or immediate
 	registerOrImmediateMultiplexer2->useMultiplexer(instruction.substr(11,5),signExtend->getExtended(),control->getALUSrc());
-	cout << "Did MuX" << endl;
+	
 	if(registerOrImmediateMultiplexer2->getOutput().compare(signExtend->getExtended())==0){
 		alu1->setOperand2(signExtend->getExtended());
-		cout << "Set operand" << endl;
 	}
+	
 	else{
-	int num2 = BinaryOp->binToInt(registerOrImmediateMultiplexer2->getOutput());
-	registerFile->setRead(1);
-	alu1->setOperand2(BinaryOp->hexToBin(registerFile->read(num2),32));
-	registerFile->setRead(0);
-	cout << "Set operand" << endl;
+		int num2 = BinaryOp->binToInt(registerOrImmediateMultiplexer2->getOutput());
+		registerFile->setRead(1);
+		alu1->setOperand2(BinaryOp->hexToBin(registerFile->read(num2),32));
+		registerFile->setRead(0);
 	}
 	
 		
-	 aluControl = new ALUControl();
+	aluControl = new ALUControl();
 	aluControl->setALU(alu1);
-	cout << "Set ALU control" << endl;
 	aluControl->sendSignals(control->getALUOp(),instruction.substr(26,6));
-	cout << "Sent Signals" << endl;
+	
+	if(debug_mode)
+	cout << "Sent ALU Signals" << endl;
+	
 	alu1->execute();
-	cout << "Register data" << endl; 
+	 
 	registerFile->setRead(1);
-		cout << BinaryOp->hexToInt(registerFile->read(num))<< "   " << registerFile->read(num)<< endl;
-		registerFile->setRead(0);
-	cout << "Executed ALU. Result: " << BinaryOp->binToInt(alu1->getOutput()) << endl;
+	
+	if(debug_mode)
+	cout << BinaryOp->hexToInt(registerFile->read(num))<< "   " << registerFile->read(num)<< endl;
+	
+	registerFile->setRead(0);
 	string ALUresult = BinaryOp->binToHex(alu1->getOutput(),8);
+	
+	if(debug_mode)
 	cout <<"ALU Result: " << alu1->getOutput() << endl;
 	
-//If Branch
+        //If Branch
 	if(control->getBranch().compare("1")==0){
    
-        string choiceOP;
-	    cout << "In branch part of decode" << endl;
-		registerFile->setRead(1);
-		cout << registerFile->read(1) << "   " << registerFile->read(2) << endl;
-		registerFile->setRead(0);
-  	 if(control->getBranch().compare("1")==0 && alu1->getComparisonResult()){
-       		//if(debug_mode)	
-         	 cout<<"Setting Branch Zero op to 1" << endl;
-      		 choiceOP="1";
- 	 }
- 	 else{
-    	       //if(debug_mode)
-         	 cout<<"Setting Branch Zero op to 0" << endl;
-     		 choiceOP="0";
+        		string choiceOP;
+			registerFile->setRead(1);
+			cout << registerFile->read(1) << "   " << registerFile->read(2) << endl;
+			registerFile->setRead(0);
+  			 if(control->getBranch().compare("1")==0 && alu1->getComparisonResult()){
+       				if(debug_mode)	
+         			 cout<<"Setting Branch Zero op to 1" << endl;
+				 
+      				 choiceOP="1";
+ 			 }
+ 			 else{
+    	       			if(debug_mode)
+         	 		cout<<"Setting Branch Zero op to 0" << endl;
+     		 		choiceOP="0";
   	}
   
- 	 alu2->setOperand1(alu3->getOutput());
- 	 //Execute the ALU with the signextended shift of Imm and PC+4 address   
+ 	 alu2->setOperand1(alu3->getOutput());   
  	 signExtend= new SignExtend(instruction.substr(16,16));
   	alu2->setOperand2(shiftBranch->shift(signExtend->getExtended()));
   	 alu2->setOperation(1);
   	 alu2->execute();
+		
+	if(debug_mode)
     	cout << "Output from ALU2: " << alu2->getOutput() << endl;
+		
  	 branchOrIncrementMultiplexer4->useMultiplexer(alu3->getOutput(),alu2->getOutput(),choiceOP);
-  
-	   
    	programCounter->setAddress(BinaryOp->binToHex(branchOrIncrementMultiplexer4->getOutput(),8));
-   	 //if(debug_mode)
+		
+   	 if(debug_mode)
 		    cout << "New Address: " << programCounter->getAddress() << endl;
    
  }	
 
 else{
-//****MEMORY AND WRITEBACK PHASE	
+	//****MEMORY AND WRITEBACK PHASE	
 	string memoryResult=" ";
-	cout << "Before Mult" << endl;
 	memoryOrALUMultiplexer3->useMultiplexer(ALUresult,memoryResult,control->getMemtoReg());
-	cout << "After Mult" << endl;
 	
 	//If not dealing with memory
     if(memoryOrALUMultiplexer3->getOutput().compare(ALUresult)==0){
 	    //Need to write ALUresult to the writedata register
 	    int registerNum = BinaryOp->binToInt(registerMultiplexer1->getOutput());
-	   // if(debug_mode)
+	    
+	    if(debug_mode)
 		    cout << "Writing to register: " << registerNum << " Data: " << ALUresult<< endl;
+	    
 	    registerFile->setWrite(1);
 	    registerFile->writeToRegister(registerNum, ALUresult);
 	    registerFile->setWrite(0);
@@ -260,17 +268,21 @@ else{
    	 }
 				    
 	//If I need to read to memory				    
-	if(control->getMemRead().compare("1")==0){
-		cout << "In read from memory" << endl;
+    if(control->getMemRead().compare("1")==0){
 		memoryUnit->setRead(1);
 		
 		memoryResult = memoryUnit->read(ALUresult);
+	    
+	    if(debug_mode)
 		cout << "Memory Result: " << memoryResult << endl;
+	    
 		int registerNum = BinaryOp->binToInt(registerMultiplexer1->getOutput());
-		//if(debug_mode)
+	    
+		if(debug_mode)
 		cout << "Writing to register: " << registerNum << " Data: " << memoryResult << endl;
+	    
 		registerFile->setWrite(1);
-	    registerFile->writeToRegister(registerNum,memoryResult);
+	        registerFile->writeToRegister(registerNum,memoryResult);
 		memoryUnit->setRead(0);
 		registerFile->setWrite(0);
 	}
@@ -278,21 +290,24 @@ else{
 	//If writting to memory
 	if(control->getMemWrite().compare("1")==0){
 			
-			int regNum = BinaryOp->binToInt(instruction.substr(11,5));
-			//if(debug_mode)
+		int regNum = BinaryOp->binToInt(instruction.substr(11,5));
+		if(debug_mode)
 		cout << "Reading from register: " << regNum << " Data: " << ALUresult << endl;
-			memoryUnit->setRead(1);
+		
+		memoryUnit->setRead(1);
 		registerFile->setRead(1);
-			memoryUnit->writeToMemory(ALUresult, registerFile->read(regNum));
+		memoryUnit->writeToMemory(ALUresult, registerFile->read(regNum));
 		memoryUnit->setRead(0);
 		registerFile->setRead(0);
 	} 
-}			
-    }		//end else
+	
+   }			
+}		//end else
 	
 	    currentAddress = programCounter->getAddress();
 	    
-	    cout << "Next Address: " << endl;
+	    cout << "Next Address: " << currenAddress << endl;
+	    cout << "ALU 3 Output: " << alu3->getOutput << endl;
 				    
 	 if(output_mode.compare("single_step")==0){
             string wait;
