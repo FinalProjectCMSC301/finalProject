@@ -144,7 +144,8 @@ else{
   
  	 alu2->setOperand1(alu3->getOutput());
  	 //Execute the ALU with the signextended shift of Imm and PC+4 address
- 	 signExtend= new SignExtend(currentInstruction.substr(16,16));
+	    string instructionCode = currentInstruction->getInstruction();
+ 	 signExtend= new SignExtend(instructionCode.substr(16,16));
  	 shiftBranch = new ShiftLeft();
   	alu2->setOperand2(shiftBranch->shift(signExtend->getExtended()));
   	 alu2->setOperation(1);
@@ -187,7 +188,7 @@ else{
 	memoryOrALUMultiplexer3->useMultiplexer(ALUresult,memoryResult,control->getMemtoReg());
 	
 	//If not dealing with memory
-    if(memoryOrALUMultiplexer->getOutput().compare(ALUresult)==0){
+    ifmemoryOrALUMultiplexer3->getOutput().compare(ALUresult)==0){
 	    //Need to write ALUresult to the writedata register
 	    int registerNum = registerFile->getRegFromBinary(registerMultiplexer1->getOutput());
 	    registerFile->writeToRegister(registerNum, BinaryOp->getHexFromBin(ALUresult));
@@ -199,15 +200,15 @@ else{
 	//If I need to read to memory				    
 	if(control->getMemRead().compare("1")==0){
 		string memoryResult = memoryUnit->read(ALUresult);
-		int registerNum = BinaryOp->binToInt(registerMultiplexer1->getOutput());
+		int registerNum = registerFile->getRegFromBinary(registerMultiplexer1->getOutput());
 	    registerFile->writeToRegister(registerNum,memoryResult);
 	}
 		
 	//If writting to memory
 	if(control->getMemWrite().compare("1")==0){
-			string addressToWrite = ALU1->getOutput();
-			int regNum = BinaryOp->getIntFromBin(instruction.substr(11,5));
-			memoryunit->writeToMemory(addressToWrite, registerFile->read(regNum));
+			string addressToWrite = alu1->getOutput();
+			int regNum = registerFile->getRegFromBinary(instruction.substr(11,5));
+			memoryUnit->writeToMemory(addressToWrite, registerFile->read(regNum));
 	} 
 			
     }		//end else
