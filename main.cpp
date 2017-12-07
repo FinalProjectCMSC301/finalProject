@@ -144,7 +144,7 @@ else{
   
  	 alu2->setOperand1(alu3->getOutput());
  	 //Execute the ALU with the signextended shift of Imm and PC+4 address
- 	 signExtend= new SignExtend(currentInstruction->getInstruction().substr(16,16));
+ 	 signExtend= new SignExtend(currentInstruction.substr(16,16));
  	 shiftBranch = new ShiftLeft();
   	alu2->setOperand2(shiftBranch->shift(signExtend->getExtended()));
   	 alu2->setOperation(1);
@@ -176,9 +176,9 @@ else{
 	
 	
 		
-	 alucontrol = new ALUControl();
-	alucontrol->setALU(alu1);
-	alucontrol->sendSignals(control->getALUOp());
+	 aluControl = new ALUControl();
+	aluControl->setALU(alu1);
+	aluControl->sendSignals(control->getALUOp());
 	alu1->execute();
 	string ALUresult = alu1->getOutput();
 
