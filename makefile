@@ -23,7 +23,7 @@ BinaryOperation.o: BinaryOperation.h
 DataMemory.o: DataMemory.h
 	g++ -std=c++11 -Wall -Wno-deprecated -g -c DataMemory.cpp
 
-ProgramCounter.o: ProgramCounter.h
+ProgramCounter.o: ProgramCounter.h BinaryOperation.h
 	g++ -std=c++11 -Wall -Wno-deprecated -g -c ProgramCounter.cpp
 
 Register.o: Register.h
