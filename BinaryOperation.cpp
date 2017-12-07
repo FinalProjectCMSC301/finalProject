@@ -62,6 +62,7 @@ int BinaryOperation::hexToInt(string hex)
 		return result;
 	}
 	int result = stoi(hex, nullptr, 16);
+	cout << "The result is " << result << endl;
 	return result;
 }
 
