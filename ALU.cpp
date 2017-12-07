@@ -17,8 +17,8 @@ void ALU::execute() {
 
     
     
-        cout << "In exce ALU INPUT 1: " << BinOp.hexToBin(operand1, 32) << endl;
-        cout << "ALU INPUT 2: " << BinOp.hexToBin(operand2,32) << endl;
+        //cout << "In exce ALU INPUT 1: " << BinOp.hexToBin(operand1, 32) << endl;
+        //cout << "ALU INPUT 2: " << BinOp.hexToBin(operand2,32) << endl;
 
         cout << "we want to see the operation" << endl;
     //int operation1 = BinOp.binToInt(operation);
