@@ -28,4 +28,6 @@ public:
     
     /* Sets debug to true or false controlling print statements */
     void setDebug(bool debug);
+
+    void setToFile(bool val);
 };
