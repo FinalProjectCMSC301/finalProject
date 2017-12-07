@@ -47,7 +47,7 @@ int main (int argc, char *argv[]){
 	
    	
 	//Create the Memory Unit
-        memoryUnit = new DataMemory(memory_contents_input, debug_mode);
+        memoryUnit = new DataMemory(memory_contents_input, 1);
 	
 	
 	
@@ -330,6 +330,10 @@ else{
     delete signExtend; 
     delete aluControl;	
     delete BinaryOp;
+	    
+	    if(currentAddress.empty(){
+		    break;
+	    }
 				    
   }	//end while
 	
