@@ -331,7 +331,7 @@ else{
     delete aluControl;	
     delete BinaryOp;
 	    
-	    if(currentAddress.empty(){
+	    if(currentAddress.empty()){
 		    break;
 	    }
 				    
