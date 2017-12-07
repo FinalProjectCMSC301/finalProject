@@ -111,7 +111,7 @@ while(currentInstruction->getInstructionPC(currentAddress) != ""){
 	 //increases the program counter
         alu3->execute();
 	    
-		   cout << "Ouput: " << BinaryOp->binToHex(alu3->getOutput(),8) << endl;
+		   cout << "Ouput: " << alu3->getOutput() << endl;
 	 
 	 //GET THE INSTRUCTION
 	     string instruction = currentInstruction->getInstructionPC(currentAddress);
