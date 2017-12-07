@@ -25,28 +25,24 @@ void ALU::execute() {
     int operation1 = BinOp.binToInt(operation);
     
     if (operation1 == 0){
-        //if (debug) 
-            cout << "ALU OPERATION: compare equal" << endl;
+        if (debug) cout << "ALU OPERATION: compare equal" << endl;
         compareEqual();
     }
     
     
     else if (operation1 == 1){
-        //if (debug)
-         cout << "ALU OPERATION: add" << endl;
+        if (debug) cout << "ALU OPERATION: add" << endl;
         
         add();
     }
     
     else if (operation1 == 2){
-        //if (debug) 
-            cout << "ALU OPERATION: subtract" << endl;
+        if (debug) cout << "ALU OPERATION: subtract" << endl;
         
         subtract();
     }
     else if (operation1 == 3){
-        //if (debug) 
-            cout << "ALU OPERATION: compare less than" << endl;
+        if (debug) cout << "ALU OPERATION: compare less than" << endl;
         
         compareLessThan();
     }
@@ -59,14 +55,12 @@ void ALU::compareEqual() {
     
     if (operand1.compare(operand2) != 0) {
         //strings are different
-        //if (debug)
-         cout << "The strings are not the same" << endl;
+        if (debug) cout << "The strings are not the same" << endl;
         comparisonResult = false;
     }
     
     else {
-        //if (debug) 
-            cout << "The strings are the same" << endl;
+        if (debug) cout << "The strings are the same" << endl;
         comparisonResult = true;
     }
 }
@@ -78,14 +72,12 @@ void ALU::compareLessThan() {
     
     if (BinOp.hexToInt(operand1) < BinOp.hexToInt(operand2)) {
         //strings are different
-        //if (debug) 
-            cout << "Operand 1 is smaller" << endl;
+        if (debug) cout << "Operand 1 is smaller" << endl;
          comparisonResult = true;
     }
     
     else {
-       // if (debug) 
-            cout << "Operand 1 is not smaller" << endl;
+        if (debug) cout << "Operand 1 is not smaller" << endl;
             comparisonResult = false;
 
     }
@@ -98,8 +90,7 @@ void ALU::add() {
     
     output = BinOp.addBin(operand1,operand2,32);
 
-    //if (debug) 
-        cout << "The sum is: " << BinOp.binToHex(output,8)<< endl;
+    if (debug) cout << "The sum is: " << BinOp.binToHex(output,8)<< endl;
     
 }
 
@@ -115,8 +106,7 @@ void ALU::subtract() {
     
     output = BinOp.intToBin(result,32);
 
-    //if (debug) 
-        cout << "The difference is: " << BinOp.binToHex(output,8) << endl;
+    if (debug) cout << "The difference is: " << BinOp.binToHex(output,8) << endl;
 }
 
 
@@ -127,8 +117,7 @@ void ALU::subtract() {
  * Sets the operand1 instance variable equal to the passed string
  */
 void ALU::setOperand1(string operand){
-   // if (debug) 
-        cout << "ALU: SETTING OPERAND1 TO " << BinOp.binToHex(output,8) << endl;
+    if (debug) cout << "ALU: SETTING OPERAND1 TO " << BinOp.binToHex(output,8) << endl;
     operand1 = operand;
 }
 
@@ -136,8 +125,7 @@ void ALU::setOperand1(string operand){
  * Sets the operand2 instance variable equal to the passed string
  */
 void ALU::setOperand2(string operand){
-    //if (debug) 
-    cout << "ALU: SETTING OPERAND2 TO " << BinOp.binToHex(output,8) << endl;
+    if (debug) cout << "ALU: SETTING OPERAND2 TO " << BinOp.binToHex(output,8) << endl;
 
     operand2 = operand;
     
@@ -147,8 +135,7 @@ void ALU::setOperand2(string operand){
  * Sets the operation instance variable equal to the passed int
  */
 void ALU::setOperation(int operationInput){
-    //if (debug) 
-        cout << "ALU: SETTING OPERATION TO " << BinOp.binToHex(output,8) << endl;
+    if (debug) cout << "ALU: SETTING OPERATION TO " << BinOp.binToHex(output,8) << endl;
     operation = to_string(operationInput);
 }
 
@@ -156,8 +143,7 @@ void ALU::setOperation(int operationInput){
  * Returns the output instance variable. This will be a 32 bit hex string
  */
 string ALU::getOutput(){
-    //if (debug) 
-        cout << "ALU OUTPUT: " << BinOp.binToHex(output,8) << endl;
+    if (debug) cout << "ALU OUTPUT: " << BinOp.binToHex(output,8) << endl;
 
     return output;
 }
@@ -166,8 +152,7 @@ string ALU::getOutput(){
  * Returns the result of the compare() method, which will be either true or false
  */
 bool ALU::getComparisonResult(){
-    //if (debug) 
-        cout << "The comparison result is " << comparisonResult << endl;
+    if (debug) cout << "The comparison result is " << comparisonResult << endl;
     return comparisonResult;
 }
 
