@@ -26,18 +26,18 @@ void ALUControl::sendSignals(string opcode){
         }
 
         if(instruction.substr(26,6) == "100010"){
-            aluToMemory->setOperation(2);
+            aluToMemory->setOperation(2);//substract 
         }
 
         if (instruction.substr(26,6) == "101010") 
         {
-            aluToMemory->setOperation(3);
+            aluToMemory->setOperation(3);//set less than 
     }
 
     else if(opcode == "01"){//addi
 
         aluToMemory->setOperation(1);
-    }else if(opcode == "00"){//sw for add ? check
+    }else if(opcode == "00"){//sw for add ? check?
 
         aluToMemory->setOperation(1);
     }else{//jp 
