@@ -126,7 +126,7 @@ int main (int argc, char *argv[]){
 
          
 //Runs the control unit and sets control lines
-	   
+	   cout << "calling set the controls" << endl;
 	    control->setControls(instruction.substr(0,6));
 	    //if(debug_mode)
 		    control->printValues();
