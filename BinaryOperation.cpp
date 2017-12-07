@@ -1,47 +1,101 @@
-
 #include "BinaryOperation.h"
+
+using namespace std;
 
 BinaryOperation::BinaryOperation()
 {
-    
+	//empty
 }
 
-/*
- * Takes a binary string and returns its hex string representation
- */
-string BinaryOperation::getHexFromBin(string sBinary)
+string BinaryOperation::intToHex(int num, int len)
 {
-    if(sBinary != ""){
-        std::stringstream ss;
-        ss << std::hex << std::stoll(sBinary, NULL, 2);
-        //std::cout <<"hex test " << ss.str() << std::endl;
-        
-        string s =  ss.str();
-        while (s.length() != 8){
-            s = "0" + s;
-        }
-        s = "0x" + s;
-        return s;
-        
-    }
-    return "0x";
+	stringstream stream;
+	stream << hex << num;
+	string result = stream.str();
+	if(result.size() < len)
+	{
+		int remain = len - result.size();
+		for(int j = 0; j < remain; j++)
+		{
+			result.insert(0, "0");
+		}
+	}
+	result.insert(0, "0x");
+	return result;
 }
 
-//This method intakes a hexadecimal string and returns an integer
-int BinaryOperation::hexToInt(string hexString) {
-    unsigned int x;
-    stringstream ss;
-    ss << std::hex << hexString;
-    ss >> x;
-    return x;
-}
-
-//This method intakes an integer and returns a hexadecimal string
-string BinaryOperation::intToHex(int integer)
+string BinaryOperation::intToBin(int num, int len)
 {
-    char output[100];
-    sprintf(output, "%08x", integer);
-    string result = output;
-    result = "0x" + result;
-    return result;
+	string s("");
+	int negative = 0;
+	if(num < 0)
+	{
+		negative = 1;
+		num = num * -1;
+	}
+	while(num > 0)
+	{
+		int remain = num % 2;
+		num = num / 2;
+		s.insert(0, to_string(remain));
+	}
+	if(s.size() < len)
+	{
+		int remainingBits = len - s.size();
+		for(int i = 0; i < remainingBits; i++)
+		{
+			s.insert(0, "0");
+		}
+	}
+	if(negative == 1)
+	{
+		//TWO'S COMPLEMENT
+	}
+	return s;
+}
+
+int BinaryOperation::hexToInt(string hex)
+{
+	if((hex[1] == 'x' || hex[1] == 'X') && hex[0] == '0')
+	{
+		int result = stoi(hex, nullptr, 0);
+		return result;
+	}
+	int result = stoi(hex, nullptr, 16);
+	return result;
+}
+
+string BinaryOperation::hexToBin(string hex, int len)
+{
+	int result = hexToInt(hex);
+	return intToBin(result, len);
+}
+
+int BinaryOperation::binToInt(string bin)
+{
+	int result = stoi(bin, nullptr, 2);
+	return result;
+}
+
+string BinaryOperation::binToHex(string bin, int len)
+{
+	int intValue = binToInt(bin);
+	string result = intToHex(intValue, len);
+	return result;
+}
+
+string BinaryOperation::addBin(string bin1, string bin2, int len)
+{
+	int op1 = binToInt(bin1);
+	int op2 = binToInt(bin2);
+	int sum = op1 + op2;
+	return intToBin(sum, len);
+}
+
+string BinaryOperation::addHex(string hex1, string hex2, int len)
+{
+	int op1 = hexToInt(hex1);
+	int op2 = hexToInt(hex2);
+	int sum = op1 + op2;
+	return intToHex(sum, len);
 }
