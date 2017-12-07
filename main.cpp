@@ -149,7 +149,7 @@ else{
     	
 	
 //****START DECODE****
-	
+	cout<< "Starting Decode" << endl;
 	//Sets up the multiplexor that decides the write register
 	registerMultiplexer1->useMultiplexer(instruction.substr(11,5),instruction.substr(16,5),control->getRegDST());      
     
@@ -171,6 +171,7 @@ else{
 	aluControl->setALU(alu1);
 	aluControl->sendSignals(control->getALUOp());
 	alu1->execute();
+	cout << "Executed ALU. Result: " << alu1->getOutput() << endl;
 	string ALUresult = BinaryOp->binToHex(alu1->getOutput(),8);
 	cout <<"ALU Result: " << alu1->getOutput() << endl;
 	
