@@ -16,8 +16,8 @@ int main (int argc, char *argv[]){
     Parser *parser;
     ProgramCounter *programCounter = new ProgramCounter();
 
-	Parser *parser;
-	ProgramCounter *programCounter = new ProgramCounter();
+	//Parser *parser;
+	//ProgramCounter *programCounter = new ProgramCounter();
 
     Register *registerFile;
     DataMemory *memoryUnit;
@@ -37,7 +37,7 @@ int main (int argc, char *argv[]){
 
     InstructionMemory *currentInstruction;
 
-	InstructionMemory *currentInstruction;
+	//InstructionMemory *currentInstruction;
 
     
     
