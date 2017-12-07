@@ -78,8 +78,8 @@ int main (int argc, char *argv[]){
 	    
         
     //std::ofstream out(output_file);
-    
-    while(!currentInstruction->getInstructionPC(currentAddress).empty()){
+    cout << "here" << endl;
+    while(currentInstruction->getInstructionPC(currentAddress) != ""){
         
      
         if(write_to_file){
@@ -92,11 +92,11 @@ int main (int argc, char *argv[]){
         
 	    //Get the current address in the PC
 	    currentAddress = programCounter->getAddress();
-	    cout << " \n ADDRESS: " << currentAddress << endl;
+	    cout << "ADDRESS: " << currentAddress << endl;
        
 	    
 	 //Sets the inputs to increase the program counter   
-        alu3->setOperand1(programCounter->getAddress());
+        alu3->setOperand1(currentAddress);
         alu3->setOperand2("00000000000000000000000000000100");//write 4 
 	    
 	 //increases the program counter
