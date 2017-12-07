@@ -7,7 +7,7 @@ BinaryOperation::BinaryOperation()
 	//empty
 }
 
-string BinaryOperation::intToHex(int num, int len)
+string BinaryOperation::intToHex(unsigned int num, int len)
 {
 	stringstream stream;
 	stream << hex << num;
@@ -24,7 +24,7 @@ string BinaryOperation::intToHex(int num, int len)
 	return result;
 }
 
-string BinaryOperation::intToBin(int num, int len)
+string BinaryOperation::intToBin(unsigned int num, int len)
 {
 	string s("");
 	int negative = 0;
@@ -39,6 +39,10 @@ string BinaryOperation::intToBin(int num, int len)
 		num = num / 2;
 		s.insert(0, to_string(remain));
 	}
+	if(negative == 1)
+	{
+		s = twosComplement(s, len);
+	}
 	if(s.size() < len)
 	{
 		int remainingBits = len - s.size();
@@ -47,40 +51,29 @@ string BinaryOperation::intToBin(int num, int len)
 			s.insert(0, "0");
 		}
 	}
-	if(negative == 1)
-	{
-		//TWO'S COMPLEMENT
-	}
 	return s;
 }
 
-int BinaryOperation::hexToInt(string hex)
+unsigned int BinaryOperation::hexToInt(string hex)
 {
 	if((hex[1] == 'x' || hex[1] == 'X') && hex[0] == '0')
 	{
-		int result = stoi(hex, nullptr, 0);
+		unsigned int result = strtol(hex.c_str(), nullptr, 0);
 		return result;
 	}
-	int result = stoi(hex, nullptr, 16);
-	cout << "The result is " << result << endl;
+	unsigned int result = strtol(hex.c_str(), nullptr, 16);
 	return result;
 }
 
 string BinaryOperation::hexToBin(string hex, int len)
 {
-	if(hex.substr(0,2).compare("0x")==0){
-		hex = hex.substr(2);
-	}
-	cout << "In hexToBin: hex - " << hex << " int - ";
-	int result = hexToInt(hex);
-	cout << "In hexToBin: hex - " << hex << " int - " << result << endl;
-	cout << "test intToBin" << intToBin(result, len) << endl;
+	unsigned int result = hexToInt(hex);
 	return intToBin(result, len);
 }
 
-int BinaryOperation::binToInt(string bin)
+unsigned int BinaryOperation::binToInt(string bin)
 {
-	int result = stoi(bin, nullptr, 2);
+	unsigned int result = strtol(bin.c_str(), nullptr, 2);
 	return result;
 }
 
@@ -93,16 +86,49 @@ string BinaryOperation::binToHex(string bin, int len)
 
 string BinaryOperation::addBin(string bin1, string bin2, int len)
 {
-	int op1 = binToInt(bin1);
-	int op2 = binToInt(bin2);
-	int sum = op1 + op2;
+	unsigned int op1 = binToInt(bin1);
+	unsigned int op2 = binToInt(bin2);
+	unsigned int sum = op1 + op2;
 	return intToBin(sum, len);
 }
 
 string BinaryOperation::addHex(string hex1, string hex2, int len)
 {
-	int op1 = hexToInt(hex1);
-	int op2 = hexToInt(hex2);
-	int sum = op1 + op2;
+	unsigned int op1 = hexToInt(hex1);
+	unsigned int op2 = hexToInt(hex2);
+	unsigned int sum = op1 + op2;
 	return intToHex(sum, len);
+}
+
+string BinaryOperation::twosComplement(string bin, int len)
+{
+	if(bin.size() < len)
+	{
+		int remain = len - bin.size();
+		for(int i = 0; i < remain; i++)
+		{
+			bin.insert(0, "0");
+		}
+	}
+	string revString("");
+	for(int i = 0; i < bin.size(); i++)
+	{
+		if(bin[i] == '1')
+		{
+			revString.append("0");
+		}
+		else
+		{
+			revString.append("1");
+		}
+	}
+	unsigned int reversed = binToInt(revString);
+	reversed = reversed + 1;
+	string afterAdd = intToBin(reversed, bin.size());
+	if(afterAdd.size() > revString.size())
+	{
+		int extra = afterAdd.size() - revString.size();
+		afterAdd.erase(0, extra);
+	}
+	return afterAdd;
 }
