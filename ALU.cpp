@@ -82,15 +82,15 @@ void ALU::compareLessThan() {
     if (BinOp.binToInt(operand1) < BinOp.binToInt(operand2)) {
         //strings are different
          cout << "Operand 1 is smaller" << endl;
-         comparisonResult = true;
-                 output ="1";
+         comparisonResult = false;
+                 output ="0";
 
     }
     
     else {
          cout << "Operand 1 is not smaller" << endl;
-            comparisonResult = false;
-                    output ="0";
+            comparisonResult = true;
+                    output ="1";
 
 
     }
