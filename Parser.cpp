@@ -38,7 +38,7 @@ Parser::Parser(string filename){
        }
 
       else if(line.substr(0,line.rfind("=")).compare("debug_mode")==0){
-        if(line.find("true")){
+        if(line.substr(line.rfind("=")+1).compare("true")==0){
              setDebugMode(true);
         }
         else {setDebugMode(false);}
@@ -46,7 +46,7 @@ Parser::Parser(string filename){
       }
 
       else if (line.substr(0,line.rfind("=")).compare("print_memory_contents")==0){
-        if(line.find("true")){
+        if(line.substr(line.rfind("=")+1).compare("true")==0){
           setPrintContents(true);
         }
         else {setPrintContents(false);}
@@ -59,7 +59,7 @@ Parser::Parser(string filename){
       }
 
       else if (line.substr(0,line.rfind("=")) .compare("write_to_file")==0){
-          if(line.find("true")){
+          if(line.substr(line.rfind("=")+1).compare("true")==0){
             setWriteToFile(true);
             }
           else {setWriteToFile(false);}
