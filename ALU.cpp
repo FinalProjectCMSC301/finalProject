@@ -1,4 +1,4 @@
-
+ 
 #include "ALU.h"
 
 /*
@@ -126,7 +126,7 @@ void ALU::subtract() {
  * Sets the operand1 instance variable equal to the passed string
  */
 void ALU::setOperand1(string operand){
-    if (debug) cout << "ALU: SETTING OPERAND1 TO " << BinOp.binToHex(output,8) << endl;
+    //if (debug) cout << "ALU: SETTING OPERAND1 TO " << BinOp.binToHex(output,8) << endl;
     operand1 = operand;
 }
 
@@ -134,7 +134,7 @@ void ALU::setOperand1(string operand){
  * Sets the operand2 instance variable equal to the passed string
  */
 void ALU::setOperand2(string operand){
-    if (debug) cout << "ALU: SETTING OPERAND2 TO " << BinOp.binToHex(output,8) << endl;
+    //if (debug) cout << "ALU: SETTING OPERAND2 TO " << BinOp.binToHex(output,8) << endl;
 
     operand2 = operand;
     
@@ -144,7 +144,7 @@ void ALU::setOperand2(string operand){
  * Sets the operation instance variable equal to the passed int
  */
 void ALU::setOperation(int operationInput){
-    if (debug) cout << "ALU: SETTING OPERATION TO " << BinOp.binToHex(output,8) << endl;
+   // if (debug) cout << "ALU: SETTING OPERATION TO " << BinOp.binToHex(output,8) << endl;
     operation = operationInput;
 }
 
@@ -152,7 +152,7 @@ void ALU::setOperation(int operationInput){
  * Returns the output instance variable. This will be a 32 bit hex string
  */
 string ALU::getOutput(){
-    if (debug) cout << "ALU OUTPUT: " << BinOp.binToHex(output,8) << endl;
+ //   if (debug) cout << "ALU OUTPUT: " << BinOp.binToHex(output,8) << endl;
 
     return output;
 }
@@ -161,7 +161,7 @@ string ALU::getOutput(){
  * Returns the result of the compare() method, which will be either true or false
  */
 bool ALU::getComparisonResult(){
-    if (debug) cout << "The comparison result is " << comparisonResult << endl;
+   // if (debug) cout << "The comparison result is " << comparisonResult << endl;
     return comparisonResult;
 }
 
