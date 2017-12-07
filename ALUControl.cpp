@@ -15,8 +15,8 @@ void ALUControl::setALU(ALU *alu){
 //setOperation is from ALU class 
 void ALUControl::sendSignals(string opcode,string funct){
 
-    cout<<"this is opcode:" << opcode <<endl;
-        cout<<funct<<endl;
+    //cout<<"this is opcode:" << opcode <<endl;
+        //cout<<funct<<endl;
 
     if(opcode.compare("01")==0){
 
@@ -44,7 +44,7 @@ void ALUControl::sendSignals(string opcode,string funct){
 
     else if(opcode.compare("00")== 0){//sw for add ? check?
 
-        cout << "setting ALU to 0"<< endl; 
+        //cout << "setting ALU to 0"<< endl; 
 
         aluToMemory->setOperation(1);
 
