@@ -15,7 +15,6 @@ void ProgramCounter::setAddress(string address){
     
     
     currentAddress = address;
-    cout << "currentAddress set in PC " << currentAddress; 
 }
 //Retruns the current address
 

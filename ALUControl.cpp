@@ -15,8 +15,11 @@ void ALUControl::setALU(ALU *alu){
 //setOperation is from ALU class 
 void ALUControl::sendSignals(string opcode,string funct){
 
+<<<<<<< HEAD
     //cout<<"this is opcode:" << opcode <<endl;
         //cout<<funct<<endl;
+=======
+>>>>>>> e3d6af51f1c2010f1db1608eea8e753ce4efdb7e
 
     if(opcode.compare("01")==0){
 
