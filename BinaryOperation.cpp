@@ -67,6 +67,9 @@ int BinaryOperation::hexToInt(string hex)
 
 string BinaryOperation::hexToBin(string hex, int len)
 {
+	if(hex.substr(0,2).compare("0x")==0){
+		hex = hex.substr(2);
+	}
 	cout << "In hexToBin: hex - " << hex << " int - ";
 	int result = hexToInt(hex);
 	cout << "In hexToBin: hex - " << hex << " int - " << result << endl;
