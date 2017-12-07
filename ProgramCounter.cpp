@@ -1,16 +1,17 @@
 #include "ProgramCounter.h"
+#inclide "BinaryOperation.h"
 
 
 //Constructor that sets the currentAddress equal to a string of 0's
 ProgramCounter::ProgramCounter(){
-    currentAddress = getBinFromHex("0x00400000");
+    currentAddress = binaryOperation.hexToBin("0x00400000",32);
 }
 
 //Sets the programCounters address to the input address
 void ProgramCounter::setAddress(string address){
     
     if(debug)
-        cout << "SETTING PROGRAM COUNTER ADDRESS " << binaryOperation.getHexFromBin(address) << endl;
+        cout << "SETTING PROGRAM COUNTER ADDRESS " << binaryOperation.binToHex(address,8) << endl;
     
     
     currentAddress = address;
@@ -22,7 +23,7 @@ string ProgramCounter::getAddress(){
    
     if (debug)
     {
-        cout << "Parser getAddress OUTPUT: " << binaryOperation.getHexFromBin(currentAddress) << endl
+        cout << "Parser getAddress OUTPUT: " << binaryOperation.binToHex(currentAddress,8) << endl
             << endl;
     }
     
@@ -32,19 +33,6 @@ string ProgramCounter::getAddress(){
 }
 
 
-string ProgramCounter::getBinFromHex(string sHex)
-{
-    string s = sHex;
-    stringstream ss;
-    ss << std::hex << s;
-    unsigned n;
-    ss >> n;
-    bitset<32> b(n);
-
-    cout << "Test Return Hex " << b.to_string() << endl;
-    
-    return b.to_string();
-}
 
 
 void ProgramCounter::setDebug(bool value)
