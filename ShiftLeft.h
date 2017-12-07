@@ -5,7 +5,7 @@ using namespace std;
 class ShiftLeft
 {
 	public:
-		ShiftLeft();
+		ShiftLeft(){};
 		
 		/*
 			The method shifts the 26 bit binary number string left by 2 and adds 2 additional
