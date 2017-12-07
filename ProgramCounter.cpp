@@ -4,7 +4,7 @@
 
 //Constructor that sets the currentAddress equal to a string of 0's
 ProgramCounter::ProgramCounter(){
-    currentAddress = binaryOperation.hexToBin("0x00400000",32);
+    currentAddress = "0x00400000";
 }
 
 //Sets the programCounters address to the input address
