@@ -13,6 +13,7 @@
 #include "BinaryOperation.h"
 #include "Multiplexer.h"
 #include "Parser.h"
+#include <fstream>
 
 using namespace std;
 
@@ -48,7 +49,11 @@ int main(int argc, char *argv[])
 		string opcode = currentInst.substr(0, 6);
 		string funct_field = currentInst.substr(26, 6);
 		string immediate = currentInst.substr(16, 16);
-		string jump = currentInst.substr(6, 26);		
+		string jump = currentInst.substr(6, 26);
+		
+		if(parser.getWriteFile()){
+			ofstream outputFile.open(parser.getOutputFile());
+		}
 		
 		//Setting Controls
 		cu.setControls(opcode);
@@ -169,7 +174,21 @@ int main(int argc, char *argv[])
 		complete.append(dm.print());
 		complete.append("\n\n");
 		currentInst = im.getInstructionPC(pc.getAddress());
+		
+		if(parser.getOutputMode().compare("single_step")==0){
+			string wait;
+			cin >> wait;
+		}
+		
+		if(currenInst.empty()){
+			break;
+		}
+		
+		if(parser.getWriteToFile()){
+			outputFile<< complete;
+		}
 	}
 	cout << complete << endl;
+	outputFile.close();
 	return 0;
 }
