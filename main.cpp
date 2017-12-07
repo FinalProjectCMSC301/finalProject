@@ -142,8 +142,9 @@ else{
     if(control->getBranch().compare("1")==0){
    
         string choiceOP;
+	    cout << "In branch part of decode" << endl;
   	 if(control->getBranch().compare("1")==0 && alu1->getComparisonResult()){
-       		if(debug_mode)
+       		//if(debug_mode)	
          	 cout<<"Setting Branch Zero op to 1" << endl;
       		 choiceOP="1";
  	 }
@@ -156,6 +157,7 @@ else{
  	 alu2->setOperand1(alu3->getOutput());
  	 //Execute the ALU with the signextended shift of Imm and PC+4 address   
  	 signExtend= new SignExtend(instruction.substr(16,16));
+	    cout << "after sign extend" << endl;
   	alu2->setOperand2(shiftBranch->shift(signExtend->getExtended()));
   	 alu2->setOperation(1);
   	 alu2->execute();
