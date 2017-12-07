@@ -105,6 +105,8 @@ int main (int argc, char *argv[]){
 	     string instruction = currentInstruction->getInstructionPC(currentAddress);
 	    programCounter->setAddress(alu3->getOutput());
 	    
+	    cout << "INSTRUCTION: " << instruction << " \n ADDRESS: " << currentAddress << endl;
+	    
 	  
         
         alu2->setOperand1(programCounter->getAddress());
