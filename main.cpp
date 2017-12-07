@@ -78,10 +78,9 @@ int main (int argc, char *argv[]){
 	    
         
     //std::ofstream out(output_file);
-    cout << "here" << endl;
+    
     while(currentInstruction->getInstructionPC(currentAddress) != ""){
-        
-     
+     cout<< "Inside Loop" << endl;
         if(write_to_file){
             cout<< "*****CURRENT REGISTERS*****" <<endl;
             //cout << registerFile->getAllRegisters();
