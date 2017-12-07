@@ -41,6 +41,8 @@ void ALUControl::sendSignals(string opcode){
 
         aluToMemory->setOperation(0);
 
+        cout << "setting ALU to 0"<< endl;
+
     }else{//jp 
         aluToMemory->setOperation(1);
     }
