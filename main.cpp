@@ -80,10 +80,10 @@ int main (int argc, char *argv[]){
         //out << parse->getAllInstructions();
         
         if(write_to_file){
-            out<< "*****CURRENT REGISTERS*****" <<endl;
-            out << registerFile->getAllRegisters();
-            out << endl;
-            out<< "*****CURRENT DATA MEMORY*****" <<endl;
+            cout<< "*****CURRENT REGISTERS*****" <<endl;
+            cout << registerFile->getAllRegisters();
+            cout << endl;
+            cout<< "*****CURRENT DATA MEMORY*****" <<endl;
             //out << memoryUnit->getAllPairs();
         }
         
@@ -188,7 +188,7 @@ else{
 	memoryOrALUMultiplexer3->useMultiplexer(ALUresult,memoryResult,control->getMemtoReg());
 	
 	//If not dealing with memory
-    ifmemoryOrALUMultiplexer3->getOutput().compare(ALUresult)==0){
+    if(memoryOrALUMultiplexer3->getOutput().compare(ALUresult)==0){
 	    //Need to write ALUresult to the writedata register
 	    int registerNum = registerFile->getRegFromBinary(registerMultiplexer1->getOutput());
 	    registerFile->writeToRegister(registerNum, BinaryOp->getHexFromBin(ALUresult));
