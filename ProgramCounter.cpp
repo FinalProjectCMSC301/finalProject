@@ -29,7 +29,7 @@ string ProgramCounter::getAddress(){
     
 
 
-    return currentAddress;
+    return binaryOperation.binToHex(currentAddress,8);
 }
 
 
