@@ -62,9 +62,17 @@ class InstructionMemory
 		//string twosComplement(string bitString);//gets two's complement			NOT WORKING FOR NOW
 	public:
 		//gets the file name from parser
+		/** Given a filename, parses lines and gets string representations of all instructions.
+		*/
 		InstructionMemory(string fileName);
+		/** Used to set if debug info will be displayed.
+		*/
 		void setDebug(int num);
+		/** Given an index number, returns a 32 bit instruction.
+		*/
 		string getInstruction(int index);
+		/** Given a hex adress (PC), returns the instruction associated with it.
+		*/
 		string getInstructionPC(string hexAddress);//returns 32 bit binary instruction based on a 32 bit hex address. 0x00400000
 		// string get25To0();	//returns a string of binary from 0 to 25th, used for shift left
 		// string getBinaryOpcode(); //goes in control, OPCODE
