@@ -1,8 +1,8 @@
-finalProject: main.o Parser.o ALU.o ALUControl.o BinaryOperations.o DataMemory.o ProgramCounter.o Register.o RegisterParser.o SignExtend.o ControlUnit.o Multiplexer.o ShiftLeft.o
-	g++ -std=c++11 -g -Wall -o finalProject main.o Parser.o ALU.o ALUControl.o BinaryOperations.o DataMemory.o ProgramCounter.o Register.o RegisterParser.o SignExtend.o ControlUnit.o Multiplexer.o ShiftLeft.o 
+finalProject: main.o Parser.o ALU.o ALUControl.o BinaryOperation.o DataMemory.o ProgramCounter.o Register.o SignExtend.o ControlUnit.o Multiplexer.o ShiftLeft.o InstructionMemory.o
+	g++ -std=c++11 -g -Wall -o finalProject main.o Parser.o ShiftLeft.o ALU.o ALUControl.o BinaryOperation.o DataMemory.o ProgramCounter.o Register.o InstructionMemory.o SignExtend.o ControlUnit.o Multiplexer.o ShiftLeft.o 
 
 
-main.o: Parser.h ShiftLeft.h Register.h DataMemory.h ProgramCounter.h ControlUnit.h ALU.h Multiplexer.h SignExtend.h
+main.o: Parser.h ShiftLeft.h Register.h DataMemory.h ProgramCounter.h ControlUnit.h ALU.h Multiplexer.h SignExtend.h BinaryOperation.h ALUControl.h InstructionMemory.h
 
 Parser.o: Parser.h
 
@@ -17,8 +17,8 @@ ALU.o: ALU.h
 ALUControl.o: ALUControl.h
 	g++ -std=c++11 -Wall -Wno-deprecated -g -c ALUControl.cpp
 
-BinaryOperations.o: BinaryOperations.h
-	g++ -std=c++11 -Wall -Wno-deprecated -g -c BinaryOperations.cpp
+BinaryOperation.o: BinaryOperation.h
+	g++ -std=c++11 -Wall -Wno-deprecated -g -c BinaryOperation.cpp
 
 DataMemory.o: DataMemory.h
 	g++ -std=c++11 -Wall -Wno-deprecated -g -c DataMemory.cpp
@@ -37,6 +37,9 @@ SignExtend.o: SignExtend.h
 
 ControlUnit.o: ControlUnit.h
 	g++  -std=c++11 -Wall -Wno-deprecated -g -c ControlUnit.cpp
+	
+InstructionMemory.o InstructionMemory.h
+	g++  -std=c++11 -Wall -Wno-deprecated -g -c InstructionMemory.cpp
 
 clean:
 
