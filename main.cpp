@@ -240,8 +240,10 @@ else{
 
 else{
 //****MEMORY AND WRITEBACK PHASE	
-	string memoryResult=" ";	    
+	string memoryResult=" ";
+	cout << "Before Mult" << endl;
 	memoryOrALUMultiplexer3->useMultiplexer(ALUresult,memoryResult,control->getMemtoReg());
+	cout << "After Mult" << endl;
 	
 	//If not dealing with memory
     if(memoryOrALUMultiplexer3->getOutput().compare(ALUresult)==0){
