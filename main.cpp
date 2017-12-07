@@ -183,6 +183,7 @@ else{
    
         string choiceOP;
 	    cout << "In branch part of decode" << endl;
+		cout << registerFile->read(1) << "   " << registerFile->read(1) << endl;
   	 if(control->getBranch().compare("1")==0 && alu1->getComparisonResult()){
        		//if(debug_mode)	
          	 cout<<"Setting Branch Zero op to 1" << endl;
