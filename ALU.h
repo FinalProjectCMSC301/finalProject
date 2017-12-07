@@ -16,29 +16,23 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "BinaryOperation.h"
+
 
 using namespace std;
 class ALU {
 
 private:
+	BinaryOperation BinOp;
 	string operation; 			//0 = compare, 1 = add, 2 = subtract 3 comparelessthan 
-	string operand1; 		//hex string to be operated on
-	string operand2; 		//hex string to be operated on
-	string output;			//hex string representing the output of the ALU
+	string operand1; 		//bineary string to be operated on instruction 
+	string operand2; 		//bineary string to be operated on instruction
+	string output;			//bineary string representing the output of the ALU
 	bool comparisonResult;	//boolean result of the comparison between the two operands
 	void compareEqual();			//Compares the two operands, returns true if the same and false if different
     void compareLessThan();			//Compares the two operands, returns true if operand1 is smaller than operand 2
 	void add();				//Adds the two operands and returns the result
 	void subtract();		//Subtracts the two operands and returns the result
-
-	int hexToInt(string hexString);	//converts hex string to its int representation
-
-
-	string intToHex(int integer);	//converts int to its hex string representation
-    
-    string getHexFromBin(string sBinary);	//converts binary string to its hex string representation
-    
-    string getBinFromHex(string sHex);		//converts hex string to its binary string representation
 
     bool debug;
 public:
