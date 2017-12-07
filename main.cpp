@@ -113,7 +113,7 @@ int main (int argc, char *argv[]){
 	    
 	  
         
-        alu2->setOperand1((BinaryOp->hexToBin(programCounter->getAddress(),32));
+        alu2->setOperand1(BinaryOp->hexToBin(programCounter->getAddress(),32));
     
 	    
 
@@ -136,8 +136,8 @@ int main (int argc, char *argv[]){
 
 //**********TODO: Write the jump where it takes increased PC 4 bits and appends the addedss instruction shifted
         jumpAmount = shiftJump->shift(jumpAmount);
-
-        jumpAmount = BinaryOp->hexToBin(currentAddress).substr(0,4) + jumpAmount;
+	string hexAdd = BinaryOp->hexToBin(currentAddress);
+        jumpAmount = hexAdd.substr(0,4) + jumpAmount;
     	jumpOrIncrementMultiplexer5->useMultiplexer(currentAddress,BinaryOp->binToHex(jumpAmount,8),control->getJump());
 		
 	programCounter->setAddress(jumpOrIncrementMultiplexer5->getOutput());
@@ -171,7 +171,7 @@ else{
 	aluControl->sendSignals(control->getALUOp());
 	alu1->execute();
 	string ALUresult = BinaryOp->binToHex(alu1->getOutput(),8);
-	cout <<"ALU Result: " << alu1->getOutput(); << endl;
+	cout <<"ALU Result: " << alu1->getOutput() << endl;
 	
 //If Branch
 	if(control->getBranch().compare("1")==0){
@@ -236,7 +236,7 @@ else{
 			string addressToWrite = ALUresult;
 			int regNum = BinaryOp->binToInt(instruction.substr(11,5));
 			//if(debug_mode)
-		cout << "Reading from register: " << registerNum << " Data: " << addressToWrite << endl;
+		cout << "Reading from register: " << regNum << " Data: " << addressToWrite << endl;
 			memoryUnit->writeToMemory(addressToWrite, registerFile->read(regNum));
 	} 
 }			
