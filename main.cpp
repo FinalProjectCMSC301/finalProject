@@ -307,7 +307,7 @@ else{
 	    currentAddress = programCounter->getAddress();
 	    
 	    cout << "Next Address: " << currenAddress << endl;
-	    cout << "ALU 3 Output: " << alu3->getOutput << endl;
+	    cout << "ALU 3 Output: " << alu3->getOutput() << endl;
 				    
 	 if(output_mode.compare("single_step")==0){
             string wait;
