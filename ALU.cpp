@@ -52,7 +52,7 @@ void ALU::execute() {
       
     }
 }
-
+}
 /*
  * Compares the two operands, returns true if the same and false if different
  */
@@ -68,7 +68,6 @@ void ALU::compareEqual() {
     else {
         comparisonResult = true;
                 output ="1";
-
     }
 }
 
