@@ -60,10 +60,7 @@ void ALU::compareEqual() {
     
     if (operand1.compare(operand2) != 0) {
         //strings are different
-<<<<<<< HEAD
-       
-=======
->>>>>>> e3d6af51f1c2010f1db1608eea8e753ce4efdb7e
+
         comparisonResult = false;
         output ="0";
     }
@@ -81,11 +78,6 @@ void ALU::compareEqual() {
 void ALU::compareLessThan() {
 
 
-<<<<<<< HEAD
-=======
-       
-
->>>>>>> e3d6af51f1c2010f1db1608eea8e753ce4efdb7e
     if (BinOp.binToInt(operand1) < BinOp.binToInt(operand2)) {
         //strings are different
         
