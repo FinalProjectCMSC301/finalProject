@@ -9,7 +9,6 @@ bits. The method returns the modifed 28-bit binary string.
 string ShiftLeft::shift(string input)
 {
 	//whatever it gets, doesn't matter.
-	input.erase(0, 2);
 	input.append("00");
 	return input;
 }
