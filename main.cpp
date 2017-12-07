@@ -92,6 +92,7 @@ int main (int argc, char *argv[]){
         
 	    //Get the current address in the PC
 	    currentAddress = programCounter->getAddress();
+	    cout << " \n ADDRESS: " << currentAddress << endl;
        
 	    
 	 //Sets the inputs to increase the program counter   
@@ -105,7 +106,7 @@ int main (int argc, char *argv[]){
 	     string instruction = currentInstruction->getInstructionPC(currentAddress);
 	    programCounter->setAddress(alu3->getOutput());
 	    
-	    cout << "INSTRUCTION: " << instruction << " \n ADDRESS: " << currentAddress << endl;
+	    cout << "INSTRUCTION: " << instruction <<endl;
 	    
 	  
         
