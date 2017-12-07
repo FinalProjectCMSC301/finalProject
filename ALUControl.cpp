@@ -44,7 +44,7 @@ void ALUControl::sendSignals(string opcode){
         aluToMemory->setOperation(1);
     }
 }
-
+}
 //add  - destination is rd
 //addi - rt
 //lw   - rt
