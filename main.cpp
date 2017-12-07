@@ -34,6 +34,7 @@ int main (int argc, char *argv[]){
     BinaryOperation *BinaryOp = new BinaryOperation();
     InstructionMemory *currentInstruction;
     string ms(""); //main string 
+    ofstream outputFile;
     
     
     string currentAddress;
@@ -72,7 +73,6 @@ int main (int argc, char *argv[]){
     alu3->setOperation(1);
     alu2->setOperation(1);
     if(write_to_file){
-	    ofstream outputFile;
 	    outputFile.open(output_file);
     }
 	    
@@ -228,16 +228,16 @@ else{
 		cin >> wait;
         }
 	 
-	    if(print_memory_content){
+	    if(print_memory_contents){
 		//Print everything after every instruction
 		    ms.append("MEMORY CONTENT: \n");
 		   ms.append(memoryUnit->print()); 
 		    ms.append(" \n ************************************** \n");
-		    ms.append("REGISTER CONTENT: \n);
+		    ms.append("REGISTER CONTENT: \n");
 		    ms.append(registerFile->print());
 		    ms.append("\n **************************************\n");
 		    ms.append("CONTROL UNIT SIGNALS: \n");
-		    ms.append(controlUnit->printStringValues());
+		    ms.append(control->printStringValues());
 	             ms.append("\n");
 	    }
 	 
