@@ -166,7 +166,7 @@ else{
 	alu1 = new ALU();
 	int num = BinaryOp->binToInt(instruction.substr(6,5));
 	registerFile->setRead(1);
-    	alu1->setOperand1(registerFile->read(num));
+    	alu1->setOperand1(BinaryOp->hexToBin(registerFile->read(num),32));
 	registerFile->setRead(0);
 	
 	//Does sign extend in case it is needed in the ALU
@@ -178,7 +178,7 @@ else{
 	cout << "Did MuX" << endl;
 	int num2 = BinaryOp->binToInt(registerOrImmediateMultiplexer2->getOutput());
 	registerFile->setRead(1);
-	alu1->setOperand2(registerFile->read(num2));
+	alu1->setOperand2(BinaryOp->hexToBin(registerFile->read(num2),32));
 	registerFile->setRead(0);
 	cout << "Set operand" << endl;
 	
