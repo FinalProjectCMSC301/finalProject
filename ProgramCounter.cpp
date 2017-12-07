@@ -39,9 +39,3 @@ void ProgramCounter::setDebug(bool value)
 {
     debug = value;
 }
-
-
-void ProgramCounter::setToFile(bool val)
-{
-    toFile = val;
-}
