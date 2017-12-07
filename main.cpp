@@ -103,7 +103,7 @@ while(currentInstruction->getInstructionPC(currentAddress) != ""){
        
 	    
 	 //Sets the inputs to increase the program counter 
-	cout << "ALU3 Input: " << BinaryOp->hexToBin(currentAddress,32) << " and " << "00000000000000000000000000000100" << "Operation: 1" << endl; 
+	cout << "ALU3 Input: " <<currentAddress << " and " << BinaryOp->binToHex("00000000000000000000000000000100",8) << "Operation: 0x1" << endl; 
         alu3->setOperand1(BinaryOp->hexToBin(currentAddress,32));
         alu3->setOperand2("00000000000000000000000000000100");//write 4 
 	 alu3->setOperation(1);
@@ -116,7 +116,7 @@ while(currentInstruction->getInstructionPC(currentAddress) != ""){
 	 //GET THE INSTRUCTION
 	     string instruction = currentInstruction->getInstructionPC(currentAddress);
 	    programCounter->setAddress(alu3->getOutput());
-		cout << "Input to ProgramCounter Address: " << alu3->getOutput() << endl;
+		cout << "Input to ProgramCounter Address: " << BinaryOp->binToHex(alu3->getOutput(),32) << endl;
 	    
 	    if(debug_mode)
 		    cout << "INSTRUCTION: " << instruction <<endl;
@@ -145,7 +145,7 @@ while(currentInstruction->getInstructionPC(currentAddress) != ""){
         jumpAmount = shiftJump->shift(jumpAmount);
 	string hexAdd = BinaryOp->hexToBin(programCounter->getAddress(),32);
         jumpAmount = hexAdd.substr(0,4) + jumpAmount;
-	 cout << "Input Multiplexer for Jump or PC Increment: " << currentAddress << " " <<BinaryOp->binToHex(jumpAmount,8) << " " << control->getJump() << endl;
+	 cout << "Input Multiplexer for Jump or PC Increment: " << currentAddress << " " <<BinaryOp->binToHex(jumpAmount,8) << " " << BinaryOp->binToHex(control->getJump(),8) << endl;
     	jumpOrIncrementMultiplexer5->useMultiplexer(currentAddress,BinaryOp->binToHex(jumpAmount,8),control->getJump());
 	
 	    cout << "Output Multiplexer for Jump or PC Increment: " << jumpOrIncrementMultiplexer5->getOutput() << endl;
@@ -171,7 +171,7 @@ else{
 	alu1 = new ALU();
 	int num = BinaryOp->binToInt(instruction.substr(6,5));
 	registerFile->setRead(1);
-	cout << "ALU1 Input: " << BinaryOp->hexToBin(registerFile->read(num),32);
+	cout << "ALU1 Input: " << registerFile->read(num);
     	alu1->setOperand1(BinaryOp->hexToBin(registerFile->read(num),32));
 	registerFile->setRead(0);
 	
@@ -179,7 +179,7 @@ else{
 	signExtend = new SignExtend(instruction.substr(16,16));
 	
 	if(debug_mode)
-	cout << "Just did sign Extend: " << signExtend->getExtended()<< endl;
+	cout << "Just did sign Extend: " << BinaryOp->binToHex(signExtend->getExtended(),8)<< endl;
 		
 	//Multiplexer to choose if register2 data or immediate
 	registerOrImmediateMultiplexer2->useMultiplexer(instruction.substr(11,5),signExtend->getExtended(),control->getALUSrc());
@@ -193,7 +193,7 @@ else{
 		int num2 = BinaryOp->binToInt(registerOrImmediateMultiplexer2->getOutput());
 		registerFile->setRead(1);
 		alu1->setOperand2(BinaryOp->hexToBin(registerFile->read(num2),32));
-		cout <<BinaryOp->hexToBin(registerFile->read(num2),32) <<endl;
+		cout <<registerFile->read(num2)<<endl;
 		registerFile->setRead(0);
 	}
 	
@@ -237,7 +237,7 @@ else{
          	 		cout<<"Setting Branch Zero op to 0" << endl;
      		 		choiceOP="0";
   	}
-  	cout << "ALU2 Input: " << alu3->getOutput() << " " << shiftBranch->shift(signExtend->getExtended()) << "  1"<< endl;
+  	cout << "ALU2 Input: " << alu3->getOutput() << " " << shiftBranch->shift(signExtend->getExtended()) << "  0x1"<< endl;
  	 alu2->setOperand1(alu3->getOutput());   
  	 signExtend= new SignExtend(instruction.substr(16,16));
   	alu2->setOperand2(shiftBranch->shift(signExtend->getExtended()));
