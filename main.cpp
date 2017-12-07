@@ -73,7 +73,7 @@ int main (int argc, char *argv[]){
     alu3->setOperation(1);
     alu2->setOperation(1);
     if(write_to_file){
-	    outputFile.open(output_file);
+	    outputFile.open(output_file.c_str());
     }
 	    
         
