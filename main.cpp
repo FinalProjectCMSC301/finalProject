@@ -18,21 +18,10 @@ int main (int argc, char *argv[]){
     ProgramCounter *programCounter = new ProgramCounter();
     Register *registerFile;
     DataMemory *memoryUnit;
-    ALU *alu1 = new ALU();//ToMemory
-    ALU *alu2 = new ALU();//AddBranchAndAddress
-    ALU *alu3 = new ALU();//AddPCand4
-    ShiftLeft *shiftJump = new ShiftLeft();
-    ShiftLeft *shiftBranch = new ShiftLeft();
-    ControlUnit *control = new ControlUnit();
-    Multiplexer *registerMultiplexer1 = new Multiplexer();
-    Multiplexer *registerOrImmediateMultiplexer2 = new Multiplexer();
-    Multiplexer *memoryOrALUMultiplexer3 = new Multiplexer();
-    Multiplexer *branchOrIncrementMultiplexer4 = new Multiplexer();
-    Multiplexer *jumpOrIncrementMultiplexer5 = new Multiplexer();
-    SignExtend *signExtend; 
-    ALUControl *aluControl;	
-    BinaryOperation *BinaryOp = new BinaryOperation();
-    InstructionMemory *currentInstruction;
+   InstructionMemory *currentInstruction;
+	
+  
+    
     string ms(""); //main string 
     ofstream outputFile;
     
@@ -82,6 +71,21 @@ int main (int argc, char *argv[]){
    
     cout<< currentInstruction->getInstructionPC(currentAddress)  << endl;
     while(currentInstruction->getInstructionPC(currentAddress) != ""){
+	    
+    ALU *alu1 = new ALU();//ToMemory
+    ALU *alu2 = new ALU();//AddBranchAndAddress
+    ALU *alu3 = new ALU();//AddPCand4
+    ShiftLeft *shiftJump = new ShiftLeft();
+    ShiftLeft *shiftBranch = new ShiftLeft();
+    ControlUnit *control = new ControlUnit();
+    Multiplexer *registerMultiplexer1 = new Multiplexer();
+    Multiplexer *registerOrImmediateMultiplexer2 = new Multiplexer();
+    Multiplexer *memoryOrALUMultiplexer3 = new Multiplexer();
+    Multiplexer *branchOrIncrementMultiplexer4 = new Multiplexer();
+    Multiplexer *jumpOrIncrementMultiplexer5 = new Multiplexer();
+    SignExtend *signExtend; 
+    ALUControl *aluControl;	
+    BinaryOperation *BinaryOp = new BinaryOperation();
      
         if(write_to_file){
             cout<< "*****CURRENT REGISTERS*****" <<endl;
@@ -274,9 +278,23 @@ else{
 	 
 	  if(write_to_file){
 		  outputFile << ms;
-	  }
+	  }    
 				    
-//****NEED TO ADD IF WE WRITE TO FILE**********
+//****RESET**********
+	    delete alu1;//ToMemory
+    delete alu2;//AddBranchAndAddress
+    delete alu3;//AddPCand4
+    delete shiftJump;
+    delete shiftBranch;
+    delete control;
+    delete registerMultiplexer1;
+   delete registerOrImmediateMultiplexer2;
+   delete memoryOrALUMultiplexer3;
+    delete branchOrIncrementMultiplexer4;
+   delete jumpOrIncrementMultiplexer5;
+    delete signExtend; 
+    delete aluControl;	
+    delete BinaryOp;
 				    
   }	//end while
 	
