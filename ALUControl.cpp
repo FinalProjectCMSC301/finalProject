@@ -9,18 +9,39 @@ void ALUControl::setALU(ALU *alu){
     aluToMemory = alu;
 }
 
+void ALUControl::setInstruction(string input){
+
+    instruction = input;
+}
+
 
 //This method takes in an opcode in string form and sets the aluToMemory equal to setOperation(0, 1, 2, or 3) depending on the opcode
 //setOperation is from ALU class 
 void ALUControl::sendSignals(string opcode){
-    if(opcode == "00"){
-        aluToMemory->setOperation(0);
-    }else if(opcode == "01"){
+    if(opcode == "10"){
+
+        if(instruction.substr(26,6) == "100000"){
+            aluToMemory->setOperation(1);//add
+
+        }
+
+        if(instruction.substr(26,6) == "100010"){
+            aluToMemory->setOperation(2);
+        }
+
+        if (instruction.substr(26,6) == "101010") 
+        {
+            aluToMemory->setOperation(3);
+    }
+
+    else if(opcode == "01"){//addi
+
         aluToMemory->setOperation(1);
-    }else if(opcode == "10"){
-        aluToMemory->setOperation(2);
-    }else{
-        aluToMemory->setOperation(3);
+    }else if(opcode == "00"){//sw for add ? check
+
+        aluToMemory->setOperation(1);
+    }else{//jp 
+        aluToMemory->setOperation(1);
     }
 }
 

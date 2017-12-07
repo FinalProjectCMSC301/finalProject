@@ -12,8 +12,13 @@
 using namespace std;
 
 int main (int argc, char *argv[]){
+<<<<<<< HEAD
     Parser *parser;
     ProgramCounter *programCounter = new ProgramCounter();
+=======
+	Parser *parser;
+	ProgramCounter *programCounter = new ProgramCounter();
+>>>>>>> fbb33976be350abb1825f73f94cc60b72c20dbbf
     Register *registerFile;
     DataMemory *memoryUnit;
     ALU *alu1 = new ALU();//ToMemory
@@ -29,7 +34,11 @@ int main (int argc, char *argv[]){
     Multiplexer *jumpOrIncrementMultiplexer5 = new Multiplexer();
     SignExtend *signExtend;
     BinaryOperation *BinaryOp = new BinaryOperation();
+<<<<<<< HEAD
     InstructionMemory *currentInstruction;
+=======
+	InstructionMemory *currentInstruction;
+>>>>>>> fbb33976be350abb1825f73f94cc60b72c20dbbf
     
     
     string currentAddress;
@@ -63,6 +72,7 @@ int main (int argc, char *argv[]){
     
     //Create the Memory Unit
     memoryUnit = new DataMemory(memory_contents_input, debug_mode);
+<<<<<<< HEAD
     
     //Set up the BinaryOpeations
     BinaryOp = new BinaryOperation();
@@ -77,6 +87,22 @@ int main (int argc, char *argv[]){
     
     
     
+=======
+	
+	//Set up the BinaryOpeations
+	BinaryOp = new BinaryOperation();
+	
+	//Starts Address for Program Counter
+	programCounter = new ProgramCounter();
+	currentAddress = programCounter->getAddress();
+	
+	//Set up the instruction memory
+	currentInstruction = new InstructionMemory(program_input);
+	
+	
+	
+	
+>>>>>>> fbb33976be350abb1825f73f94cc60b72c20dbbf
     
     alu3->setOperation(1);
     alu2->setOperation(1);
@@ -122,6 +148,7 @@ int main (int argc, char *argv[]){
 
         //fetch 
         //currentInstruction TODO
+<<<<<<< HEAD
     
      
         
@@ -132,6 +159,18 @@ int main (int argc, char *argv[]){
      //increases the program counter
         alu3->execute();
         
+=======
+	
+	 
+	    
+	 //Sets the inputs to increase the program counter   
+        alu3->setOperand1(programCounter->getAddress());
+        alu3->setOperand2("00000000000000000000000000000100");//write 4 
+	    
+	 //increases the program counter
+        alu3->execute();
+        
+>>>>>>> fbb33976be350abb1825f73f94cc60b72c20dbbf
         alu2->setOperand1(currentAddress);
     
     
@@ -144,9 +183,15 @@ int main (int argc, char *argv[]){
         string instruction = currentInstruction->getInstruction();
          
 //Runs the control unit and sets control lines
+<<<<<<< HEAD
        
         control->setControls(instruction.substr(0,6));
                  
+=======
+	   
+	    control->setControls(instruction.substr(0,6));
+				 
+>>>>>>> fbb33976be350abb1825f73f94cc60b72c20dbbf
 //calculate the next address options 
 
             
@@ -162,8 +207,13 @@ int main (int argc, char *argv[]){
                  
                  
 //Look to see if it is jump because will avoid all bottom stuff. Do after calculate options
+<<<<<<< HEAD
     
     if(control->getJump().compare("1")==0){
+=======
+	
+	if(control->getJump().compare("1")==0){
+>>>>>>> fbb33976be350abb1825f73f94cc60b72c20dbbf
     //maybe not right 
     string jumpAmount = instruction.substr(6,26);
 
@@ -286,11 +336,19 @@ else{
     temp = registerFile.getReadRegister2();
     memoryUnit.storeWord(temp);
     memoryUnit.saveMemory();
+<<<<<<< HEAD
     */  
     }
                         
    } 
 // put everything except Branch and jump                        
+=======
+    */	
+	}
+					    
+   } 
+// put everything except Branch and jump 					    
+>>>>>>> fbb33976be350abb1825f73f94cc60b72c20dbbf
     
     string temp = registerFile->getReadRegister2();
 
