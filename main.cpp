@@ -183,6 +183,10 @@ else{
 	aluControl->sendSignals(control->getALUOp());
 	cout << "Sent Signals" << endl;
 	alu1->execute();
+	cout << "Register data" << endl; 
+	registerFile->setRead(1);
+		cout << registerFile->read(1) << "   " << registerFile->read(2) << endl;
+		registerFile->setRead(0);
 	cout << "Executed ALU. Result: " << alu1->getOutput() << endl;
 	string ALUresult = BinaryOp->binToHex(alu1->getOutput(),8);
 	cout <<"ALU Result: " << alu1->getOutput() << endl;
