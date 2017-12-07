@@ -163,14 +163,16 @@ else{
 		
 	//Multiplexer to choose if register2 data or immediate
 	registerOrImmediateMultiplexer2->useMultiplexer(instruction.substr(11,5),signExtend->getExtended(),control->getALUSrc());
-	
+	cout << "Did MuX" << endl;
 	alu1->setOperand2(registerOrImmediateMultiplexer2->getOutput());
-	
+	cout << "Set operand" << endl;
 	
 		
 	 aluControl = new ALUControl();
 	aluControl->setALU(alu1);
+	cout << "Set ALU control" << endl;
 	aluControl->sendSignals(control->getALUOp());
+	cout << "Sent Signals" << endl;
 	alu1->execute();
 	cout << "Executed ALU. Result: " << alu1->getOutput() << endl;
 	string ALUresult = BinaryOp->binToHex(alu1->getOutput(),8);
