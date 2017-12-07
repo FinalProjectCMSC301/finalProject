@@ -30,7 +30,7 @@ int main (int argc, char *argv[]){
 	
 	//Start the Parser
 	parser = new Parser(argv[1]);
-	cout<< "Input: File " << argv[1] << "Output: << endl;
+	cout<< "Input: File " << argv[1] << "Output:" << endl;
 	parser->PrintInfo();
 	
 	//Get all the values from the parser
@@ -50,7 +50,7 @@ int main (int argc, char *argv[]){
    	
 	//Create the Memory Unit
         memoryUnit = new DataMemory(memory_contents_input, 1);
-	cout << "Input: " << memoery_contents_input << endl;
+	cout << "Input: " << memorey_contents_input << endl;
 	
 	
 	
@@ -161,7 +161,7 @@ else{
 	cout<< "Starting Decode" << endl;
 	
 	//Sets up the multiplexor that decides the write register
-	cout << "Input Register Multiplexer: " << instruction.substr(11,5) << " " <<instruction.substr(16,5)<< " " <<control->getRegDST()) << endl;;      
+	cout << "Input Register Multiplexer: " << instruction.substr(11,5) << " " <<instruction.substr(16,5)<< " " <<control->getRegDST() << endl;;      
     
 	registerMultiplexer1->useMultiplexer(instruction.substr(11,5),instruction.substr(16,5),control->getRegDST()); 
 	
@@ -185,7 +185,7 @@ else{
 	registerOrImmediateMultiplexer2->useMultiplexer(instruction.substr(11,5),signExtend->getExtended(),control->getALUSrc());
 	
 	if(registerOrImmediateMultiplexer2->getOutput().compare(signExtend->getExtended())==0){
-		cout << ignExtend->getExtended() << endl;
+		cout << signExtend->getExtended() << endl;
 		alu1->setOperand2(signExtend->getExtended());
 	}
 	
