@@ -87,6 +87,8 @@ int main (int argc, char *argv[]){
             //out << memoryUnit->getAllPairs();
         }
         
+	    //Get the current address in the PC
+	    currentAddress = programCounter->getAddress();
        
 	    
 	 //Sets the inputs to increase the program counter   
@@ -95,13 +97,17 @@ int main (int argc, char *argv[]){
 	    
 	 //increases the program counter
         alu3->execute();
+	 
+	 //GET THE INSTRUCTION
+	     string instruction = currentInstruction->getInstruction(currentAddress);
+	    programCounter->setAddress(alu3->getOutput());
+	    
+	  
         
-        alu2->setOperand1(currentAddress);
+        alu2->setOperand1(programCounter->getAddress());
     
 	    
-//GET THE INSTRUCTION
-	    
-	    string instruction = currentInstruction->getInstruction();
+
          
 //Runs the control unit and sets control lines
 	   
@@ -143,9 +149,8 @@ else{
   	}
   
  	 alu2->setOperand1(alu3->getOutput());
- 	 //Execute the ALU with the signextended shift of Imm and PC+4 address
-	    string instructionCode = currentInstruction->getInstruction();
- 	 signExtend= new SignExtend(instructionCode.substr(16,16));
+ 	 //Execute the ALU with the signextended shift of Imm and PC+4 address   
+ 	 signExtend= new SignExtend(instruction.substr(16,16));
  	 shiftBranch = new ShiftLeft();
   	alu2->setOperand2(shiftBranch->shift(signExtend->getExtended()));
   	 alu2->setOperation(1);
