@@ -276,7 +276,7 @@ else{
 		
 	//If writting to memory
 	if(control->getMemWrite().compare("1")==0){
-			string addressToWrite = ALUresult;
+			string addressToWrite = BinaryOp->binToHex(ALUresult,8);
 			int regNum = BinaryOp->binToInt(instruction.substr(11,5));
 			//if(debug_mode)
 		cout << "Reading from register: " << regNum << " Data: " << addressToWrite << endl;
