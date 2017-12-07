@@ -27,7 +27,7 @@ string ProgramCounter::getAddress(){
             << endl;
     }
     
-    if(currentAddress.rfind("x")>-1){
+    if(currentAddress.length()<32){
         return currentAddress;
     }
     
