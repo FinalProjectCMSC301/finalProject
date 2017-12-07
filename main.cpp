@@ -1,6 +1,7 @@
 
 #include "Parser.h"
 #include <iostream>
+#include <fstream>
 #include "ShiftLeft.h"
 #include "Register.h"
 #include "DataMemory.h"
@@ -32,6 +33,7 @@ int main (int argc, char *argv[]){
     ALUControl *aluControl;	
     BinaryOperation *BinaryOp = new BinaryOperation();
     InstructionMemory *currentInstruction;
+    string ms(""); //main string 
     
     
     string currentAddress;
@@ -69,16 +71,17 @@ int main (int argc, char *argv[]){
 	
     alu3->setOperation(1);
     alu2->setOperation(1);
-    
+    if(write_to_file){
+	    ofstream outputFile;
+	    outputFile.open(output_file);
+    }
+	    
         
     //std::ofstream out(output_file);
     
     while(!currentInstruction->getInstructionPC(currentAddress).empty()){
         
-        //out << "Current Instruction: " << parse->getInstruction(programCounter->getAddress())->getStringVersion() << endl;
-        //cout<< "*****CURRENT INSTRUCTIONS*****" <<endl;
-        //out << parse->getAllInstructions();
-        
+     
         if(write_to_file){
             cout<< "*****CURRENT REGISTERS*****" <<endl;
             //cout << registerFile->getAllRegisters();
@@ -195,8 +198,8 @@ else{
 	//If not dealing with memory
     if(memoryOrALUMultiplexer3->getOutput().compare(ALUresult)==0){
 	    //Need to write ALUresult to the writedata register
-	    int registerNum = registerFile->getRegFromBinary(registerMultiplexer1->getOutput());
-	    registerFile->writeToRegister(registerNum, BinaryOp->getHexFromBin(ALUresult));
+	    int registerNum = BinaryOp->binToInt(registerMultiplexer1->getOutput());
+	    registerFile->writeToRegister(registerNum, BinaryOp->binToHex(ALUresult,8));
 	    
 	    //ALL DONE WITH THE INSTRUCTION AT THIS POINT
 	    
@@ -205,14 +208,14 @@ else{
 	//If I need to read to memory				    
 	if(control->getMemRead().compare("1")==0){
 		string memoryResult = memoryUnit->read(ALUresult);
-		int registerNum = registerFile->getRegFromBinary(registerMultiplexer1->getOutput());
+		int registerNum = BinaryOp->binToInt(registerMultiplexer1->getOutput());
 	    registerFile->writeToRegister(registerNum,memoryResult);
 	}
 		
 	//If writting to memory
 	if(control->getMemWrite().compare("1")==0){
 			string addressToWrite = alu1->getOutput();
-			int regNum = registerFile->getRegFromBinary(instruction.substr(11,5));
+			int regNum = BinaryOp->binToInt(instruction.substr(11,5));
 			memoryUnit->writeToMemory(addressToWrite, registerFile->read(regNum));
 	} 
 			
@@ -224,13 +227,33 @@ else{
             string wait;
 		cin >> wait;
         }
+	 
+	    if(print_memory_content){
+		//Print everything after every instruction
+		    ms.append("MEMORY CONTENT: \n");
+		   ms.append(memoryUnit->print()); 
+		    ms.append(" \n ************************************** \n");
+		    ms.append("REGISTER CONTENT: \n);
+		    ms.append(registerFile->print());
+		    ms.append("\n **************************************\n");
+		    ms.append("CONTROL UNIT SIGNALS: \n");
+		    ms.append(controlUnit->printStringValues());
+	             ms.append("\n");
+	    }
+	 
+	  if(write_to_file){
+		  outputFile << ms;
+	  }
 				    
 //****NEED TO ADD IF WE WRITE TO FILE**********
 				    
   }	//end while
 	
 					    
-   
+    if(write_to_file){
+	    outputFile.close();
+    }
+	 
 
  
         
