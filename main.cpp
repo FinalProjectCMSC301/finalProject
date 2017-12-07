@@ -116,7 +116,7 @@ while(currentInstruction->getInstructionPC(currentAddress) != ""){
 	 //GET THE INSTRUCTION
 	     string instruction = currentInstruction->getInstructionPC(currentAddress);
 	    programCounter->setAddress(alu3->getOutput());
-		cout << "Input to ProgramCounter Address: " << BinaryOp->binToHex(alu3->getOutput(),32) << endl;
+		cout << "Input to ProgramCounter Address: " << BinaryOp->binToHex(alu3->getOutput(),8) << endl;
 	    
 	    if(debug_mode)
 		    cout << "INSTRUCTION: " << instruction <<endl;
@@ -206,7 +206,7 @@ else{
 	cout << "Sent ALU Signals" << endl;
 	
 	alu1->execute();
-	cout << "ALU1 Output: " << BinaryOp->binToHex(alu1->getOutput(),32) << endl;
+	cout << "ALU1 Output: " << BinaryOp->binToHex(alu1->getOutput(),8) << endl;
 	 
 	registerFile->setRead(1);
 	
