@@ -20,7 +20,7 @@ void ALUControl::setInstruction(string input){
 void ALUControl::sendSignals(string opcode){
 
     cout<<"this is opcode:" << opcode <<endl;
-        cout<<instruction.substr(26,6) <<endl;
+        cout<<instruction<<endl;
     if(opcode.compare("01")==0){
 
         if(instruction.substr(26,6) == "100000"){
