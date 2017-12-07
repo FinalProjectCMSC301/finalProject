@@ -75,7 +75,7 @@ int main (int argc, char *argv[]){
     if(write_to_file){
 	    outputFile.open(output_file.c_str());
     }
-	    
+	if(debug_mode)    
         cout << "ADDRESS: " << currentAddress << endl;
     //std::ofstream out(output_file);
     cout<< currentInstruction->getInstructionPC(currentAddress)  << endl;
@@ -91,6 +91,7 @@ int main (int argc, char *argv[]){
         
 	    //Get the current address in the PC
 	    currentAddress = programCounter->getAddress();
+	  // if(debug_mode)
 	    cout << "ADDRESS: " << currentAddress << endl;
        
 	    
@@ -139,35 +140,7 @@ int main (int argc, char *argv[]){
 }
 	    
 else{
-    if(control->getBranch().compare("1")==0){
-   
-        string choiceOP;
-	    cout << "In branch part of decode" << endl;
-  	 if(control->getBranch().compare("1")==0 && alu1->getComparisonResult()){
-       		//if(debug_mode)	
-         	 cout<<"Setting Branch Zero op to 1" << endl;
-      		 choiceOP="1";
- 	 }
- 	 else{
-    			  if(debug_mode)
-         	 cout<<"Setting Branch Zero op to 0" << endl;
-     		 choiceOP="0";
-  	}
-  
- 	 alu2->setOperand1(alu3->getOutput());
- 	 //Execute the ALU with the signextended shift of Imm and PC+4 address   
- 	 signExtend= new SignExtend(instruction.substr(16,16));
-	    cout << "after sign extend" << endl;
-  	alu2->setOperand2(shiftBranch->shift(signExtend->getExtended()));
-  	 alu2->setOperation(1);
-  	 alu2->execute();
-    
- 	 branchOrIncrementMultiplexer4->useMultiplexer(alu3->getOutput(),alu2->getOutput(),choiceOP);
-  
-   	programCounter->setAddress(branchOrIncrementMultiplexer4->getOutput());
-   
-   
- }		
+    	
 	
 //****START DECODE****
 	
@@ -193,6 +166,38 @@ else{
 	aluControl->sendSignals(control->getALUOp());
 	alu1->execute();
 	string ALUresult = alu1->getOutput();
+	
+//If Branch
+	if(control->getBranch().compare("1")==0){
+   
+        string choiceOP;
+	    cout << "In branch part of decode" << endl;
+  	 if(control->getBranch().compare("1")==0 && alu1->getComparisonResult()){
+       		//if(debug_mode)	
+         	 cout<<"Setting Branch Zero op to 1" << endl;
+      		 choiceOP="1";
+ 	 }
+ 	 else{
+    	       //if(debug_mode)
+         	 cout<<"Setting Branch Zero op to 0" << endl;
+     		 choiceOP="0";
+  	}
+  
+ 	 alu2->setOperand1(alu3->getOutput());
+ 	 //Execute the ALU with the signextended shift of Imm and PC+4 address   
+ 	 signExtend= new SignExtend(instruction.substr(16,16));
+  	alu2->setOperand2(shiftBranch->shift(signExtend->getExtended()));
+  	 alu2->setOperation(1);
+  	 alu2->execute();
+    
+ 	 branchOrIncrementMultiplexer4->useMultiplexer(alu3->getOutput(),alu2->getOutput(),choiceOP);
+  
+	   
+   	programCounter->setAddress(branchOrIncrementMultiplexer4->getOutput());
+   	 //if(debug_mode)
+		    cout << "New Address: " << programCounter->getAddress() << endl;
+   
+	 }	
 
 //****MEMORY AND WRITEBACK PHASE	
 	string memoryResult;	    
