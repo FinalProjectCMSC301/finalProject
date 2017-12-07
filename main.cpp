@@ -9,6 +9,7 @@
 #include "ALU.h"
 #include "Multiplexer.h"
 #include "SignExtend.h"
+#include "ALUControl"
 using namespace std;
 
 int main (int argc, char *argv[]){
@@ -28,7 +29,7 @@ int main (int argc, char *argv[]){
     Multiplexer *branchOrIncrementMultiplexer4 = new Multiplexer();
     Multiplexer *jumpOrIncrementMultiplexer5 = new Multiplexer();
     SignExtend *signExtend; 
-    ALUControl alucontrol*;	
+    ALUControl *aluControl;	
     BinaryOperation *BinaryOp = new BinaryOperation();
     InstructionMemory *currentInstruction;
     
@@ -143,7 +144,7 @@ else{
   
  	 alu2->setOperand1(alu3->getOutput());
  	 //Execute the ALU with the signextended shift of Imm and PC+4 address
- 	 signExtend= new SingExtend(currentInstruction->getInstruction().substr(16,16));
+ 	 signExtend= new SignExtend(currentInstruction->getInstruction().substr(16,16));
  	 shiftBranch = new ShiftLeft();
   	alu2->setOperand2(shiftBranch->shift(signExtend->getExtended()));
   	 alu2->setOperation(1);
@@ -166,12 +167,12 @@ else{
     	alu1->setOperand1(instruction.substr(6,5));
 	
 	//Does sign extend in case it is needed in the ALU
-	signExtend = new signExtend(instruction.substr(16,16));
+	signExtend = new SignExtend(instruction.substr(16,16));
 		
 	//Multiplexer to choose if register2 data or immediate
-	registerOrImmediateMultiplexor2->useMultiplexor(instruction.substr(11,5),signExtend->getExtended(),control->getALUSrc());
+	registerOrImmediateMultiplexer2->useMultiplexer(instruction.substr(11,5),signExtend->getExtended(),control->getALUSrc());
 	
-	alu1->setOperand2(registerOrImmediateMultiplexor2->getOutput());
+	alu1->setOperand2(registerOrImmediateMultiplexer2->getOutput());
 	
 	
 		
@@ -186,9 +187,9 @@ else{
 	memoryOrALUMultiplexer3->useMultiplexer(ALUresult,memoryResult,control->getMemtoReg());
 	
 	//If not dealing with memory
-    if(memoryOrALUMultiplexor->getOutput().compare(ALUresult)==0){
+    if(memoryOrALUMultiplexer->getOutput().compare(ALUresult)==0){
 	    //Need to write ALUresult to the writedata register
-	    int registerNum = registerFile->getRegFromBinary(registerMultiplexor1->getOutput());
+	    int registerNum = registerFile->getRegFromBinary(registerMultiplexer1->getOutput());
 	    registerFile->writeToRegister(registerNum, BinaryOp->getHexFromBin(ALUresult));
 	    
 	    //ALL DONE WITH THE INSTRUCTION AT THIS POINT
