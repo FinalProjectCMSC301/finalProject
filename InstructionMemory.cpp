@@ -1,7 +1,7 @@
 //InstructionMemory.cpp
 
 #include "InstructionMemory.h"
-
+#include "BinaryOperation.h"
 InstructionMemory::InstructionMemory(string fileName)
 {
 	//initialize the array
@@ -351,15 +351,15 @@ string InstructionMemory::immToBinarySixteen(string s)
       return toReturn;
     }
     int remaining = 16 - (int)toReturn.length();
+	if(negative = 1)
+	{
+		BinaryOperation bo;
+		bo.twosComplement(toReturn, 16);
+	}
     for(int k = 0; k < remaining; k++)
 	{
       toReturn.insert(0, "0");
     }
-	// if(negative = 1)
-	// {
-		// //compute two's complement>.........DOOOOOOO THISSSS!!!!
-		// return twosComplement(toReturn);
-	// }
     return toReturn;
 }
 

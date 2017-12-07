@@ -6,7 +6,7 @@
 #include "AluControl.h"
 #include "ALU_ALU_Result.h"
 #include "ADD_ALU_Result.h"
-#include "ADD.h"
+#include "Add.h"
 #include "DataMemory.h"
 #include "ShiftLeft.h"
 #include "ControlUnit.h"
@@ -23,20 +23,20 @@ int main(int argc, char *argv[])
 	InstructionMemory im(parser.getProgramInput());
 	Register rm(parser.getRegisterInput(), 0);
 	DataMemory dm(parser.getMemoryInput(), 0);
-	ShiftLeft shiftJump;
-	ShiftLeft shiftImm;
+	ShiftLeft shiftJump2628;
+	ShiftLeft shiftImm32;
 	ProgramCounter pc;
 	AluControl aluC;
 	ALU_ALU_Result alu1;
 	ADD_ALU_Result alu2;
-	ADD alu3;
+	Add aluADD;
 	ControlUnit cu;
 	BinaryOperation bo;
-	Multiplexer instMux;
-	Multiplexer regMux;
-	Multiplexer dataMux;
-	Multiplexer alu2Mux;
-	Multiplexer pcMux;
+	Multiplexer Multiplexer1;
+	Multiplexer Multiplexer2;
+	Multiplexer Multiplexer3;
+	Multiplexer Multiplexer5;
+	Multiplexer Multiplexer4;
 	string complete("");
 	//STARTING HERE
 	string currentInst(im.getInstructionPC(pc.getAddress()));
@@ -51,14 +51,14 @@ int main(int argc, char *argv[])
 		string immediate = currentInst.substr(16, 16);
 		string jump = currentInst.substr(6, 26);
 		
-		if(parser.getWriteFile()){
-			ofstream outputFile.open(parser.getOutputFile());
-		}
+		// if(parser.getWriteFile()){
+			// ofstream outputFile.open(parser.getOutputFile());
+		// }
 		
 		//Setting Controls
 		cu.setControls(opcode);
-		instMux.setControl(cu.getRegDST());
-		pcMux.setControl(cu.getJump());
+		Multiplexer1.setControl(cu.getRegDST());
+		Multiplexer4.setControl(cu.getJump());
 		alu1.setBranchBit(cu.getBranch());
 		if(cu.getMemRead() == "1")
 		{
@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
 		{
 			dm.setRead(0);
 		}
-		dataMux.setControl(cu.getMemtoReg());
+		Multiplexer3.setControl(cu.getMemtoReg());
 		aluC.setALUOp(cu.getALUOp());
 		if(cu.getMemWrite() == "1")
 		{
@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
 		{
 			dm.setWrite(0);
 		}
-		regMux.setControl(cu.getALUSrc());
+		Multiplexer2.setControl(cu.getALUSrc());
 		if(cu.getRegWrite() == "1")
 		{
 			rm.setWrite(1);
@@ -91,17 +91,17 @@ int main(int argc, char *argv[])
 		/**	Setting multiplexers
 		*/
 		
-		//instMux
-		instMux.setOne(rd);
-		instMux.setTwo(rt);
-		int writeRegNum = bo.binToInt(instMux.getOutput());
+		//Multiplexer1
+		Multiplexer1.setOne(rd);
+		Multiplexer1.setTwo(rt);
+		int writeRegNum = bo.binToInt(Multiplexer1.getOutput());
 		string regReadData1 = rm.read(bo.binToInt(rs));	//input to ALU_ALU_Result
-		string regReadData2 = rm.read(bo.binToInt(rt)); //input to regMux
+		string regReadData2 = rm.read(bo.binToInt(rt)); //input to Multiplexer2
 		
-		//regMux
-		regMux.setTwo(regReadData2);
+		//Multiplexer2
+		Multiplexer2.setTwo(regReadData2);
 		SignExtend se(immediate);
-		regMux.setOne(se.getExtended());
+		Multiplexer2.setOne(se.getExtended());
 		//the output will go to ALU_ALU_Result
 		
 		/**	Setting AluControl
@@ -114,25 +114,25 @@ int main(int argc, char *argv[])
 		
 		alu1.setAluControlInput(aluC.getOutput());
 		alu1.setDataFromReg(regReadData1);
-		alu1.setDataFromMux(regMux.getOutput());
+		alu1.setDataFromMux(Multiplexer2.getOutput());
 		alu1.execute();
 		if(alu1.getBranchBit() == "1" && bo.binToInt(alu1.getBinaryOutput()) == 0)
 		{
-			alu2Mux.setControl("1");	//meaning, you branch
+			Multiplexer5.setControl("1");	//meaning, you branch
 		}
 		dm.writeToMemory(alu1.getHexOutput(), regReadData2);	//writing to memory
 		
 		/**	Setting multiplexers and writing back
 		*/
-		dataMux.setOne(dm.read(alu1.getHexOutput()));
-		dataMux.setTwo(alu1.getHexOutput());
-		rm.writeToRegister(writeRegNum, dataMux.getOutput());
+		Multiplexer3.setOne(dm.read(alu1.getHexOutput()));
+		Multiplexer3.setTwo(alu1.getHexOutput());
+		rm.writeToRegister(writeRegNum, Multiplexer3.getOutput());
 		/**	Preparing jump address in binary
 		*/
-		string jumpShiftPart = shiftJump.shift(jump);	//jump part ready
-		alu3.setPCInput(pc.getAddress());
-		alu3.update();
-		string pcPlusFour = pc.getAddress();	//PC + 4 address, IN HEX
+		string jumpShiftPart = shiftJump2628.shift(jump);	//jump part ready
+		aluADD.setPCInput(pc.getAddress());
+		aluADD.update();
+		string pcPlusFour = aluADD.getHexOutput();	//PC + 4 address, IN HEX
 		pcPlusFour = bo.hexToBin(pcPlusFour, 32);	//in binary
 		pcPlusFour = pcPlusFour.substr(0, 4);	//top 4 bits
 		string totalJump = pcPlusFour + jumpShiftPart;
@@ -141,23 +141,23 @@ int main(int argc, char *argv[])
 		*/
 		SignExtend forImm(immediate);	//put this through shift left
 		string extended = forImm.getExtended();	//32 bits
-		extended = shiftImm.shift(extended);	//34 bits now
+		extended = shiftImm32.shift(extended);	//34 bits now
 		extended = extended.erase(0, 2);
-		string pcPlusFour2 = pc.getAddress();
-		pcPlusFour2 = bo.hexToBin(pcPlusFour2, 32);	//using this as alu2Mux
+		string pcPlusFour2 = aluADD.getHexOutput();
+		pcPlusFour2 = bo.hexToBin(pcPlusFour2, 32);	//using this as Multiplexer5
 		
 		alu2.setAlu2Input(pcPlusFour2);
 		alu2.setShiftInput(extended);
 		
-		//preparing alu2Mux
-		alu2Mux.setOne(alu2.getBinaryOutput());
-		alu2Mux.setTwo(pcPlusFour2);
+		//preparing Multiplexer5
+		Multiplexer5.setOne(alu2.getBinaryOutput());
+		Multiplexer5.setTwo(pcPlusFour2);
 		
-		//preparing pcMux
-		pcMux.setOne(totalJump);
-		pcMux.setTwo(alu2Mux.getOutput());
+		//preparing Multiplexer4
+		Multiplexer4.setOne(totalJump);
+		Multiplexer4.setTwo(Multiplexer5.getOutput());
 		
-		string hexAddress = bo.binToHex(pcMux.getOutput(), 8);
+		string hexAddress = bo.binToHex(Multiplexer4.getOutput(), 8);
 		pc.setAddress(hexAddress);
 		
 		//if instruction is a jump or a branch, change PC
@@ -176,10 +176,10 @@ int main(int argc, char *argv[])
 		complete.append("\n\n");
 		currentInst = im.getInstructionPC(pc.getAddress());
 		
-		if(parser.getOutputMode().compare("single_step")==0){
-			string wait;
-			cin >> wait;
-		}
+		// if(parser.getOutputMode().compare("single_step")==0){
+			// string wait;
+			// cin >> wait;
+		// }
 		
 		ProgramCounter p2;
 		p2.setAddress(pc.getAddress());
@@ -190,11 +190,11 @@ int main(int argc, char *argv[])
 			break;
 		}
 		
-		if(parser.getWriteToFile()){
-			outputFile<< complete;
-		}
+		// if(parser.getWriteToFile()){
+			// outputFile<< complete;
+		// }
 	}
 	cout << complete << endl;
-	outputFile.close();
+	//outputFile.close();
 	return 0;
 }
