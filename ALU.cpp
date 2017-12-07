@@ -17,17 +17,17 @@ void ALU::execute() {
 
     
 
-<<<<<<< HEAD
+
           //int operation1 = BinOp.binToInt(operation);
     cout << operation <<endl;
     if (operation == 0){
        //cout << "ALU OPERATION: compare equal" << endl;
-=======
+
        
     if (operation == 0){
      if(debug)  
      cout << "ALU OPERATION: compare equal" << endl;
->>>>>>> e3d6af51f1c2010f1db1608eea8e753ce4efdb7e
+
         compareEqual();
                
 
