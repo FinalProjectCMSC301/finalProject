@@ -6,7 +6,7 @@
 using namespace std;
 class ProgramCounter{
 private:
-    string Address;
+    string currentAddress;
     BinaryOperation binaryOperation;
     bool debug;
     ofstream ofile;
