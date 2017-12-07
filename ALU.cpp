@@ -17,8 +17,8 @@ void ALU::execute() {
 
     
     if (debug) {
-        cout << "ALU INPUT 1: " << BinOp.hexToBin(operand1) << endl;
-        cout << "ALU INPUT 2: " << BinOp.hexToBin(operand2) << endl;
+        cout << "ALU INPUT 1: " << BinOp.hexToBin(operand1, 32) << endl;
+        cout << "ALU INPUT 2: " << BinOp.hexToBin(operand2,32) << endl;
     }
 
    
@@ -100,7 +100,7 @@ void ALU::add() {
 void ALU::subtract() {
     
     int temp1 = BinOp.binToInt(operand1);
-    int temp2 = BinOp.binToInt((operand2);
+    int temp2 = BinOp.binToInt(operand2);
     
     int result = temp1 - temp2;
     
@@ -135,7 +135,7 @@ void ALU::setOperand2(string operand){
  * Sets the operation instance variable equal to the passed int
  */
 void ALU::setOperation(int operationInput){
-    if (debug) cout << "ALU: SETTING OPERATION TO " << BinOp.binToHex(output,8)) << endl;
+    if (debug) cout << "ALU: SETTING OPERATION TO " << BinOp.binToHex(output,8) << endl;
     operation = to_string(operationInput);
 }
 
@@ -143,7 +143,7 @@ void ALU::setOperation(int operationInput){
  * Returns the output instance variable. This will be a 32 bit hex string
  */
 string ALU::getOutput(){
-    if (debug) cout << "ALU OUTPUT: " << BinOp.binToHex(output,8)) << endl;
+    if (debug) cout << "ALU OUTPUT: " << BinOp.binToHex(output,8) << endl;
 
     return output;
 }
