@@ -9,7 +9,7 @@
 #include "ALU.h"
 #include "Multiplexer.h"
 #include "SignExtend.h"
-#include "ALUControl"
+#include "ALUControl.h"
 using namespace std;
 
 int main (int argc, char *argv[]){
