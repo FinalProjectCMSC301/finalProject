@@ -38,10 +38,11 @@ void ALUControl::sendSignals(string opcode){
             } 
     }
 
-    else if (opcode.compare("01")== 0){//addi
+    else if (opcode.compare("01")== 0){//brech equal 
 
-        aluToMemory->setOperation(1);
+        aluToMemory->setOperation(2);
     }
+
 
 
     else if(opcode.compare("00")== 0){//sw for add ? check?
@@ -52,7 +53,7 @@ void ALUControl::sendSignals(string opcode){
 
 
     }
-    else{//jp 
+    else{
 
         aluToMemory->setOperation(1);
     }
