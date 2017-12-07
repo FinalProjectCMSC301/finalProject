@@ -257,7 +257,7 @@ else{
 				    
 	//If I need to read to memory				    
 	if(control->getMemRead().compare("1")==0){
-		string memoryResult = memoryUnit->read(BinaryOp->hexToBin(ALUresult),32);
+		string memoryResult = memoryUnit->read(BinaryOp->hexToBin(ALUresult,32));
 		int registerNum = BinaryOp->binToInt(registerMultiplexer1->getOutput());
 		//if(debug_mode)
 		cout << "Writing to register: " << registerNum << " Data: " << memoryResult << endl;
