@@ -12,13 +12,13 @@
 using namespace std;
 
 int main (int argc, char *argv[]){
-<<<<<<< HEAD
+
     Parser *parser;
     ProgramCounter *programCounter = new ProgramCounter();
-=======
+
 	Parser *parser;
 	ProgramCounter *programCounter = new ProgramCounter();
->>>>>>> fbb33976be350abb1825f73f94cc60b72c20dbbf
+
     Register *registerFile;
     DataMemory *memoryUnit;
     ALU *alu1 = new ALU();//ToMemory
@@ -34,11 +34,11 @@ int main (int argc, char *argv[]){
     Multiplexer *jumpOrIncrementMultiplexer5 = new Multiplexer();
     SignExtend *signExtend;
     BinaryOperation *BinaryOp = new BinaryOperation();
-<<<<<<< HEAD
+
     InstructionMemory *currentInstruction;
-=======
+
 	InstructionMemory *currentInstruction;
->>>>>>> fbb33976be350abb1825f73f94cc60b72c20dbbf
+
     
     
     string currentAddress;
@@ -72,7 +72,7 @@ int main (int argc, char *argv[]){
     
     //Create the Memory Unit
     memoryUnit = new DataMemory(memory_contents_input, debug_mode);
-<<<<<<< HEAD
+
     
     //Set up the BinaryOpeations
     BinaryOp = new BinaryOperation();
@@ -87,7 +87,7 @@ int main (int argc, char *argv[]){
     
     
     
-=======
+
 	
 	//Set up the BinaryOpeations
 	BinaryOp = new BinaryOperation();
@@ -101,8 +101,7 @@ int main (int argc, char *argv[]){
 	
 	
 	
-	
->>>>>>> fbb33976be350abb1825f73f94cc60b72c20dbbf
+
     
     alu3->setOperation(1);
     alu2->setOperation(1);
@@ -148,7 +147,7 @@ int main (int argc, char *argv[]){
 
         //fetch 
         //currentInstruction TODO
-<<<<<<< HEAD
+
     
      
         
@@ -159,7 +158,7 @@ int main (int argc, char *argv[]){
      //increases the program counter
         alu3->execute();
         
-=======
+
 	
 	 
 	    
@@ -170,7 +169,7 @@ int main (int argc, char *argv[]){
 	 //increases the program counter
         alu3->execute();
         
->>>>>>> fbb33976be350abb1825f73f94cc60b72c20dbbf
+
         alu2->setOperand1(currentAddress);
     
     
@@ -183,15 +182,15 @@ int main (int argc, char *argv[]){
         string instruction = currentInstruction->getInstruction();
          
 //Runs the control unit and sets control lines
-<<<<<<< HEAD
+
        
         control->setControls(instruction.substr(0,6));
                  
-=======
+
 	   
 	    control->setControls(instruction.substr(0,6));
 				 
->>>>>>> fbb33976be350abb1825f73f94cc60b72c20dbbf
+
 //calculate the next address options 
 
             
