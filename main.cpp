@@ -144,10 +144,10 @@ int main (int argc, char *argv[]){
 //**********TODO: Write the jump where it takes increased PC 4 bits and appends the addedss instruction shifted
         jumpAmount = shiftJump->shift(jumpAmount);
 		cout << "Jump after shift: " << jumpAmount;
-	string hexAdd = BinaryOp->hexToBin(currentAddress,32);
-	cout << "Hex Address of Current Address: " << currentAddress << endl;
+	string hexAdd = BinaryOp->hexToBin(programCounter->getAddress(),32);
+	cout << "Hex Address of next PC: " << programCounter->getAddress() << endl;
         jumpAmount = hexAdd.substr(0,4) + jumpAmount;
-	cout << "Where we jump to: " << jumpAmount;
+	cout << "Where we jump to: " << jumpAmount << endl;
     	jumpOrIncrementMultiplexer5->useMultiplexer(currentAddress,BinaryOp->binToHex(jumpAmount,8),control->getJump());
 	cout << "Address we will go to: " << jumpOrIncrementMultiplexer5->getOutput() << endl;
 	programCounter->setAddress(jumpOrIncrementMultiplexer5->getOutput());
