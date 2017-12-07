@@ -154,8 +154,6 @@ while(currentInstruction->getInstructionPC(currentAddress) != ""){
      }
 	    
 else{
-    	
-	BinaryOp->binToHex(
           //****START DECODE****
 	if(debug_mode)
 	cout<< "Starting Decode" << endl;
@@ -257,6 +255,7 @@ else{
  }	
 
 else{
+	string memoryResult;
 	//****MEMORY AND WRITEBACK PHASE
 	
 	//If I need to read to memory				    
