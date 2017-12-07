@@ -136,7 +136,7 @@ int main (int argc, char *argv[]){
 
 //**********TODO: Write the jump where it takes increased PC 4 bits and appends the addedss instruction shifted
         jumpAmount = shiftJump->shift(jumpAmount);
-	string hexAdd = BinaryOp->hexToBin(currentAddress);
+	string hexAdd = BinaryOp->hexToBin(currentAddress,32);
         jumpAmount = hexAdd.substr(0,4) + jumpAmount;
     	jumpOrIncrementMultiplexer5->useMultiplexer(currentAddress,BinaryOp->binToHex(jumpAmount,8),control->getJump());
 		
