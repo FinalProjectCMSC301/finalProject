@@ -12,13 +12,8 @@
 using namespace std;
 
 int main (int argc, char *argv[]){
-
     Parser *parser;
     ProgramCounter *programCounter = new ProgramCounter();
-
-	//Parser *parser;
-	//ProgramCounter *programCounter = new ProgramCounter();
-
     Register *registerFile;
     DataMemory *memoryUnit;
     ALU *alu1 = new ALU();//ToMemory
@@ -34,60 +29,31 @@ int main (int argc, char *argv[]){
     Multiplexer *jumpOrIncrementMultiplexer5 = new Multiplexer();
     SignExtend *signExtend;
     BinaryOperation *BinaryOp = new BinaryOperation();
-
     InstructionMemory *currentInstruction;
-
-	//InstructionMemory *currentInstruction;
-
     
     
     string currentAddress;
-   
-    
-    string opcode;
-    string rs;
-    string rt;
-    string rd;
-    string immediate;
-    string jumpAmount;
-    // began to run 
-    
-    //Start the Parser
-    parser = new Parser(argv[1]);
-    parser->PrintInfo();
-    
-    //Get all the values from the parser
-    bool debug_mode = parser->getDebugMode();
-    string register_file_input = parser->getRegisterInput();
-    string program_input = parser->getProgramInput();
-    string output_mode = parser->getOutputMode();
-    bool print_memory_contents = parser->getPrintContents();
-    bool write_to_file = parser->getWriteToFile();
-    string output_file = parser->getOutputFile();
-    string memory_contents_input = parser->getMemoryInput();
+	
+	//Start the Parser
+	parser = new Parser(argv[1]);
+	parser->PrintInfo();
+	
+	//Get all the values from the parser
+	bool debug_mode = parser->getDebugMode();
+	string register_file_input = parser->getRegisterInput();
+	string program_input = parser->getProgramInput();
+	string output_mode = parser->getOutputMode();
+	bool print_memory_contents = parser->getPrintContents();
+	bool write_to_file = parser->getWriteToFile();
+	string output_file = parser->getOutputFile();
+	string memory_contents_input = parser->getMemoryInput();
 
-    //Run Register File
-    registerFile = new Register(register_file_input, debug_mode);
-    
-    
-    //Create the Memory Unit
-    memoryUnit = new DataMemory(memory_contents_input, debug_mode);
-
-    
-    //Set up the BinaryOpeations
-    BinaryOp = new BinaryOperation();
-    
-    //Starts Address for Program Counter
-    programCounter = new ProgramCounter();
-    currentAddress = programCounter->getAddress();
-    
-    //Set up the instruction memory
-    currentInstruction = new InstructionMemory(program_input);
-    
-    
-    
-    
-
+	//Run Register File
+	registerFile = new Register(register_file_input, debug_mode);
+	
+   	
+	//Create the Memory Unit
+        memoryUnit = new DataMemory(memory_contents_input, debug_mode);
 	
 	//Set up the BinaryOpeations
 	BinaryOp = new BinaryOperation();
@@ -99,29 +65,11 @@ int main (int argc, char *argv[]){
 	//Set up the instruction memory
 	currentInstruction = new InstructionMemory(program_input);
 	
-	
-	
-
-    
     alu3->setOperation(1);
     alu2->setOperation(1);
     
-    
-    //control.setComponents
-
- 
-    cout<< "*****CURRENT REGISTERS*****" <<endl;
-    registerFile->print();
-    cout << endl;
         
-    cout<< "*****CURRENT INSTRUCTIONS*****" <<endl;
-    //parser.printAllInstructions();
-    cout << endl;
-        
-    cout<< "*****CURRENT DATA MEMORY*****" <<endl;
-    memoryUnit->print();
-        
-    std::ofstream out(output_file);
+    //std::ofstream out(output_file);
     
     while(true){
         
@@ -137,30 +85,7 @@ int main (int argc, char *argv[]){
             //out << memoryUnit->getAllPairs();
         }
         
-        //TODO
-        /*
-        fetch
-        decode
-        execute
-        memory
-        writeback*/
-
-        //fetch 
-        //currentInstruction TODO
-
-    
-     
-        
-     //Sets the inputs to increase the program counter   
-        alu3->setOperand1(programCounter->getAddress());
-        alu3->setOperand2("00000000000000000000000000000100");//write 4 
-        
-     //increases the program counter
-        alu3->execute();
-        
-
-	
-	 
+       
 	    
 	 //Sets the inputs to increase the program counter   
         alu3->setOperand1(programCounter->getAddress());
@@ -169,242 +94,138 @@ int main (int argc, char *argv[]){
 	 //increases the program counter
         alu3->execute();
         
-
         alu2->setOperand1(currentAddress);
     
-    
-
-       
- //Now need to get first instruction
-        
+	    
 //GET THE INSTRUCTION
-        
-        string instruction = currentInstruction->getInstruction();
+	    
+	    string instruction = currentInstruction->getInstruction();
          
 //Runs the control unit and sets control lines
-
-       
-        control->setControls(instruction.substr(0,6));
-                 
-
 	   
 	    control->setControls(instruction.substr(0,6));
 				 
-
-//calculate the next address options 
-
-            
-            // write multplexer to store 
-            branchOrIncrementMultiplexer4->choice1=currentAddress;
-//***TO DO: Calculate the possible address that can come from immediate ********
-                 
-
-                 
-//***TO DO: Send to ALU2****
-                 
-
-                 
-                 
+				 
+				 
 //Look to see if it is jump because will avoid all bottom stuff. Do after calculate options
-<<<<<<< HEAD
-    
-    if(control->getJump().compare("1")==0){
-=======
 	
 	if(control->getJump().compare("1")==0){
->>>>>>> fbb33976be350abb1825f73f94cc60b72c20dbbf
     //maybe not right 
     string jumpAmount = instruction.substr(6,26);
 
 
 
 //**********TODO: Write the jump where it takes increased PC 4 bits and appends the addedss instruction shifted
-        jumpAmount = shiftJump->shift(jumpAmount);//
+        jumpAmount = shiftJump->shiftLeft(jumpAmount);
 
         jumpAmount = currentAddress.substr(0,4) + jumpAmount;
-        jumpOrIncrementMultiplexer5->choice1 = jumpAmount;
-    
-    
-    //rewrite the multpliexer 
-    
-    //jumpOrIncrementMultiplexer5.setInput1(jumpAmount);
-    //
-    
-                 
-    }
-
+    	jumpOrIncrementMultiplexer5->useMultiplexer(currentAddress,jumpAmount,control->getJump());
+		
+	programCounter->setAddress(jumpOrIncrementMultiplexer5->getOutput());
+				 
+}
+	    
+else{
     if(control->getBranch().compare("1")==0){
    
         string choiceOP;
-   if(control->getBranch().compare("1")==0 && alu1->getComparisonResult()){
-       if(debug_mode)
-          cout<<"Setting Branch Zero op to 1" << endl;
-        choiceOP="1";
-  }
-  else{
-      if(debug_mode)
-          cout<<"Setting Branch Zero op to 0" << endl;
-      choiceOP="0";
-  }
+  	 if(control->getBranch().compare("1")==0 && alu1->getComparisonResult()){
+       		if(debug_mode)
+         	 cout<<"Setting Branch Zero op to 1" << endl;
+      		 choiceOP="1";
+ 	 }
+ 	 else{
+    			  if(debug_mode)
+         	 cout<<"Setting Branch Zero op to 0" << endl;
+     		 choiceOP="0";
+  	}
   
-  alu2->setOperand1(alu3->getOutput());
-  //Execute the ALU with the signextended shift of Imm and PC+4 address
- signExtend->(currentInstruction->getInstruction().substr(16,16));
-  shiftBranch = new ShiftLeft();
-  alu2->setOperand2(shiftBranch->shift(signExtend.getExtended()));
-   alu2->setOperation(1);
-   alu2->execute();
-   
-   
-  branchOrIncrementMultiplexer4->useMultiplexer(alu3->getOutput(),alu2->getOutput(),choiceOP);
-   
- 
-   programCounter->setAddress(branchOrIncrementMultiplexer4->getOutput());
-   
-   
- }           
+ 	 alu2->setOperand1(alu3->getOutput());
+ 	 //Execute the ALU with the signextended shift of Imm and PC+4 address
+ 	 signExtend->currentInstruction->getInstruction().substr(16,16);
+ 	 shiftBranch = new ShiftLeft();
+  	alu2->setOperand2(shiftBranch->shift(signExtend->getExtended()));
+  	 alu2->setOperation(1);
+  	 alu2->execute();
     
-                 
-                 
-//Get to this if it is not a jump                
-                 
-else{                
-                 
-    //Set the Read register from the Instruction
-    registerFile->setReadRegister1(instruction.substr(6,5));
-    registerFile->setReadRegister2(instruction.substr(11,5));
-                 
-                 
-      
-    
-    //Sets up the multiplexor that decides the write register
-    registerMultiplexor1->useMultiplexer(instruction.substr(11,5),instruction.substr(16,5),control->getRegDST());
-        //Sets the write register based on the multiplexor
-    registerFile->setWriteRegister(registerMultiplexor1->getOutput());
-          
+ 	 branchOrIncrementMultiplexer4->useMultiplexer(alu3->getOutput(),alu2->getOutput(),choiceOP);
+  
+   	programCounter->setAddress(branchOrIncrementMultiplexer4->getOutput());
+   
+   
+ }		
+	
+//****START DECODE****
+	
+	//Sets up the multiplexor that decides the write register
+	registerMultiplexor1->useMultiplexer(instruction.substr(11,5),instruction.substr(16,5),control->getRegDST());      
     
     //Prepare the ALU inputs
-    
-    ALU1 = new ALU();
-        ALU1->setOperand1(registerFile->getReadRegister1());
-    
-    //Does sign extend in case it is needed in the ALU
-    
-        signExtend = new signExtend(instruction.substr(16,16);
-        ALU1->setOperand2(signExtend->getExtended());
-    
-    
-    registerOrImmediateMultiplexor2->useMultiplexor(registerFile->getReadRegister2(),signExtend->getExtended(),control->getALUSrc());
-    
-    ALU1->setOperand2(registerOrImmediateMultiplexor2->getOutput());
-    
-    
-        
-    ALUControl ALUcontrol = new ALUControl();
-    ALUcontrol->setALU(ALU1);
-    ALUcontrol->sendSignals(control->getALUOp());
-    ALU1->execute();
-    string ALUresult = ALU1->getOutput();
-    
-    
+	alu1 = new ALU();
+    	alu1->setOperand1(instruction.substr(6,5));
+	
+	//Does sign extend in case it is needed in the ALU
+	signExtend = new signExtend(instruction.substr(16,16));
+		
+	//Multiplexer to choose if register2 data or immediate
+	registerOrImmediateMultiplexor2->useMultiplexor(instruction.substr(11,5),signExtend->getExtended(),control->getALUSrc());
+	
+	alu1->setOperand2(registerOrImmediateMultiplexor2->getOutput());
+	
+	
+		
+	ALUControl ALUcontrol = new ALUControl();
+	ALUcontrol->setALU(alu1);
+	ALUcontrol->sendSignals(control->getALUOp());
+	alu1->execute();
+	string ALUresult = alu1->getOutput();
 
-// Start the Data Memory Area
-//memory
-
-    memoryOrALUMultiplexor3->useMultiplexor(ALUresult,MemoryResult,control->getMemtoReg());
-                        
+//****MEMORY AND WRITEBACK PHASE	
+	string memoryResult;	    
+	memoryOrALUMultiplexor3->useMultiplexor(ALUresult,memoryResult,control->getMemtoReg());
+	
+	//If not dealing with memory
     if(memoryOrALUMultiplexor->getOutput().compare(ALUresult)==0){
-        //Need to write ALUresult to the writedata register
-        int registerNum = BinaryOp->binToInt(registerFile->getWriteRegister());
-        registerFile->writeToRegister(registerNum, BinaryOp->getHexFromBin(ALUresult));
-        
-        //ALL DONE WITH THE INSTRUCTION AT THIS POINT
-        //NEED TO CHANGE PC
-        
-     }
-                        
-    else{
-            string addressToWrite = ALU1->getOutput();
-            int regNum = BinaryOp->getIntFromBin(registerFile->getReadRegister2());
-            memoryunit->writeToMemory(addressToWrite, registerFile->read(regNum));
-    } 
-            
-            
-         /*
-    memoryUnit.setCurrentAddress(temp);
-    temp = registerFile.getReadRegister2();
-    memoryUnit.storeWord(temp);
-    memoryUnit.saveMemory();
-<<<<<<< HEAD
-    */  
-    }
-                        
-   } 
-// put everything except Branch and jump                        
-=======
-    */	
+	    //Need to write ALUresult to the writedata register
+	    int registerNum = BinaryOp->binToInt(registerMultiplexor1->getOutput());
+	    registerFile->writeToRegister(registerNum, BinaryOp->getHexFromBin(ALUresult));
+	    
+	    //ALL DONE WITH THE INSTRUCTION AT THIS POINT
+	    
+   	 }
+				    
+	//If I need to read to memory				    
+	if(control->getMemRead().compare("1")==0){
+		string memoryResult = memoryunit->read(ALUresult);
+		int registerNum = BinaryOp->binToInt(registerMultiplexor1->getOutput());
+	    registerFile->writeToRegister(registerNum,memoryResult);
 	}
-					    
-   } 
-// put everything except Branch and jump 					    
->>>>>>> fbb33976be350abb1825f73f94cc60b72c20dbbf
-    
-    string temp = registerFile->getReadRegister2();
-
-    //need to change to store 
-    registerOrImmediateMultiplexer2->setInput0(temp);
-    
-    
-//     if (debug)
-//         cout <<"ADJUSTING ALU SOURCE MULTIPLEXER INPUT1" << endl << endl;
-
-//     //need to change to store 
-//         registerOrImmediateMultiplexer2.setInput1(immediate);
-//     //
-    
-        immediate = shiftBranch->shift(immediate);
-        alu2->setOperand2(immediate);
-    
-    
-        alu2->execute();
-        branchOrIncrementMultiplexer4->setInput1(aluAddBranchAndAddress.getOutput());
-
-
-
-    //excute
-    
-        alu1->execute();
-    
-    //branchOrIncrementMultiplexer4.setControl(control.isBranch() && alu1.getComparisonResult());
-    
-
-        //writeback
-    programCounter->setAddress(jumpOrIncrementMultiplexer5.getOutput());
-    
-    /*
-    if(!parse.(weAreDone)( programCounter.getAddress())){
-        cout <<"Next Instruction to run: ";parse.getInstruction(programCounter.getAddress()).print();
-    } make a break part of the while. 
-    */
-
-        cout<< "*****CURRENT REGISTERS*****" <<endl;
-        registerFile->print();
-        cout << endl;
-            
-        cout<< "*****CURRENT INSTRUCTIONS*****" <<endl;
-        parse->printAllInstructions();
-        cout << endl;
-            
-        cout<< "*****CURRENT DATA MEMORY*****" <<endl;
-         memoryUnit->print();
-        
-        
-        
-        if(output_mode.compare("single_step")==0){
-            system("read");
+		
+	//If writting to memory
+	if(control->getMemWrite().compare("1")==0){
+			string addressToWrite = ALU1->getOutput();
+			int regNum = BinaryOp->getIntFromBin(instruction.substr(11,5));
+			memoryunit->writeToMemory(addressToWrite, registerFile->read(regNum));
+	} 
+			
+    }		//end else
+				    
+				    
+	 if(output_mode.compare("single_step")==0){
+            string wait;
+		cin >> wait;
         }
-    }
-    cout << endl << endl;
-    cout << "End of file" << endl;
-    out.close();
-}
+				    
+//****NEED TO ADD IF WE WRITE TO FILE**********
+				    
+  }	//end while
+	
+					    
+   
+
+ 
+        
+        
+       
+ } // end file
+
