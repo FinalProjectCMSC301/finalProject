@@ -22,7 +22,7 @@ void ALU::execute() {
 
         cout << "we want to see the operation" << endl;
     //int operation1 = BinOp.binToInt(operation);
-    
+    cout << operation <<endl;
     if (operation == 0){
        cout << "ALU OPERATION: compare equal" << endl;
         compareEqual();
