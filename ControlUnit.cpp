@@ -1,6 +1,7 @@
 #include "ControlUnit.h"
 #include <iostream>
 #include <sstream>
+
 using namespace std;
 ControlUnit::ControlUnit(){
 	
@@ -111,8 +112,26 @@ void ControlUnit::setControls(string bitString){
 
 }
 
+string check(string s)
+{
+	if(s[0] == 'x' || s[0] == 'X')
+	{
+		return "";
+	}
+	else if(s[0] == '1')
+	{
+		string ret("0x00000001");
+		return ret;
+	}
+	else
+	{
+		string ret("0x00000000");
+		return ret;
+	}
+}
+
 string ControlUnit::printStringValues(){
 	stringstream s; 
-	s << "RegDST: " << regDst << "\n" << "Branch: " << branch << "\n" << "Jump: " << jump << "\n" << "MemRead: " << memRead << "\n" << "MemtoReg: " << memtoReg << "\n" << "ALUOP0: " << ALUOp0 << "\n" << "ALUOp1: " << ALUOp1 << "\n" << "ALUSrc: " << ALUSrc << "\n" << "MemWrite: " << memWrite << "\n" << "RegWrite: " << regWrite << "\n"; 
+	s << "RegDST: " << check(regDst) << "\n" << "Branch: " << check(branch) << "\n" << "Jump: " << check(jump) << "\n" << "MemRead: " << check(memRead) << "\n" << "MemtoReg: " << check(memtoReg) << "\n" << "ALUOP0: " << check(ALUOp0) << "\n" << "ALUOp1: " << check(ALUOp1) << "\n" << "ALUSrc: " << check(ALUSrc) << "\n" << "MemWrite: " << check(memWrite) << "\n" << "RegWrite: " << check(regWrite) << "\n"; 
 	return s.str();
 }
