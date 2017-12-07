@@ -39,7 +39,8 @@ void ALUControl::sendSignals(string opcode){
         aluToMemory->setOperation(1);
     }else if(opcode == "00"){//sw for add ? check?
 
-        aluToMemory->setOperation(1);
+        aluToMemory->setOperation(0);
+
     }else{//jp 
         aluToMemory->setOperation(1);
     }
