@@ -16,17 +16,13 @@ void ALU::execute() {
 
 
     
-    
-        //cout << "In exce ALU INPUT 1: " << BinOp.hexToBin(operand1, 32) << endl;
-        //cout << "ALU INPUT 2: " << BinOp.hexToBin(operand2,32) << endl;
 
-        cout << "we want to see the operation" << endl;
-    //int operation1 = BinOp.binToInt(operation);
-    cout << operation <<endl;
+       
     if (operation == 0){
-       cout << "ALU OPERATION: compare equal" << endl;
+     if(debug)  
+     cout << "ALU OPERATION: compare equal" << endl;
         compareEqual();
-                cout << "The output rights now is " << output <<endl;
+               
 
     }
     
@@ -57,7 +53,6 @@ void ALU::compareEqual() {
     
     if (operand1.compare(operand2) != 0) {
         //strings are different
-        cout << "The strings are not the same" << endl;
         comparisonResult = false;
         output ="0";
     }
@@ -76,19 +71,18 @@ void ALU::compareEqual() {
 void ALU::compareLessThan() {
 
 
-        cout<< "check the int of OP1 "<< operand1<<endl;
-                cout<< "check the int of OP2 "<<operand2<<endl;
+       
 
     if (BinOp.binToInt(operand1) < BinOp.binToInt(operand2)) {
         //strings are different
-         cout << "Operand 1 is smaller" << endl;
+        
          comparisonResult = false;
                  output ="0";
 
     }
     
     else {
-         cout << "Operand 1 is not smaller" << endl;
+        
             comparisonResult = true;
                     output ="1";
 
