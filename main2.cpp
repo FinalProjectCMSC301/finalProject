@@ -14,6 +14,7 @@
 #include "Multiplexer.h"
 #include "Parser.h"
 #include <fstream>
+#include <iostream>
 
 using namespace std;
 
@@ -38,10 +39,13 @@ int main(int argc, char *argv[])
 	Multiplexer alu2Mux;
 	Multiplexer pcMux;
 	string complete("");
+	ofstream outputFile;
 	//STARTING HERE
 	string currentInst(im.getInstructionPC(pc.getAddress()));
 	while(currentInst != "")
 	{
+	cout << "*****INSTRUCTION*****" << endl;
+	cout << currentInst << endl;
 		//Instruction Parts
 		string rs =  currentInst.substr(6, 5);
 		string rt = currentInst.substr(11, 5);
@@ -51,12 +55,13 @@ int main(int argc, char *argv[])
 		string immediate = currentInst.substr(16, 16);
 		string jump = currentInst.substr(6, 26);
 		
-		if(parser.getWriteFile()){
-			ofstream outputFile.open(parser.getOutputFile());
+		if(parser.getWriteToFile()){
+		 outputFile.open(parser.getOutputFile());
 		}
 		
 		//Setting Controls
 		cu.setControls(opcode);
+		cout<< "Controls for the Instruction: \n" << cu.printStringValues()<< endl;
 		instMux.setControl(cu.getRegDST());
 		pcMux.setControl(cu.getJump());
 		alu1.setBranchBit(cu.getBranch());
@@ -94,7 +99,9 @@ int main(int argc, char *argv[])
 		//instMux
 		instMux.setOne(rd);
 		instMux.setTwo(rt);
+		complete += "Input for Multiplexer 1: Register" + bo.binToInt(rt) + "Register " + bo.binToInt(rd) + " Control Signal: " + cu.getRegDST() + endl; 
 		int writeRegNum = bo.binToInt(instMux.getOutput());
+		complete+="Output for Multiplexer 1: " + bo.binToInt(instMux.getOutput()) + endl;
 		string regReadData1 = rm.read(bo.binToInt(rs));	//input to ALU_ALU_Result
 		string regReadData2 = rm.read(bo.binToInt(rt)); //input to regMux
 		
@@ -102,6 +109,8 @@ int main(int argc, char *argv[])
 		regMux.setTwo(regReadData2);
 		SignExtend se(immediate);
 		regMux.setOne(se.getExtended());
+		complete+= "Input for Multiplexer 2: " + regReadData2 +" " + se.getExtended()+ " Control Signal: " + cu.getALUSrc() + endl;
+		complete+= "Output for Multiplexer 2: " + regMux.getOutput() + endl;
 		//the output will go to ALU_ALU_Result
 		
 		/**	Setting AluControl
@@ -116,22 +125,30 @@ int main(int argc, char *argv[])
 		alu1.setDataFromReg(regReadData1);
 		alu1.setDataFromMux(regMux.getOutput());
 		alu1.execute();
+		complete+= "alu1 Input: " + regReadData1 + " " + regMux.getOutput() + " Control Signal: " + aluC.getInput() + endl;
+		complete+= "alu1 Output: " + alu1.getHexOutput() + endl;
 		if(alu1.getBranchBit() == "1" && bo.binToInt(alu1.getBinaryOutput()) == 0)
 		{
 			alu2Mux.setControl("1");	//meaning, you branch
 		}
+		complete+= "Writing to address " + alu1.getHexOutput() + " the data " + regReadData2 + endl;
 		dm.writeToMemory(alu1.getHexOutput(), regReadData2);	//writing to memory
 		
 		/**	Setting multiplexers and writing back
 		*/
 		dataMux.setOne(dm.read(alu1.getHexOutput()));
 		dataMux.setTwo(alu1.getHexOutput());
+		complete += "Multiplexer 3 Input: " + alu1.getHexOutput() + " " + dm.read(alu1.getHexOutput()) + " Control Signal: " + cu.getMemtoReg() + endl;  
+		complete += "Multiplexer 3 Output: " + dataMux.getOutput();
+		complete += "Writing to register " + writeRegNum + " with data " + dataMux.getOutput() + endl;
 		rm.writeToRegister(writeRegNum, dataMux.getOutput());
 		/**	Preparing jump address in binary
 		*/
 		string jumpShiftPart = shiftJump.shift(jump);	//jump part ready
 		alu3.setPCInput(pc.getAddress());
 		alu3.update();
+		complete += "alu3 Input: " + pc.getAddress() + " " + "0x00000004" + endl;
+		complete += "alu3 Output: " + alu3.getHexOutput()+endl;
 		string pcPlusFour = pc.getAddress();	//PC + 4 address, IN HEX
 		pcPlusFour = bo.hexToBin(pcPlusFour, 32);	//in binary
 		pcPlusFour = pcPlusFour.substr(0, 4);	//top 4 bits
@@ -152,10 +169,14 @@ int main(int argc, char *argv[])
 		//preparing alu2Mux
 		alu2Mux.setOne(alu2.getBinaryOutput());
 		alu2Mux.setTwo(pcPlusFour2);
-		
+		complete += "Multiplexer 5 Input : " + pcPlusFour2 + " " + alu2.getHexOutput()+ " Control Signal: " + (alu1.getBranchBit() && !bo.binToInt(alu1.getBinaryOutput())) + endl;
+		complete += "Multiplexer 5 Output : " + alu2Mux.getHexOutput() + endl;
 		//preparing pcMux
 		pcMux.setOne(totalJump);
 		pcMux.setTwo(alu2Mux.getOutput());
+		
+		complete += "Multiplexer 4 Input : " + alu2Mux.getHexOutput()+ " " + totalJump +" Control Signal: " + cu.getJump() + endl;
+		complete += "Multiplexer 4 Output : " + pcMux.getHexOutput() + endl;
 		
 		string hexAddress = bo.binToHex(pcMux.getOutput(), 8);
 		pc.setAddress(hexAddress);
@@ -176,6 +197,11 @@ int main(int argc, char *argv[])
 		complete.append("\n\n");
 		currentInst = im.getInstructionPC(pc.getAddress());
 		
+		
+		if(parser.getWriteToFile()){
+			outputFile<< complete;
+		}
+		
 		if(parser.getOutputMode().compare("single_step")==0){
 			string wait;
 			cin >> wait;
@@ -190,9 +216,6 @@ int main(int argc, char *argv[])
 			break;
 		}
 		
-		if(parser.getWriteToFile()){
-			outputFile<< complete;
-		}
 	}
 	cout << complete << endl;
 	outputFile.close();
