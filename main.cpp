@@ -89,14 +89,6 @@ while(currentInstruction->getInstructionPC(currentAddress) != ""){
 	    //Set up the BinaryOpeations
 	BinaryOp = new BinaryOperation();
      
-        if(write_to_file){
-            cout<< "*****CURRENT REGISTERS*****" <<endl;
-            //cout << registerFile->getAllRegisters();
-            cout << endl;
-            cout<< "*****CURRENT DATA MEMORY*****" <<endl;
-            //out << memoryUnit->getAllPairs();
-        }
-        
 	    //Get the current address in the PC
 	    currentAddress = programCounter->getAddress();
 	
