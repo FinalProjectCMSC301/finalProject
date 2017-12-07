@@ -198,7 +198,6 @@ else{
 	cout << "Register data" << endl; 
 	registerFile->setRead(1);
 		cout << BinaryOp->hexToInt(registerFile->read(num))<< "   " << registerFile->read(num)<< endl;
-		cout << BinaryOp->hexToInt(registerFile->read(num2))<< "   " << registerFile->read(num2)<< endl;
 		registerFile->setRead(0);
 	cout << "Executed ALU. Result: " << BinaryOp->binToInt(alu1->getOutput()) << endl;
 	string ALUresult = BinaryOp->binToHex(alu1->getOutput(),8);
