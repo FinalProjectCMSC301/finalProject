@@ -121,6 +121,8 @@ int main (int argc, char *argv[]){
 //Runs the control unit and sets control lines
 	   
 	    control->setControls(instruction.substr(0,6));
+	    //if(debug_mode)
+		    control->printValues();
 				 
 				 
 				 
@@ -169,6 +171,7 @@ else{
 	aluControl->sendSignals(control->getALUOp());
 	alu1->execute();
 	string ALUresult = alu1->getOutput();
+	cout <<"ALU Result: " << alu1->getOutput(); << endl;
 	
 //If Branch
 	if(control->getBranch().compare("1")==0){
@@ -210,6 +213,8 @@ else{
     if(memoryOrALUMultiplexer3->getOutput().compare(ALUresult)==0){
 	    //Need to write ALUresult to the writedata register
 	    int registerNum = BinaryOp->binToInt(registerMultiplexer1->getOutput());
+	   // if(debug_mode)
+		    cout << "Writing to register: " << registerNum << " Data: " << BinaryOp->binToHex(ALUresult,8)<< endl;
 	    registerFile->writeToRegister(registerNum, BinaryOp->binToHex(ALUresult,8));
 	    
 	    //ALL DONE WITH THE INSTRUCTION AT THIS POINT
@@ -220,6 +225,8 @@ else{
 	if(control->getMemRead().compare("1")==0){
 		string memoryResult = memoryUnit->read(ALUresult);
 		int registerNum = BinaryOp->binToInt(registerMultiplexer1->getOutput());
+		//if(debug_mode)
+		cout << "Writing to register: " << registerNum << " Data: " << memoryResult << endl;
 	    registerFile->writeToRegister(registerNum,memoryResult);
 	}
 		
@@ -227,12 +234,16 @@ else{
 	if(control->getMemWrite().compare("1")==0){
 			string addressToWrite = alu1->getOutput();
 			int regNum = BinaryOp->binToInt(instruction.substr(11,5));
+			//if(debug_mode)
+		cout << "Reading from register: " << registerNum << " Data: " << addressToWrite << endl;
 			memoryUnit->writeToMemory(addressToWrite, registerFile->read(regNum));
 	} 
 			
     }		//end else
 	
 	    currentAddress = programCounter->getAddress();
+	    //if(debug_mode)
+	    cout << "Next Address: " << endl;
 				    
 	 if(output_mode.compare("single_step")==0){
             string wait;
