@@ -70,6 +70,7 @@ string BinaryOperation::hexToBin(string hex, int len)
 	cout << "In hexToBin: hex - " << hex << " int - ";
 	int result = hexToInt(hex);
 	cout << "In hexToBin: hex - " << hex << " int - " << result << endl;
+	cout << "test intToBin" << intToBin(result, len) << endl;
 	return intToBin(result, len);
 }
 
