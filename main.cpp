@@ -203,7 +203,7 @@ else{
   	alu2->setOperand2(shiftBranch->shift(signExtend->getExtended()));
   	 alu2->setOperation(1);
   	 alu2->execute();
-    
+    	cout << "Output from ALU2: " << alu2->getOutput() << endl;
  	 branchOrIncrementMultiplexer4->useMultiplexer(alu3->getOutput(),alu2->getOutput(),choiceOP);
   
 	   
