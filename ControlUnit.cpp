@@ -19,8 +19,8 @@ void ControlUnit::setControls(string bitString){
 		setMemWrite("0");
 		setBranch("0");
 		setJump("0");
-		setALUOp0("1");
-		setALUOp1("0");
+		setALUOp0("0");
+		setALUOp1("1");
 	}
 
 	//LW
