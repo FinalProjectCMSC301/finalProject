@@ -187,6 +187,7 @@ else{
 	aluControl->setALU(alu1);
 	cout << "Set ALU control" << endl;
 	aluControl->sendSignals(control->getALUOp());
+	aluControl->setInstruction(instruction);
 	cout << "Sent Signals" << endl;
 	alu1->execute();
 	cout << "Register data" << endl; 
