@@ -8,7 +8,7 @@ ControlUnit::ControlUnit(){
 
 void ControlUnit::setControls(string bitString){
 	
-	//ADD and SUB
+	//R-type
  	if (bitString.compare("000000")==0){
 		cout << "Input: " << bitString << "\n";
       		  setRegDST("1");
