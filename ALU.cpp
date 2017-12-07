@@ -22,26 +22,26 @@ void ALU::execute() {
     }
 
    
-    int operation1 = BinOp.binToInt(operation);
+    //int operation1 = BinOp.binToInt(operation);
     
-    if (operation1 == 0){
+    if (operation == 0){
         if (debug) cout << "ALU OPERATION: compare equal" << endl;
         compareEqual();
     }
     
     
-    else if (operation1 == 1){
+    else if (operation == 1){
         if (debug) cout << "ALU OPERATION: add" << endl;
         
         add();
     }
     
-    else if (operation1 == 2){
+    else if (operation == 2){
         if (debug) cout << "ALU OPERATION: subtract" << endl;
         
         subtract();
     }
-    else if (operation1 == 3){
+    else if (operation == 3){
         if (debug) cout << "ALU OPERATION: compare less than" << endl;
         
         compareLessThan();
@@ -136,7 +136,7 @@ void ALU::setOperand2(string operand){
  */
 void ALU::setOperation(int operationInput){
     if (debug) cout << "ALU: SETTING OPERATION TO " << BinOp.binToHex(output,8) << endl;
-    operation = to_string(operationInput);
+    operation = operationInput;
 }
 
 /*
