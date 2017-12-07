@@ -34,25 +34,30 @@ void ALUControl::sendSignals(string opcode){
 
         if (instruction.substr(26,6) == "101010") 
         {
-            aluToMemory->setOperation(3);//set less than 
+            aluToMemory->setOperation(3);//set less than
+            } 
     }
 
     else if (opcode.compare("01")== 0){//addi
 
         aluToMemory->setOperation(1);
-    }else if(opcode.compare("00")== 0){//sw for add ? check?
+    }
+
+
+    else if(opcode.compare("00")== 0){//sw for add ? check?
 
         cout << "setting ALU to 0"<< endl; 
-        
+
         aluToMemory->setOperation(0);
 
 
-    }else{//jp 
+    }
+    else{//jp 
 
         aluToMemory->setOperation(1);
     }
 }
-}
+
 //add  - destination is rd
 //addi - rt
 //lw   - rt
