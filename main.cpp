@@ -50,7 +50,7 @@ int main (int argc, char *argv[]){
    	
 	//Create the Memory Unit
         memoryUnit = new DataMemory(memory_contents_input, 1);
-	cout << "Input: " << memorey_contents_input << endl;
+	cout << "Input: " << memory_contents_input << endl;
 	
 	
 	
