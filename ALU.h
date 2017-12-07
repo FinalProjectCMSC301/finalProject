@@ -24,7 +24,7 @@ class ALU {
 
 private:
 	BinaryOperation BinOp;
-	string operation; 			//0 = compare, 1 = add, 2 = subtract 3 comparelessthan 
+	int operation; 			//0 = compare, 1 = add, 2 = subtract 3 comparelessthan 
 	string operand1; 		//bineary string to be operated on instruction 
 	string operand2; 		//bineary string to be operated on instruction
 	string output;			//bineary string representing the output of the ALU
