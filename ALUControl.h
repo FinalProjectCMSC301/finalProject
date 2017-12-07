@@ -13,7 +13,7 @@ private:
 
     ALU *aluToMemory;
 
-    string instruction
+    string instruction;
     string aluOP;
     
 public:
