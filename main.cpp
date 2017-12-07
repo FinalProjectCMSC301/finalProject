@@ -72,12 +72,13 @@ int main (int argc, char *argv[]){
 	
     alu3->setOperation(1);
     alu2->setOperation(1);
+	
     if(write_to_file){
 	    outputFile.open(output_file.c_str());
     }
 	if(debug_mode)    
         cout << "ADDRESS: " << currentAddress << endl;
-    //std::ofstream out(output_file);
+   
     cout<< currentInstruction->getInstructionPC(currentAddress)  << endl;
     while(currentInstruction->getInstructionPC(currentAddress) != ""){
      
@@ -101,6 +102,8 @@ int main (int argc, char *argv[]){
 	    
 	 //increases the program counter
         alu3->execute();
+	    
+	    cout << "Address after alu3 call: " << alu3->getOutput() << endl;
 	 
 	 //GET THE INSTRUCTION
 	     string instruction = currentInstruction->getInstructionPC(currentAddress);
