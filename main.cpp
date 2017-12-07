@@ -69,7 +69,8 @@ int main (int argc, char *argv[]){
    
     cout<< currentInstruction->getInstructionPC(currentAddress)  << endl;
 while(currentInstruction->getInstructionPC(currentAddress) != ""){
-	    
+	  //if(debug_mode)
+		cout << "NEW INSTRUCTION" << endl;
     ALU *alu1 = new ALU();//ToMemory
     ALU *alu2 = new ALU();//AddBranchAndAddress
     ALU *alu3 = new ALU();//AddPCand4
