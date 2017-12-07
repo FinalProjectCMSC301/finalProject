@@ -171,7 +171,7 @@ else{
 	alu1 = new ALU();
 	int num = BinaryOp->binToInt(instruction.substr(6,5));
 	registerFile->setRead(1);
-	cout << "ALU1 Input: " << registerFile->read(num);
+	cout << "ALU1 Input: " << BinaryOp->binToHex(registerFile->read(num),8);
     	alu1->setOperand1(BinaryOp->hexToBin(registerFile->read(num),32));
 	registerFile->setRead(0);
 	
@@ -206,7 +206,7 @@ else{
 	cout << "Sent ALU Signals" << endl;
 	
 	alu1->execute();
-	cout << "ALU1 Output: " << alu1->getOutput() << endl;
+	cout << "ALU1 Output: " << BinaryOp->binToHex(alu1->getOutput(),32) << endl;
 	 
 	registerFile->setRead(1);
 	
@@ -243,7 +243,7 @@ else{
   	alu2->setOperand2(shiftBranch->shift(signExtend->getExtended()));
   	 alu2->setOperation(1);
   	 alu2->execute();
-    	cout << "Output from ALU2: " << alu2->getOutput() << endl;
+    	cout << "Output from ALU2: " << BinaryOp->binToHex(alu2->getOutput(),8) << endl;
 		
  	cout<< "Branch or Increment Multiplexer Input: " << alu3->getOutput()<< " " <<alu2->getOutput()<< " " <<choiceOP<<endl;
 	branchOrIncrementMultiplexer4->useMultiplexer(alu3->getOutput(),alu2->getOutput(),choiceOP);
