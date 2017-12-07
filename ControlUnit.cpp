@@ -68,8 +68,8 @@ void ControlUnit::setControls(string bitString){
 	setMemWrite("0");
 	setBranch("1");
 	setJump("0");
-	setALUOp0("0");
-	setALUOp1("1");
+	setALUOp0("1");
+	setALUOp1("0");
 
 	}
 
