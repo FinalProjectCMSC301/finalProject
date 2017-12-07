@@ -69,7 +69,7 @@ void ControlUnit::setControls(string bitString){
 	setBranch("1");
 	setJump("0");
 	setALUOp0("0");
-	setALUOp1("0");
+	setALUOp1("1");
 
 	}
 
