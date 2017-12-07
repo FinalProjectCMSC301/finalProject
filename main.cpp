@@ -251,7 +251,9 @@ else{
 	    int registerNum = BinaryOp->binToInt(registerMultiplexer1->getOutput());
 	   // if(debug_mode)
 		    cout << "Writing to register: " << registerNum << " Data: " << ALUresult<< endl;
+	    registerFile->setWrite(1);
 	    registerFile->writeToRegister(registerNum, ALUresult);
+	    registerFile->setWrite(0);
 	    
 	    //ALL DONE WITH THE INSTRUCTION AT THIS POINT
 	    
@@ -260,12 +262,16 @@ else{
 	//If I need to read to memory				    
 	if(control->getMemRead().compare("1")==0){
 		cout << "In read from memory" << endl;
+		memoryUnit->setRead(1);
 		memoryResult = memoryUnit->read(BinaryOp->binToHex(ALUresult,8));
 		cout << "Memory Result: " << memoryResult << endl;
 		int registerNum = BinaryOp->binToInt(registerMultiplexer1->getOutput());
 		//if(debug_mode)
 		cout << "Writing to register: " << registerNum << " Data: " << memoryResult << endl;
+		registerFile->setWrite(1);
 	    registerFile->writeToRegister(registerNum,memoryResult);
+		memoryUnit->setRead(0);
+		registerFile->setWrite(0);
 	}
 		
 	//If writting to memory
@@ -274,7 +280,11 @@ else{
 			int regNum = BinaryOp->binToInt(instruction.substr(11,5));
 			//if(debug_mode)
 		cout << "Reading from register: " << regNum << " Data: " << addressToWrite << endl;
+			memoryUnit->setRead(1);
+		registerFile->setRead(1);
 			memoryUnit->writeToMemory(addressToWrite, registerFile->read(regNum));
+		memoryUnit->setRead(0);
+		registerFile->setRead(0);
 	} 
 }			
     }		//end else
