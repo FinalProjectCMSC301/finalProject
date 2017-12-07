@@ -240,7 +240,7 @@ else{
 
 else{
 //****MEMORY AND WRITEBACK PHASE	
-	string memoryResult;	    
+	string memoryResult=" ";	    
 	memoryOrALUMultiplexer3->useMultiplexer(ALUresult,memoryResult,control->getMemtoReg());
 	
 	//If not dealing with memory
