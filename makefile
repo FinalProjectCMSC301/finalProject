@@ -1,5 +1,5 @@
 finalProject: main.o Parser.o ALU.o ALUControl.o BinaryOperation.o DataMemory.o ProgramCounter.o Register.o SignExtend.o ControlUnit.o Multiplexer.o ShiftLeft.o InstructionMemory.o
-	g++ -std=c++11 -g -Wall -o finalProject main.o Parser.o ShiftLeft.o ALU.o ALUControl.o BinaryOperation.o DataMemory.o ProgramCounter.o Register.o InstructionMemory.o SignExtend.o ControlUnit.o Multiplexer.o ShiftLeft.o 
+	g++ -std=c++11 -g -Wall -o finalProject main.o Parser.o ShiftLeft.o ALU.o ALUControl.o BinaryOperation.o DataMemory.o ProgramCounter.o Register.o InstructionMemory.o SignExtend.o ControlUnit.o Multiplexer.o 
 
 
 main.o: Parser.h ShiftLeft.h Register.h DataMemory.h ProgramCounter.h ControlUnit.h ALU.h Multiplexer.h SignExtend.h BinaryOperation.h ALUControl.h InstructionMemory.h
