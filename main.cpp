@@ -73,15 +73,15 @@ int main (int argc, char *argv[]){
         
     //std::ofstream out(output_file);
     
-    while(true){
+    while(!currentInstruction->getInstructionPC(currentAddress).empty()){
         
         //out << "Current Instruction: " << parse->getInstruction(programCounter->getAddress())->getStringVersion() << endl;
-        out<< "*****CURRENT INSTRUCTIONS*****" <<endl;
+        //cout<< "*****CURRENT INSTRUCTIONS*****" <<endl;
         //out << parse->getAllInstructions();
         
         if(write_to_file){
             cout<< "*****CURRENT REGISTERS*****" <<endl;
-            cout << registerFile->getAllRegisters();
+            //cout << registerFile->getAllRegisters();
             cout << endl;
             cout<< "*****CURRENT DATA MEMORY*****" <<endl;
             //out << memoryUnit->getAllPairs();
@@ -217,7 +217,8 @@ else{
 	} 
 			
     }		//end else
-				    
+	
+	    currentAddress = programCounter->getAddress();
 				    
 	 if(output_mode.compare("single_step")==0){
             string wait;
