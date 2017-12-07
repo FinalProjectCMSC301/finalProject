@@ -159,6 +159,7 @@ else{
 	
 	//Does sign extend in case it is needed in the ALU
 	signExtend = new SignExtend(instruction.substr(16,16));
+	cout << "Just did sign Extend: " << signExtend->getExtended()<< endl;
 		
 	//Multiplexer to choose if register2 data or immediate
 	registerOrImmediateMultiplexer2->useMultiplexer(instruction.substr(11,5),signExtend->getExtended(),control->getALUSrc());
