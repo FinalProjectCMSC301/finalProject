@@ -27,7 +27,8 @@ int main (int argc, char *argv[]){
     Multiplexer *memoryOrALUMultiplexer3 = new Multiplexer();
     Multiplexer *branchOrIncrementMultiplexer4 = new Multiplexer();
     Multiplexer *jumpOrIncrementMultiplexer5 = new Multiplexer();
-    SignExtend *signExtend;
+    SignExtend *signExtend; 
+    ALUControl alucontrol*;	
     BinaryOperation *BinaryOp = new BinaryOperation();
     InstructionMemory *currentInstruction;
     
@@ -116,7 +117,7 @@ int main (int argc, char *argv[]){
 
 
 //**********TODO: Write the jump where it takes increased PC 4 bits and appends the addedss instruction shifted
-        jumpAmount = shiftJump->shiftLeft(jumpAmount);
+        jumpAmount = shiftJump->shift(jumpAmount);
 
         jumpAmount = currentAddress.substr(0,4) + jumpAmount;
     	jumpOrIncrementMultiplexer5->useMultiplexer(currentAddress,jumpAmount,control->getJump());
@@ -142,7 +143,7 @@ else{
   
  	 alu2->setOperand1(alu3->getOutput());
  	 //Execute the ALU with the signextended shift of Imm and PC+4 address
- 	 signExtend->currentInstruction->getInstruction().substr(16,16);
+ 	 signExtend= new SingExtend(currentInstruction->getInstruction().substr(16,16));
  	 shiftBranch = new ShiftLeft();
   	alu2->setOperand2(shiftBranch->shift(signExtend->getExtended()));
   	 alu2->setOperation(1);
@@ -158,7 +159,7 @@ else{
 //****START DECODE****
 	
 	//Sets up the multiplexor that decides the write register
-	registerMultiplexor1->useMultiplexer(instruction.substr(11,5),instruction.substr(16,5),control->getRegDST());      
+	registerMultiplexer1->useMultiplexer(instruction.substr(11,5),instruction.substr(16,5),control->getRegDST());      
     
     //Prepare the ALU inputs
 	alu1 = new ALU();
@@ -174,20 +175,20 @@ else{
 	
 	
 		
-	ALUControl ALUcontrol = new ALUControl();
-	ALUcontrol->setALU(alu1);
-	ALUcontrol->sendSignals(control->getALUOp());
+	 alucontrol = new ALUControl();
+	alucontrol->setALU(alu1);
+	alucontrol->sendSignals(control->getALUOp());
 	alu1->execute();
 	string ALUresult = alu1->getOutput();
 
 //****MEMORY AND WRITEBACK PHASE	
 	string memoryResult;	    
-	memoryOrALUMultiplexor3->useMultiplexor(ALUresult,memoryResult,control->getMemtoReg());
+	memoryOrALUMultiplexer3->useMultiplexer(ALUresult,memoryResult,control->getMemtoReg());
 	
 	//If not dealing with memory
     if(memoryOrALUMultiplexor->getOutput().compare(ALUresult)==0){
 	    //Need to write ALUresult to the writedata register
-	    int registerNum = BinaryOp->binToInt(registerMultiplexor1->getOutput());
+	    int registerNum = registerFile->getRegFromBinary(registerMultiplexor1->getOutput());
 	    registerFile->writeToRegister(registerNum, BinaryOp->getHexFromBin(ALUresult));
 	    
 	    //ALL DONE WITH THE INSTRUCTION AT THIS POINT
@@ -196,8 +197,8 @@ else{
 				    
 	//If I need to read to memory				    
 	if(control->getMemRead().compare("1")==0){
-		string memoryResult = memoryunit->read(ALUresult);
-		int registerNum = BinaryOp->binToInt(registerMultiplexor1->getOutput());
+		string memoryResult = memoryUnit->read(ALUresult);
+		int registerNum = BinaryOp->binToInt(registerMultiplexer1->getOutput());
 	    registerFile->writeToRegister(registerNum,memoryResult);
 	}
 		
