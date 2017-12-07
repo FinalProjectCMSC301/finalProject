@@ -105,6 +105,7 @@ int main (int argc, char *argv[]){
 	 //Sets the inputs to increase the program counter   
         alu3->setOperand1(BinaryOp->hexToBin(currentAddress,32));
         alu3->setOperand2("00000000000000000000000000000100");//write 4 
+	 alu3->setOperation(1);
 	    
 	 //increases the program counter
         alu3->execute();
