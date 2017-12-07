@@ -21,7 +21,7 @@ void ALUControl::sendSignals(string opcode){
 
     cout<<"this is opcode:" << opcode <<endl;
 
-    if(opcode.compare("10")==0){
+    if(opcode.compare("01")==0){
 
         if(instruction.substr(26,6) == "100000"){
             aluToMemory->setOperation(1);//add
@@ -38,7 +38,7 @@ void ALUControl::sendSignals(string opcode){
             } 
     }
 
-    else if (opcode.compare("01")== 0){//brech equal 
+    else if (opcode.compare("10")== 0){//brech equal 
 
         aluToMemory->setOperation(2);
     }
