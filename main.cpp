@@ -326,6 +326,7 @@ else{
 		    ms.append("CONTROL UNIT SIGNALS: \n");
 		    ms.append(control->printStringValues());
 	             ms.append("\n");
+		    cout << ms << endl;
 	    }
 	 
 	  if(write_to_file){
@@ -333,7 +334,7 @@ else{
 	  }    
 				    
 //****RESET**********
-	    delete alu1;//ToMemory
+    delete alu1;//ToMemory
     delete alu2;//AddBranchAndAddress
     delete alu3;//AddPCand4
     delete shiftJump;
@@ -348,9 +349,10 @@ else{
     delete aluControl;	
     delete BinaryOp;
 	    
-	    cout << "Current Address before break: " << currentAddress << endl;
+	if(debug_mode)   
+	cout << "Current Address before break: " << currentAddress << endl;
+	
 	    if(currentAddress.empty()){
-		   cout << "Current Address at End: " << currentAddress << endl;
 		    break;
 	    }
 				    
@@ -359,12 +361,7 @@ else{
 					    
     if(write_to_file){
 	    outputFile.close();
-    }
-	 
-
- 
-        
-        
+    }  
        
  } // end file
 
