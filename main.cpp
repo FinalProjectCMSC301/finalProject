@@ -49,8 +49,7 @@ int main (int argc, char *argv[]){
 	//Create the Memory Unit
         memoryUnit = new DataMemory(memory_contents_input, debug_mode);
 	
-	//Set up the BinaryOpeations
-	BinaryOp = new BinaryOperation();
+	
 	
 	//Starts Address for Program Counter
 	programCounter = new ProgramCounter();
@@ -60,8 +59,7 @@ int main (int argc, char *argv[]){
 	//Set up the instruction memory
 	currentInstruction = new InstructionMemory(program_input);
 	
-    alu3->setOperation(1);
-    alu2->setOperation(1);
+
 	
     if(write_to_file){
 	    outputFile.open(output_file.c_str());
@@ -86,6 +84,9 @@ int main (int argc, char *argv[]){
     SignExtend *signExtend; 
     ALUControl *aluControl;	
     BinaryOperation *BinaryOp = new BinaryOperation();
+	    
+	    //Set up the BinaryOpeations
+	BinaryOp = new BinaryOperation();
      
         if(write_to_file){
             cout<< "*****CURRENT REGISTERS*****" <<endl;
