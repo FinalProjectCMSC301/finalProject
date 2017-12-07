@@ -80,6 +80,7 @@ unsigned int BinaryOperation::binToInt(string bin)
 string BinaryOperation::binToHex(string bin, int len)
 {
 	int intValue = binToInt(bin);
+	cout<<"print out intValue"<< intValue << endl;
 	string result = intToHex(intValue, len);
 	return result;
 }
