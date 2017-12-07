@@ -113,7 +113,7 @@ void ControlUnit::setControls(string bitString){
 
 string ControlUnit::printStringValues(){
 	stringstream s; 
-	s << "RegDST: " << regDst << "\n" << "Branch: " << branch << "\n" << "Jump: " << jump << "\n" << "MemRead: " << memRead << "\n" << "MemtoReg: " << memtoReg << "\n" << "ALUOP0: " << ALUOp0 << "\n" << "ALUOp1: " << ALUOp1 << "\n" << "ALUSrc: " << ALUSrc << "\n" << "MemWrite: " << memWrite << "\n" << "RegWrite: " << regWrite << "\n"; 
+	s << "RegDST: " << "0x"+regDst << "\n" << "Branch: " <<"0x"+ branch << "\n" << "Jump: " << "0x"+jump << "\n" << "MemRead: " << "0x"+memRead << "\n" << "MemtoReg: " << "0x"+memtoReg << "\n" << "ALUOP0: " << "0x"+ALUOp0 << "\n" << "ALUOp1: " << "0x"+ALUOp1 << "\n" << "ALUSrc: " << "0x"+ALUSrc << "\n" << "MemWrite: " <<"0x"+ memWrite << "\n" << "RegWrite: " << "0x"+regWrite << "\n"; 
 	return s.str();
 }
 	
