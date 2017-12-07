@@ -38,7 +38,7 @@ SignExtend.o: SignExtend.h
 ControlUnit.o: ControlUnit.h
 	g++  -std=c++11 -Wall -Wno-deprecated -g -c ControlUnit.cpp
 	
-InstructionMemory.o InstructionMemory.h
+InstructionMemory.o: InstructionMemory.h
 	g++  -std=c++11 -Wall -Wno-deprecated -g -c InstructionMemory.cpp
 
 clean:
