@@ -4,9 +4,9 @@
 #include "Register.h"
 #include "SignExtend.h"
 #include "AluControl.h"
-#include "Alu1.h"
-#include "Alu2.h"
-#include "Alu3.h"
+#include "ALU_ALU_Result.h"
+#include "ADD_ALU_Result.h"
+#include "ADD.h"
 #include "DataMemory.h"
 #include "ShiftLeft.h"
 #include "ControlUnit.h"
@@ -27,9 +27,9 @@ int main(int argc, char *argv[])
 	ShiftLeft shiftImm;
 	ProgramCounter pc;
 	AluControl aluC;
-	Alu1 alu1;
-	Alu2 alu2;
-	Alu3 alu3;
+	ALU_ALU_Result alu1;
+	ADD_ALU_Result alu2;
+	ADD alu3;
 	ControlUnit cu;
 	BinaryOperation bo;
 	Multiplexer instMux;
@@ -95,21 +95,21 @@ int main(int argc, char *argv[])
 		instMux.setOne(rd);
 		instMux.setTwo(rt);
 		int writeRegNum = bo.binToInt(instMux.getOutput());
-		string regReadData1 = rm.read(bo.binToInt(rs));	//input to Alu1
+		string regReadData1 = rm.read(bo.binToInt(rs));	//input to ALU_ALU_Result
 		string regReadData2 = rm.read(bo.binToInt(rt)); //input to regMux
 		
 		//regMux
 		regMux.setTwo(regReadData2);
 		SignExtend se(immediate);
 		regMux.setOne(se.getExtended());
-		//the output will go to Alu1
+		//the output will go to ALU_ALU_Result
 		
 		/**	Setting AluControl
 		*/
 		
 		aluC.setFunct(funct_field);
 		
-		/**	Working Alu1
+		/**	Working ALU_ALU_Result
 		*/
 		
 		alu1.setAluControlInput(aluC.getOutput());
@@ -130,7 +130,8 @@ int main(int argc, char *argv[])
 		/**	Preparing jump address in binary
 		*/
 		string jumpShiftPart = shiftJump.shift(jump);	//jump part ready
-		pc.updatePC(pc.getAddress());
+		alu3.setPCInput(pc.getAddress());
+		alu3.update();
 		string pcPlusFour = pc.getAddress();	//PC + 4 address, IN HEX
 		pcPlusFour = bo.hexToBin(pcPlusFour, 32);	//in binary
 		pcPlusFour = pcPlusFour.substr(0, 4);	//top 4 bits
@@ -180,7 +181,12 @@ int main(int argc, char *argv[])
 			cin >> wait;
 		}
 		
-		if(currenInst.empty()){
+		ProgramCounter p2;
+		p2.setAddress(pc.getAddress());
+		p2.updatePC(p2.getAddress());
+		string nextInst = im.getInstructionPC(p2.getAddress());
+		if(nextInst.size() == 0)
+		{
 			break;
 		}
 		
