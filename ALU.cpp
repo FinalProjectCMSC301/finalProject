@@ -25,7 +25,7 @@ void ALU::execute() {
     //int operation1 = BinOp.binToInt(operation);
     
     if (operation == 0){
-        if (debug) cout << "ALU OPERATION: compare equal" << endl;
+       //  cout << "ALU OPERATION: compare equal" << endl;
         compareEqual();
                 cout << "The output rights now is " << output <<endl;
 
@@ -33,18 +33,18 @@ void ALU::execute() {
     
     
     else if (operation == 1){
-        if (debug) cout << "ALU OPERATION: add" << endl;
+        // cout << "ALU OPERATION: add" << endl;
         
         add();
     }
     
     else if (operation == 2){
-        if (debug) cout << "ALU OPERATION: subtract" << endl;
+        // cout << "ALU OPERATION: subtract" << endl;
         
         subtract();
     }
     else if (operation == 3){
-        if (debug) cout << "ALU OPERATION: compare less than" << endl;
+        //if (debug) cout << "ALU OPERATION: compare less than" << endl;
         
         compareLessThan();
         cout << "The output rights now is " << output <<endl;
