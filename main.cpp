@@ -164,7 +164,10 @@ else{
     
     //Prepare the ALU inputs
 	alu1 = new ALU();
-    	alu1->setOperand1(instruction.substr(6,5));
+	int num = BinaryOp->binToInt(instruction.substr(6,5));
+	registerFile->setRead(1);
+    	alu1->setOperand1(registerFile->read(num));
+	registerFile->setRead(0);
 	
 	//Does sign extend in case it is needed in the ALU
 	signExtend = new SignExtend(instruction.substr(16,16));
@@ -173,7 +176,10 @@ else{
 	//Multiplexer to choose if register2 data or immediate
 	registerOrImmediateMultiplexer2->useMultiplexer(instruction.substr(11,5),signExtend->getExtended(),control->getALUSrc());
 	cout << "Did MuX" << endl;
-	alu1->setOperand2(registerOrImmediateMultiplexer2->getOutput());
+	int num2 = BinaryOp->binToInt(registerOrImmediateMultiplexer2->getOutput());
+	registerFile->setRead(1);
+	alu1->setOperand2(registerFile->read(num2));
+	registerFile->setRead(0);
 	cout << "Set operand" << endl;
 	
 		
