@@ -76,7 +76,7 @@ int main (int argc, char *argv[]){
     if(write_to_file){
 	    outputFile.open(output_file.c_str());
     }
-	if(debug_mode)    
+	//if(debug_mode)    
         cout << "ADDRESS: " << currentAddress << endl;
    
     cout<< currentInstruction->getInstructionPC(currentAddress)  << endl;
