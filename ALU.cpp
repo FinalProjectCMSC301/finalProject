@@ -74,7 +74,9 @@ void ALU::compareEqual() {
  * Compares the two operands, returns true if the first is smaller than the other
  */
 void ALU::compareLessThan() {
-    
+        cout<< "check the int of OP1 "<< BinOp.hexToInt(operand1)<<endl;
+                cout<< "check the int of OP2 "<< BinOp.hexToInt(operand2)<<endl;
+
     if (BinOp.hexToInt(operand1) < BinOp.hexToInt(operand2)) {
         //strings are different
          cout << "Operand 1 is smaller" << endl;
