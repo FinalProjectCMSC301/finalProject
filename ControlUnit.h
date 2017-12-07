@@ -11,9 +11,15 @@ using namespace std;
 #include <fstream>
 #include <iostream>
 
+/** Used to set all control signals for other units.
+*/
 class ControlUnit{
 public:
+	/** Default constructor.
+	*/
 	ControlUnit();
+	/** Given an opcode, sets the control signals.
+	*/
 	void setControls (string bitString);
 
 	string regDst;
@@ -27,9 +33,10 @@ public:
 	string ALUSrc;
 	string regWrite;
 	bool debug;
-	
-	void setDebug(bool debugChange){debug = debugChange;};
 
+	void setDebug(bool debugChange){debug = debugChange;};
+	/** Getter methods for control signals.
+	*/
 	string getRegDST(){return regDst;};
 	string getJump(){return jump;};
 	string getBranch(){return branch;};
@@ -42,6 +49,8 @@ public:
 	string getALUSrc(){return ALUSrc;};
 	string getRegWrite(){return regWrite;};
 
+	/** Setter methods for control signals.
+	*/
 	void setRegDST(string reg){regDst = reg;};
 	void setJump(string j){ jump = j;};
 	void setBranch(string b){ branch = b;};
@@ -52,7 +61,11 @@ public:
 	void setMemWrite(string mem){ memWrite = mem;};
 	void setALUSrc(string alu){ ALUSrc = alu;};
 	void setRegWrite(string reg){ regWrite = reg;};
+	/** Prints values of control signals in hex.
+	*/
 	void printValues(){cout << "RegDST: " << regDst << "\n" << "Branch: " << branch << "\n" << "Jump: " << jump << "\n" << "MemRead: " << memRead << "\n" << "MemtoReg: " << memtoReg << "\n" << "ALUOP0: " << ALUOp0 << "\n" << "ALUOp1: " << ALUOp1 << "\n" << "ALUSrc: " << ALUSrc << "\n" << "MemWrite: " << memWrite << "\n" << "RegWrite: " << regWrite << "\n";};
+	/** Returns string of control signals with hex.
+	*/
 	string printStringValues();
 
 
