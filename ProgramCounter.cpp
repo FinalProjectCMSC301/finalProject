@@ -27,8 +27,12 @@ string ProgramCounter::getAddress(){
             << endl;
     }
     
+    if(currentAddress.rfind("x")>-1){
+        return currentAddress;
+    }
+    
 
-
+ 
     return binaryOperation.binToHex(currentAddress,8);
 }
 
