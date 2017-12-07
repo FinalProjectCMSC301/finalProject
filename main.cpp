@@ -138,11 +138,12 @@ int main (int argc, char *argv[]){
 	if(control->getJump().compare("1")==0){
     //maybe not right 
    	 string jumpAmount = instruction.substr(6,26);
-
+	cout << "Jump partial: " << jumpAmount;
 
 
 //**********TODO: Write the jump where it takes increased PC 4 bits and appends the addedss instruction shifted
         jumpAmount = shiftJump->shift(jumpAmount);
+		cout << "Jump after shift: " << jumpAmount;
 	string hexAdd = BinaryOp->hexToBin(currentAddress,32);
 	cout << "Hex Address of Current Address: " << currentAddress << endl;
         jumpAmount = hexAdd.substr(0,4) + jumpAmount;
