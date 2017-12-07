@@ -16,16 +16,15 @@ void ALU::execute() {
 
 
     
-    if (debug) {
-        cout << "ALU INPUT 1: " << BinOp.hexToBin(operand1, 32) << endl;
+    
+        cout << "In exce ALU INPUT 1: " << BinOp.hexToBin(operand1, 32) << endl;
         cout << "ALU INPUT 2: " << BinOp.hexToBin(operand2,32) << endl;
-    }
 
-   
+        cout << "we want to see the operation" << endl;
     //int operation1 = BinOp.binToInt(operation);
     
     if (operation == 0){
-       //  cout << "ALU OPERATION: compare equal" << endl;
+       cout << "ALU OPERATION: compare equal" << endl;
         compareEqual();
                 cout << "The output rights now is " << output <<endl;
 
