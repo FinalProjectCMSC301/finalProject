@@ -76,7 +76,7 @@ int main (int argc, char *argv[]){
 	    outputFile.open(output_file.c_str());
     }
 	    
-        
+        cout << "ADDRESS: " << currentAddress << endl;
     //std::ofstream out(output_file);
     cout<< currentInstruction->getInstructionPC(currentAddress)  << endl;
     while(currentInstruction->getInstructionPC(currentAddress) != ""){
