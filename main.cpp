@@ -291,7 +291,7 @@ else{
     }		//end else
 	
 	    currentAddress = programCounter->getAddress();
-	    //if(debug_mode)
+	    
 	    cout << "Next Address: " << endl;
 				    
 	 if(output_mode.compare("single_step")==0){
@@ -333,6 +333,7 @@ else{
     delete BinaryOp;
 	    
 	    if(currentAddress.empty()){
+		   cout << "Current Address at End: " << currentAddress << endl;
 		    break;
 	    }
 				    
