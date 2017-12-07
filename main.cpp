@@ -206,7 +206,7 @@ else{
 	cout << "Sent ALU Signals" << endl;
 	
 	alu1->execute();
-	cout << "ALU1 Output: " << alu1->getOutput << endl;
+	cout << "ALU1 Output: " << alu1->getOutput() << endl;
 	 
 	registerFile->setRead(1);
 	
