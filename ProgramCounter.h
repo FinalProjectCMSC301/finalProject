@@ -7,6 +7,8 @@
 
 using namespace std;
 
+/** This class is used to hold the PC addresses.
+*/
 class ProgramCounter{
 	private:
 		string currentAddress;
