@@ -332,6 +332,7 @@ else{
     delete aluControl;	
     delete BinaryOp;
 	    
+	    cout << "Current Address before break: " << currentAddress << endl;
 	    if(currentAddress.empty()){
 		   cout << "Current Address at End: " << currentAddress << endl;
 		    break;
