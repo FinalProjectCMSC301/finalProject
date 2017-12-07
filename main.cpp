@@ -66,6 +66,7 @@ int main (int argc, char *argv[]){
 	//Starts Address for Program Counter
 	programCounter = new ProgramCounter();
 	currentAddress = programCounter->getAddress();
+	cout << "This is the address: " << currentAddress;
 	
 	//Set up the instruction memory
 	currentInstruction = new InstructionMemory(program_input);
