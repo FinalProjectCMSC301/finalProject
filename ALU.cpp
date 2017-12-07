@@ -57,15 +57,15 @@ void ALU::compareEqual() {
     
     if (operand1.compare(operand2) != 0) {
         //strings are different
-        if (debug) cout << "The strings are not the same" << endl;
+        cout << "The strings are not the same" << endl;
         comparisonResult = false;
         output ="0";
     }
     
     else {
-        if (debug) cout << "The strings are the same" << endl;
+         cout << "The strings are the same" << endl;
         comparisonResult = true;
-                output ="0";
+                output ="1";
 
     }
 }
@@ -77,14 +77,14 @@ void ALU::compareLessThan() {
     
     if (BinOp.hexToInt(operand1) < BinOp.hexToInt(operand2)) {
         //strings are different
-        if (debug) cout << "Operand 1 is smaller" << endl;
+         cout << "Operand 1 is smaller" << endl;
          comparisonResult = true;
-                 output ="0";
+                 output ="1";
 
     }
     
     else {
-        if (debug) cout << "Operand 1 is not smaller" << endl;
+         cout << "Operand 1 is not smaller" << endl;
             comparisonResult = false;
                     output ="0";
 
