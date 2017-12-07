@@ -18,6 +18,7 @@ void ALUControl::setInstruction(string input){
 //This method takes in an opcode in string form and sets the aluToMemory equal to setOperation(0, 1, 2, or 3) depending on the opcode
 //setOperation is from ALU class 
 void ALUControl::sendSignals(string opcode){
+    cout<<"this is opcode" << opcode <<endl;
     if(opcode == "10"){
 
         if(instruction.substr(26,6) == "100000"){
