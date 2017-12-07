@@ -10,8 +10,14 @@ using namespace std;
 class Parser{
 
   public:
+   /** Given a filename, loads the required file names and output methods.
+   */
    Parser(string filename);
+   /** Prints all the files and output methods that were read.
+   */
    void PrintInfo();
+   /** Getter methods to get data from config file.
+   */
    string getProgramInput(){return program_input;};
    string getMemoryInput(){return memory_contents_input;};
    string getRegisterInput(){return register_file_input;};
