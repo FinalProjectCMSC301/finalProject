@@ -40,7 +40,7 @@ void ALUControl::sendSignals(string opcode){
 
     else if (opcode.compare("10")== 0){//brech equal 
 
-        aluToMemory->setOperation(2);
+        aluToMemory->setOperation(0);
     }
 
 
