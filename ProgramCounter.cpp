@@ -1,5 +1,5 @@
 #include "ProgramCounter.h"
-#inclide "BinaryOperation.h"
+#include "BinaryOperation.h"
 
 
 //Constructor that sets the currentAddress equal to a string of 0's
