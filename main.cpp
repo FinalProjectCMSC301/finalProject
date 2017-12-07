@@ -99,7 +99,7 @@ int main (int argc, char *argv[]){
         alu3->execute();
 	 
 	 //GET THE INSTRUCTION
-	     string instruction = currentInstruction->getInstruction(currentAddress);
+	     string instruction = currentInstruction->getInstructionPC(currentAddress);
 	    programCounter->setAddress(alu3->getOutput());
 	    
 	  
