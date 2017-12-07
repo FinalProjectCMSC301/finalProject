@@ -27,6 +27,8 @@ void ALU::execute() {
     if (operation == 0){
         if (debug) cout << "ALU OPERATION: compare equal" << endl;
         compareEqual();
+                cout << "The output rights now is " << output <<endl;
+
     }
     
     
@@ -45,6 +47,7 @@ void ALU::execute() {
         if (debug) cout << "ALU OPERATION: compare less than" << endl;
         
         compareLessThan();
+        cout << "The output rights now is " << output <<endl;
     }
 }
 
