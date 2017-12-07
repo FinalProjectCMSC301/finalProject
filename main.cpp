@@ -263,7 +263,8 @@ else{
 	if(control->getMemRead().compare("1")==0){
 		cout << "In read from memory" << endl;
 		memoryUnit->setRead(1);
-		memoryResult = memoryUnit->read(BinaryOp->binToHex(ALUresult,8));
+		//BinaryOp->binToHex(ALUresult,8)
+		memoryResult = memoryUnit->read("0x2ec4f4d5");
 		cout << "Memory Result: " << memoryResult << endl;
 		int registerNum = BinaryOp->binToInt(registerMultiplexer1->getOutput());
 		//if(debug_mode)
