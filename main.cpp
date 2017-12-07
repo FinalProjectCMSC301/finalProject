@@ -112,7 +112,7 @@ int main (int argc, char *argv[]){
 	    cout << "INSTRUCTION: " << instruction <<endl;
 	    
 	  
-        
+        cout << "Program counter get Address: " << programCounter->getAddress() << endl;
         alu2->setOperand1(BinaryOp->hexToBin(programCounter->getAddress(),32));
     
 	    
