@@ -15,18 +15,19 @@ void ProgramCounter::setAddress(string address){
     
     
     currentAddress = address;
+    cout << "currentAddress set in PC " << currentAddress; 
 }
 //Retruns the current address
 
 
 string ProgramCounter::getAddress(){
-   
+   /*
     if (debug)
     {
         cout << "Parser getAddress OUTPUT: " << binaryOperation.binToHex(currentAddress,8) << endl
             << endl;
     }
-    
+    */
     if(currentAddress.length()<32){
         return currentAddress;
     }
