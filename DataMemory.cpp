@@ -98,8 +98,7 @@ string DataMemory::read(string address)
 	if (debug){
 		cout << "*** READ MEMORY***" << "\n" << "Address: " << address << " Data: " << memoryContent[address] << "\n";
 	}
-	
-	return 0;//IDK!!!!
+	return "";
 }
 
 void DataMemory::setWrite(bool writeBool)

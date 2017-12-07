@@ -20,20 +20,13 @@ void ProgramCounter::setAddress(string address){
 
 
 string ProgramCounter::getAddress(){
-   /*
+   
     if (debug)
     {
         cout << "Parser getAddress OUTPUT: " << binaryOperation.binToHex(currentAddress,8) << endl
             << endl;
     }
-    */
-    if(currentAddress.length()<32){
-        return currentAddress;
-    }
-    
-
- 
-    return binaryOperation.binToHex(currentAddress,8);
+	return currentAddress;
 }
 
 
@@ -42,4 +35,11 @@ string ProgramCounter::getAddress(){
 void ProgramCounter::setDebug(bool value)
 {
     debug = value;
+}
+
+void ProgramCounter::updatePC(string hex)
+{
+	int current = binaryOperation.hexToInt(hex);
+	current = current + 4;
+	currentAddress = binaryOperation.intToHex(current, 8);
 }

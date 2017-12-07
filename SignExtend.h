@@ -1,4 +1,6 @@
 //Sign Extend
+#ifndef _SignExtend_h_
+#define _SignExtend_h_
 
 #include "InstructionMemory.h" //perhaps?
 #include <iostream>
@@ -16,4 +18,4 @@ class SignExtend
 			string actual;
 			string modified;
 };
-
+#endif

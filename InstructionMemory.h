@@ -3,6 +3,9 @@
 //what is this file going to do?
 //read a statement, break it up, convert it to binary.
 
+#ifndef _InstructionMemory_h_
+#define _InstructionMemory_h_
+
 #include <iostream>
 //#include "Parser.h"
 #include <string>
@@ -71,3 +74,4 @@ class InstructionMemory
 		// string getImm(); //get immediate field. Goes to sign extend
 		// string get5To0(); //used for ALU control
 };
+#endif
