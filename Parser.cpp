@@ -80,4 +80,3 @@ void Parser::PrintInfo(){
   cout << "Write to File: " << getWriteToFile() << '\n';
   cout << "Output File: " << getOutputFile() << '\n';
 }
-

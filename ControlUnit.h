@@ -52,7 +52,7 @@ public:
 	void setMemWrite(string mem){ memWrite = mem;};
 	void setALUSrc(string alu){ ALUSrc = alu;};
 	void setRegWrite(string reg){ regWrite = reg;};
-	void printValues(){cout << "RegDST: " << "0x"+regDst << "\n" << "Branch: " <<"0x"+ branch << "\n" << "Jump: " << "0x"+jump << "\n" << "MemRead: " <<"0x"+ memRead << "\n" << "MemtoReg: " <<"0x"+ memtoReg << "\n" << "ALUOP0: " <<"0x"+ ALUOp0 << "\n" << "ALUOp1: " << "0x"+ALUOp1 << "\n" << "ALUSrc: " << "0x"+ALUSrc << "\n" << "MemWrite: " <<"0x"+ memWrite << "\n" << "RegWrite: " <<"0x"+ regWrite << "\n";};
+	void printValues(){cout << "RegDST: " << regDst << "\n" << "Branch: " << branch << "\n" << "Jump: " << jump << "\n" << "MemRead: " << memRead << "\n" << "MemtoReg: " << memtoReg << "\n" << "ALUOP0: " << ALUOp0 << "\n" << "ALUOp1: " << ALUOp1 << "\n" << "ALUSrc: " << ALUSrc << "\n" << "MemWrite: " << memWrite << "\n" << "RegWrite: " << regWrite << "\n";};
 	string printStringValues();
 
 

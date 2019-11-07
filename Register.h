@@ -1,5 +1,6 @@
 //This is for Registers
-
+#ifndef _Register_h_
+#define _Register_h_
 //#include "Parser.h"
 //#include "BinaryOperation.h"
 #include <string>
@@ -12,7 +13,7 @@ class Register
 	private:
 		string registerArray[32];
 		bool writeBoolean = 0;
-		bool readBoolean = 0;
+		bool readBoolean = 1;
 		bool debug = 0;
 		//read1 and read2 for temp string 
 		// string readRegister1;
@@ -62,3 +63,4 @@ class Register
 		// int hexToInt(string hexString);
 		// string intToHex(int integer);
 };
+#endif

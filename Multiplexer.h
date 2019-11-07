@@ -1,28 +1,24 @@
-/*
-This class represents a multiplexor. 
-Input: two values to choose from, and the choice int
-Output: The value that was chosen
-*/
-
-#ifndef __MULTIPLEXER_H__
-#define __MULTIPLEXER_H__
-
+//Multiplexer.h
+#ifndef _Multiplexer_h_
+#define _Multiplexer_h_
 
 #include <string>
-#include <iostream>
+#include "BinaryOperation.h"
 using namespace std;
 
-class Multiplexer{
-
-
-public:
-  Multiplexer(){};
-  string choice1;
-  string choice2;
-  string choice;
-  string output;
-void useMultiplexer(string input1, string input2, string muxChoice);
-  string getOutput(){return output;};
-
+class Multiplexer
+{
+	private:
+		BinaryOperation bo;
+		string one;
+		string two;
+		string control;
+		
+	public:
+		Multiplexer();
+		void setOne(string something);
+		void setTwo(string something);
+		void setControl(string something);
+		string getOutput();
 };
 #endif

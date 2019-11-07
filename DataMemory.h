@@ -3,6 +3,8 @@
 //Read an address,or write an address.
 
 //#include "Parser.h"
+#ifndef _DataMemory_h_
+#define _DataMemory_h_
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
@@ -44,3 +46,4 @@ class DataMemory
 		//this is to print debug info
 		void setDebug(bool debugBool);
 };
+#endif

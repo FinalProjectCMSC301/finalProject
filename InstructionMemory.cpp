@@ -81,7 +81,7 @@ InstructionMemory::InstructionMemory(string fileName)
 	myArray[BEQ].rsPos = 0;  
 	myArray[BEQ].rtPos = 1;   
 	myArray[BEQ].immPos = 2; 
-	myArray[BEQ].instType = JTYPE; 
+	myArray[BEQ].instType = ITYPE; 
 	myArray[BEQ].op_field = "000100";
 	myArray[BEQ].funct_field = "";
 	
